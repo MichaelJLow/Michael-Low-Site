@@ -39,6 +39,7 @@ interface BriefSection {
   items?: string[];
   note?: string;
   body?: string;
+  scenario?: string;
   /** Problem: two compact columns */
   columns?: ColumnList[];
   /** Solution: pipeline steps */
@@ -55,6 +56,11 @@ interface BriefSection {
   next?: string[];
   /** Optional closing product screenshot for a section. */
   shot?: Screenshot;
+  cta?: {
+    label: string;
+    href: string;
+    note?: string;
+  };
 }
 
 interface Props {
@@ -75,6 +81,13 @@ const { problem, solution, build, results, screenshot } = Astro.props;
       <p class="project-brief__index"><span aria-hidden="true">01</span> {problem.title}</p>
       <h2 id="brief-problem-title">{problem.lead}</h2>
     </header>
+
+    {problem.scenario && (
+      <aside class="project-brief__scenario">
+        <p class="project-brief__scenario-label">A typical request</p>
+        <p>{problem.scenario}</p>
+      </aside>
+    )}
 
     {problem.body && <p class="project-brief__body">{problem.body}</p>}
 
@@ -267,6 +280,16 @@ const { problem, solution, build, results, screenshot } = Astro.props;
 
     {results.note && <p class="project-brief__note">{results.note}</p>}
 
+    {results.cta && (
+      <div class="project-brief__cta">
+        <div>
+          <p class="project-brief__column-title">If your workflow looks like this</p>
+          {results.cta.note && <p>{results.cta.note}</p>}
+        </div>
+        <a href={results.cta.href}>{results.cta.label} <span aria-hidden="true">→</span></a>
+      </div>
+    )}
+
     {
       results.shot?.src && (
         <figure
@@ -334,6 +357,34 @@ const { problem, solution, build, results, screenshot } = Astro.props;
   .project-brief__body {
     margin: 0 0 1.25rem;
     max-width: 46rem;
+    color: var(--ml-ink-soft, var(--ml-muted));
+    font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  .project-brief__scenario {
+    display: grid;
+    gap: 0.55rem;
+    max-width: 52rem;
+    margin: 0 0 1.5rem;
+    padding: 1.15rem 1.25rem;
+    background: var(--ml-paper-deep, #eeece5);
+    border-left: 2px solid var(--ml-ink);
+  }
+
+  .project-brief__scenario-label {
+    margin: 0;
+    color: var(--ml-ink);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .project-brief__scenario > p:last-child {
+    margin: 0;
     color: var(--ml-ink-soft, var(--ml-muted));
     font-size: clamp(0.98rem, 1.2vw, 1.08rem);
     font-weight: 300;
@@ -586,6 +637,49 @@ const { problem, solution, build, results, screenshot } = Astro.props;
     margin-top: 1.75rem;
   }
 
+  .project-brief__cta {
+    display: grid;
+    gap: 1.25rem;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1.25rem;
+    background: var(--ml-paper-deep, #eeece5);
+    border: 1px solid var(--ml-line);
+  }
+
+  .project-brief__cta .project-brief__column-title {
+    margin-bottom: 0.45rem;
+  }
+
+  .project-brief__cta p:last-child {
+    margin: 0;
+    color: var(--ml-muted);
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.55;
+  }
+
+  .project-brief__cta a {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--ml-ink);
+    color: var(--ml-ink);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .project-brief__cta a:hover,
+  .project-brief__cta a:focus-visible {
+    background: var(--ml-ink);
+    color: var(--ml-paper);
+  }
+
   @media (min-width: 860px) {
     .project-brief__columns,
     .project-brief__systems {
@@ -614,6 +708,10 @@ const { problem, solution, build, results, screenshot } = Astro.props;
 
     .project-brief__challenge:last-child:nth-child(odd) {
       grid-column: 1 / -1;
+    }
+
+    .project-brief__cta {
+      grid-template-columns: minmax(0, 1fr) auto;
     }
   }
 </style>

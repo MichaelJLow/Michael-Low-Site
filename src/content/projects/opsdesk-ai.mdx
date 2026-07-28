@@ -1,13 +1,11 @@
 ---
 title: OpsDesk AI
 description: >-
-  An end-to-end AI workflow for property-maintenance requests: intake,
-  rules-based routing, CRM context, grounded drafts, and human approval gates,
-  with a full audit trail.
+  A controlled operations workflow for property-maintenance requests: urgent
+  triage, policy-based drafts, approval gates and a clear decision trail.
 descriptionExtra: >-
-  Quayside is a synthetic property-maintenance lab with real Gmail, HubSpot,
-  Slack and Supabase. Every request becomes a case on the ops desk: classified,
-  routed, drafted, with human approval when it matters, and auditable.
+  OpsDesk turns messy maintenance email into trackable cases without removing
+  the people who need to approve risk, spend and sensitive actions.
 date: 2026-07-27
 status: Live
 category: Operational AI workflow
@@ -17,27 +15,17 @@ featured: true
 order: 1
 role: Builder / systems designer / workflow engineer
 caseOverview:
-  lead: Messy shared inbox. Controlled ops desk.
+  lead: Messy shared inbox. Controlled operations.
   body: >-
-    Maintenance mail lands in a shared inbox. Urgent requests get lost.
-    Chargeable work mixes with day-to-day fixes. There is no clear approval step
-    and no reliable record of who decided what. OpsDesk turns each request into
-    a case: classified, routed, drafted, human-gated when needed, and auditable.
-  note: >-
-    Quayside Property Services is a fictional lab company. The integrations are
-    real; the data is synthetic. This is a production-style playbook of
-    capabilities, not a claim of finished multi-tenant software or paid client
-    delivery.
+    OpsDesk turns maintenance email into trackable cases. It identifies urgency,
+    prepares a reply using your policies and property information, and holds
+    sensitive or chargeable actions for approval.
+  note: Working prototype · real integrations · synthetic Quayside property data.
   facts:
     - label: Role
-      value: Builder / systems designer / workflow engineer
-    - label: Stack
-      value: n8n, Next.js, TypeScript, Zod, Supabase, Gmail, HubSpot, Slack, Gemini
+      value: Designed and built the workflow, desk and integrations
     - label: Status
-      value: Live desk · opsdesk-quayside.vercel.app
-    - label: Repo
-      value: github.com/MichaelJLow/OpsDesk-AI
-      href: https://github.com/MichaelJLow/OpsDesk-AI
+      value: Working live prototype
 audience: [smb, employer]
 coverImage: /images/projects/opsdesk/cover.png
 cardImage: /images/projects/opsdesk/cover.png
@@ -49,7 +37,7 @@ showHeroCover: true
 systemLine: Intake → Classify → Route → Draft → Approve → Audit
 liveUrl: https://opsdesk-quayside.vercel.app
 liveLabel: Open live desk
-liveCtaNote: Production-style lab · synthetic Quayside data
+liveCtaNote: Working prototype · synthetic Quayside data
 github: https://github.com/MichaelJLow/OpsDesk-AI
 related: [ai-daily-pulse, macro-signal-room]
 ---
@@ -59,27 +47,24 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
 <ProjectCaseBrief
   problem={{
     title: 'Sound familiar?',
-    lead: 'Shared maintenance mail turns urgent work into a scramble.',
-    body: 'A typical request arrives by email. On a busy day it sits in a shared inbox until someone notices. Property details, urgency, and who is allowed to approve spend are interpreted from messy text and older threads. Replies get drafted quickly, but approvals and evidence are scattered, so work stalls when the “next action” is unclear.',
+    lead: 'Urgent work should not depend on who notices the inbox first.',
+    scenario: 'Tuesday, 9:14am. A tenant emails: “Water dripping near the light fitting in Flat 8.” In a shared inbox, that can sit beside boiler questions and contractor updates until someone notices. OpsDesk turns it into a case immediately: flagged as a hazard, routed to the right person, and held for approval before anything sensitive happens.',
+    body: 'The same inbox also carries routine fixes and chargeable requests. Without a clear path, urgency gets buried, authority is debated mid-conversation, and the evidence of who decided what is scattered across email, chat and memory.',
     columns: [
       {
-        title: 'Today (manual)',
+        title: 'The inbox problem',
         items: [
-          'Shared inbox: requests wait until someone notices',
-          'Property details and urgency guessed from the message',
-          'CRM and history searched by hand',
-          'Chargeable authority unclear until mid-conversation',
-          'Decisions scattered across email, Slack and folders',
+          'Urgent hazards sit beside routine requests',
+          'Chargeable work moves forward without clear authority',
+          'Decisions are scattered across inboxes, chat and memory',
         ],
       },
       {
-        title: 'Where it breaks',
+        title: 'What that creates',
         items: [
-          'Urgent and hazard work buried under routine fixes',
-          'No safe gate before spend or controlled actions',
-          'Failures disappear into silent workflow errors',
-          'No reliable timeline of who approved what',
-          'Recovery depends on whoever still remembers the thread',
+          'Hazards are harder to spot quickly',
+          'Approvals stall or happen too late',
+          'There is no reliable timeline for disputes or follow-up',
         ],
       },
     ],
@@ -87,136 +72,82 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
   solution={{
     title: 'What changes in practice',
     lead: 'Every request becomes a case your team can approve and track.',
-    body: 'OpsDesk intake normalises email requests into durable cases. The system extracts the property, issue and urgency, checks the result against your rules, and drafts a grounded reply. When risk, cost, or ambiguity matters, the case is held behind an approval gate. Failures become visible for retry, and an audit trail records what was decided and when.',
+    body: 'OpsDesk reads the message, identifies the property, issue and urgency, checks the request against your rules, and prepares a reply using relevant policy and site context. When risk, cost or uncertainty matters, the case waits for your team to approve the next step. Failed integrations stay visible and can be retried without losing the history.',
     pipeline: [
       'Intake',
-      'Extract details',
-      'Route to the right channel',
-      'Draft a grounded reply',
-      'Human approval gate',
-      'Audit trail',
+      'Identify the issue and urgency',
+      'Prepare the reply and next step',
+      'Approve sensitive actions',
+      'Keep the decision trail',
     ],
     systems: [
       {
         title: 'What the system handles',
         items: [
-          'Read the message and pull out property, issue, urgency and who requested',
-          'Match the request to safety and authority rules',
-          'Retrieve policy and site context so drafts are grounded',
-          'Propose the resolution path and a customer-ready draft',
+          'Find the property, issue, urgency and requester',
+          'Check the request against safety and authority rules',
+          'Prepare a customer-ready draft from your policies',
+          'Show failures clearly so the team can recover',
         ],
       },
       {
         title: 'What your team still controls',
         items: [
-          'Approval when spend or sensitive actions are involved',
-          'Approve is not execute: nothing sensitive sends without the gate',
-          'Retry when an integration fails, without losing the case history',
-          'A clear timeline of decisions, drafts and outcomes',
+          'Spend and sensitive actions still require approval',
+          'Approving a draft does not automatically trigger sensitive work',
+          'Your team can retry a failed integration without losing the case',
+          'Every decision, draft and outcome is recorded',
         ],
       },
     ],
     sections: [
-      'Routine fix (draft ready for one-click approve)',
-      'Urgent hazard (escalate to the right channel)',
-      'Chargeable work (approve authority before lab action)',
-      'Failure and retry (case stays visible)',
-      'Internal grounding (sources shown to operators)',
-      'Evidence pack (audit export)',
+      'Boiler not heating · routine reply ready',
+      'Water near electrics · hazard escalated',
+      'Tenant-damage carpet · authority checked first',
     ],
-    note: 'AI proposes. Rules and humans control risk. Quayside is the first vertical setting for a reusable capability playbook, with real integrations and synthetic lab data.',
+    note: 'AI prepares the work. Rules and people control risk.',
   }}
   build={{
     title: 'How it is built (and what I learned)',
     lead: 'Predictable workflow beats “agent magic”.',
-    body: 'Email into n8n for intake and integrations. The automation layer uses structured validation and deterministic routing, while a desk UI keeps everything operator-visible. Supabase stores the durable case state and audit. The LLM drafts and proposes, and humans approve when risk, cost or authority matters.',
+    body: 'Email flows through n8n and the integrations layer. The desk keeps cases visible while structured checks and explicit rules handle routing, approval boundaries and audit history. The model drafts and proposes; people approve when risk, cost or authority matters. Built with Next.js, TypeScript, Supabase, Gmail, HubSpot, Slack and Gemini.',
     challenges: [
       {
-        title: 'Safety is rule-driven',
-        body: 'Urgent and chargeable paths follow explicit rules after structured extraction. The model never decides spend authority or hazard escalation on its own.',
-        tradeoff: 'Trade-off: fewer “surprises,” more predictable behaviour under risk.',
+        title: 'Rules handle risk',
+        body: 'Hazard escalation and spending authority follow explicit rules after the request is structured. The model does not decide either one on its own.',
+        tradeoff: 'Fewer surprises. More predictable behaviour under risk.',
       },
       {
-        title: 'Approval is a gate, not a button',
-        body: 'Sensitive actions stay behind a human approval boundary. Lab “execute” paths demonstrate behaviour without real invoicing or contractor dispatch.',
-        tradeoff: 'Trade-off: narrower automation surface for clearer trust boundaries.',
+        title: 'People approve sensitive actions',
+        body: 'AI prepares the work, but spend and other consequential actions stay behind a human approval boundary.',
+        tradeoff: 'A narrower automation surface with clearer trust boundaries.',
       },
       {
-        title: 'When something fails, you can see it',
-        body: 'If a step fails, the case lands in a visible “needs attention” state with retry. Idempotent intake guards against duplicate mail processing.',
-        tradeoff: 'Trade-off: operator attention instead of silent errors.',
+        title: 'Failures stay visible',
+        body: 'If an integration fails, the case moves to a visible needs-attention state with retry. Work does not disappear into a silent error.',
+        tradeoff: 'Operator attention instead of hidden failure.',
       },
       {
-        title: 'Drafts are grounded in your policies',
-        body: 'Retrieval pulls relevant policy and site context into the desk. Customer-facing text stays clean, and operators can review what informed the draft.',
-        tradeoff: 'Trade-off: first version prefers simple, inspectable grounding over embeddings complexity.',
-      },
-      {
-        title: 'A playbook of capabilities',
-        body: 'OpsDesk is packaged as reusable production-style workflow capabilities demonstrated on Quayside, not marketed as a finished multi-tenant “autonomous platform”.',
-        tradeoff: 'Trade-off: capability clarity over platform marketing.',
-      },
-      {
-        title: 'Integration reality matters',
-        body: 'The lab hit OAuth/TLS issues, model tier limitations, and workflow bugs that broke idempotency and drafts. Each is documented as a failure with a constrained fix.',
-        tradeoff: 'Trade-off: honest lab constraints instead of pretending everything was smooth.',
+        title: 'Drafts use your context',
+        body: 'Relevant policy and site information informs the draft, while the operator can review what shaped the response.',
+        tradeoff: 'Simple and inspectable before complex retrieval.',
       },
     ],
   }}
   results={{
-    title: 'What you can walk through',
-    lead: 'A working ops desk you can open and see in action.',
+    title: 'Where this approach fits',
+    lead: 'The same pattern applies anywhere important work starts in an inbox.',
     items: [
-      'Live operator desk on opsdesk-quayside.vercel.app using real integrations (Gmail, HubSpot, Slack, Supabase) with synthetic Quayside data.',
-      'Six demo beats that match real operational situations: routine, urgent, chargeable, failure/retry, grounding, evidence pack.',
-      'Clear human approval gates so approve is not “send”.',
-      'Visible recovery when an integration fails so cases do not disappear.',
-      'Grounded drafts with operator-facing sources, so replies are not generic.',
-      'A transparent limitations statement so you know what is lab-simulated versus what is production-ready.',
+      'Maintenance and service operations',
+      'Claims, onboarding and compliance requests',
+      'Internal support and other high-volume shared inboxes',
     ],
-    pullquote:
-      'The hard part was not adding a chatbot. It was making intake, routing, drafts, approvals and recovery behave like something an operations team could trust.',
-    next: [
-      'Replace screenshot placeholders with real desk shots for each demo beat',
-      'Record a short walkthrough video once the hosted scenario pack runs clean',
-      'Add real measured evaluation numbers only after they exist',
-    ],
-    note: 'OpsDesk AI is a production-style simulation with real APIs and synthetic Quayside property data. It is a growing playbook of capability modules, not a finished multi-tenant OS, real invoicing, or real-client outcomes. Staff login is in place; row-level security and fuller recovery queues are deferred and called out honestly.',
-  }}
-  screenshot={{
-    frame: 'browser',
-    frameLabel: 'opsdesk-quayside.vercel.app',
-    shots: [
-      {
-        image: '/images/projects/opsdesk/placeholder.svg',
-        alt: 'OpsDesk routine fix path screenshot placeholder',
-        label: '1 · Routine fix · draft ready for approval',
-      },
-      {
-        image: '/images/projects/opsdesk/placeholder.svg',
-        alt: 'OpsDesk urgent hazard escalation screenshot placeholder',
-        label: '2 · Urgent hazard · route immediately',
-      },
-      {
-        image: '/images/projects/opsdesk/placeholder.svg',
-        alt: 'OpsDesk chargeable work approval path screenshot placeholder',
-        label: '3 · Chargeable work · approve authority first',
-      },
-      {
-        image: '/images/projects/opsdesk/placeholder.svg',
-        alt: 'OpsDesk failure and retry screenshot placeholder',
-        label: '4 · Failure · needs attention, then retry',
-      },
-      {
-        image: '/images/projects/opsdesk/placeholder.svg',
-        alt: 'OpsDesk grounding screenshot placeholder',
-        label: '5 · Grounding · sources on the desk',
-      },
-      {
-        image: '/images/projects/opsdesk/placeholder.svg',
-        alt: 'OpsDesk evidence pack screenshot placeholder',
-        label: '6 · Evidence pack · audit export',
-      },
-    ],
+    pullquote: 'The hard part was not adding a chatbot. It was making intake, routing, drafts, approvals and recovery behave like something an operations team could trust.',
+    note: 'OpsDesk is a working prototype with real integrations and synthetic property data. Contractor dispatch, invoicing and production-scale access controls are outside the current demonstration.',
+    cta: {
+      label: 'Discuss a workflow',
+      href: '/contact',
+      note: 'I usually start with a focused workflow audit.',
+    },
   }}
 />
