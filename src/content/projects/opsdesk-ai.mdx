@@ -1,5 +1,5 @@
 ---
-title: OpsDesk AI
+title: OpsDesk
 description: >-
   A controlled operations workflow for property-maintenance requests: urgent
   triage, policy-based drafts, approval gates and a clear decision trail.
@@ -33,8 +33,8 @@ caseOverview:
     - label: Integrations
       value: Gmail · HubSpot · Slack
 audience: [smb, employer]
-coverImage: /images/projects/opsdesk/cover.png
-cardImage: /images/projects/opsdesk/cover.png
+coverImage: /images/projects/opsdesk/cover-overview-v2.png
+cardImage: /images/projects/opsdesk/cover-overview-v2.png
 coverFit: contain
 coverPosition: top
 coverFrame: browser
@@ -157,5 +157,35 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
       href: '/contact',
       note: 'Bring one messy process. I’ll help map what to automate, what must stay human-controlled, and what a focused first step could look like.',
     },
+  }}
+  screenshot={{
+    shots: [
+      {
+        image: '/images/projects/opsdesk/gmail intake.png',
+        alt: 'Gmail maintenance request becoming an OpsDesk case with an AI-drafted reply',
+        label: 'Gmail intake → AI-drafted reply',
+      },
+      {
+        image: '/images/projects/opsdesk/urgent-issue-slack-routing-editorial-v2.png',
+        alt: 'Urgent OpsDesk case routed automatically to Slack',
+        label: 'Urgent issue → automatic Slack routing',
+      },
+      {
+        image: '/images/projects/opsdesk/hubspot-context-editorial.png',
+        alt: 'OpsDesk CRM context enriched with a HubSpot contact and property record',
+        label: 'HubSpot context lookup → enriched case',
+      },
+      {
+        image: '/images/projects/opsdesk/chargeable-work-approval-editorial.png',
+        alt: 'Chargeable maintenance work held for authority in OpsDesk',
+        label: 'Chargeable work → approval required',
+      },
+      {
+        image: '/images/projects/opsdesk/failure-retry-audit-editorial.png',
+        alt: 'Failed HubSpot integration recovered with retry and recorded in the audit trail',
+        label: 'Failure → retry → audit trail',
+      },
+    ],
+    frameLabel: 'OpsDesk workflow',
   }}
 />

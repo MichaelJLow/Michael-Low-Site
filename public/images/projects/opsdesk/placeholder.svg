@@ -7,7 +7,7 @@
   <circle cx="112" cy="76" r="8" fill="#C9BFB0"/>
   <circle cx="140" cy="76" r="8" fill="#C9BFB0"/>
   <rect x="180" y="66" width="420" height="20" rx="6" fill="#F3EFE7"/>
-  <text x="720" y="420" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="42" fill="#5C5346">OpsDesk AI</text>
+  <text x="720" y="420" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="42" fill="#5C5346">OpsDesk</text>
   <text x="720" y="480" text-anchor="middle" font-family="system-ui, sans-serif" font-size="24" fill="#8A7F70">Screenshot pending</text>
   <text x="720" y="530" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#A39889">opsdesk-quayside.vercel.app</text>
 </svg>
