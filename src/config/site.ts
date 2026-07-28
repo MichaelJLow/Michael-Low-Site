@@ -190,6 +190,7 @@ export const workPage = {
 } as const;
 
 export const featuredProjectSlugs = [
+  'opsdesk-ai',
   'libertrade-journal-analytics',
   'sentinel-mental-game-agent',
   'macro-signal-room',

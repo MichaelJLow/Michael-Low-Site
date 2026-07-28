@@ -1,0 +1,223 @@
+---
+title: OpsDesk AI
+description: >-
+  An end-to-end AI workflow for property-maintenance requests: intake,
+  rules-based routing, CRM context, grounded drafts, and human approval gates,
+  with a full audit trail.
+descriptionExtra: >-
+  Quayside is a synthetic property-maintenance lab with real Gmail, HubSpot,
+  Slack and Supabase. Every request becomes a case on the ops desk: classified,
+  routed, drafted, with human approval when it matters, and auditable.
+date: 2026-07-27
+status: Live
+category: Operational AI workflow
+type: workflow
+stack: [n8n, Next.js, TypeScript, Zod, Supabase, Gmail, HubSpot, Slack, Gemini, Docker, Vercel]
+featured: true
+order: 1
+role: Builder / systems designer / workflow engineer
+caseOverview:
+  lead: Messy shared inbox. Controlled ops desk.
+  body: >-
+    Maintenance mail lands in a shared inbox. Urgent requests get lost.
+    Chargeable work mixes with day-to-day fixes. There is no clear approval step
+    and no reliable record of who decided what. OpsDesk turns each request into
+    a case: classified, routed, drafted, human-gated when needed, and auditable.
+  note: >-
+    Quayside Property Services is a fictional lab company. The integrations are
+    real; the data is synthetic. This is a production-style playbook of
+    capabilities, not a claim of finished multi-tenant software or paid client
+    delivery.
+  facts:
+    - label: Role
+      value: Builder / systems designer / workflow engineer
+    - label: Stack
+      value: n8n, Next.js, TypeScript, Zod, Supabase, Gmail, HubSpot, Slack, Gemini
+    - label: Status
+      value: Live desk · opsdesk-quayside.vercel.app
+    - label: Repo
+      value: github.com/MichaelJLow/OpsDesk-AI
+      href: https://github.com/MichaelJLow/OpsDesk-AI
+audience: [smb, employer]
+coverImage: /images/projects/opsdesk/placeholder.svg
+cardImage: /images/projects/opsdesk/placeholder.svg
+coverFit: contain
+coverPosition: top
+coverFrame: browser
+coverFrameLabel: opsdesk-quayside.vercel.app
+showHeroCover: true
+systemLine: Intake → Classify → Route → Draft → Approve → Audit
+liveUrl: https://opsdesk-quayside.vercel.app
+liveLabel: Open live desk
+liveCtaNote: Production-style lab · synthetic Quayside data
+github: https://github.com/MichaelJLow/OpsDesk-AI
+related: [ai-daily-pulse, macro-signal-room]
+---
+
+import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro';
+
+<ProjectCaseBrief
+  problem={{
+    title: 'Problem',
+    lead: 'A shared maintenance inbox is not an operations system.',
+    body: 'Staff guess property and urgency from messy email, chase HubSpot and tribal knowledge in Slack, draft replies ad hoc, and leave weak audit trails. Work stalls without a clear owner, approval boundary, or next action.',
+    columns: [
+      {
+        title: 'Before (manual)',
+        items: [
+          'Shared Gmail: requests wait until someone notices',
+          'Property, unit, asset and urgency guessed from text',
+          'CRM and history searched by hand',
+          'Chargeable authority unclear until mid-conversation',
+          'Decisions scattered across mail, Slack and folders',
+        ],
+      },
+      {
+        title: 'What breaks',
+        items: [
+          'Urgent and hazard work buried under routine fixes',
+          'No safe gate before spend or controlled actions',
+          'Failures disappear into automation logs',
+          'No reliable timeline of who approved what',
+          'Recovery depends on whoever still remembers the thread',
+        ],
+      },
+    ],
+  }}
+  solution={{
+    title: 'Solution',
+    lead: 'Every request becomes a case on the ops desk.',
+    body: 'OpsDesk intake normalises Gmail into durable cases. AI extracts structure; Zod validates it. Deterministic rules route urgency and chargeable authority. The desk drafts grounded replies and proposes actions. Humans approve when risk, cost or ambiguity requires it. Failures surface for retry. Evidence packs close the loop.',
+    pipeline: [
+      'Intake',
+      'Classify',
+      'Route',
+      'Draft',
+      'Approve',
+      'Audit',
+    ],
+    systems: [
+      {
+        title: 'What AI owns',
+        items: [
+          'Interpret messy maintenance language',
+          'Extract requester, site, asset, urgency and safety signals',
+          'Retrieve policy and site context for grounded drafts',
+          'Propose resolution plans and customer replies',
+        ],
+      },
+      {
+        title: 'What rules and humans own',
+        items: [
+          'Deterministic safety and chargeable routing',
+          'Approval gates: approve is not execute or send',
+          'Visible recovery when an integration fails',
+          'Full audit of decisions, drafts and outcomes',
+        ],
+      },
+    ],
+    sections: [
+      'Routine path',
+      'Urgent escalate',
+      'Chargeable HITL',
+      'Failure + retry',
+      'Internal grounding',
+      'Evidence pack',
+    ],
+    note: 'AI interprets. Rules and humans control risk. Quayside is the first vertical setting for a reusable capability playbook, not a finished autonomous property manager.',
+  }}
+  build={{
+    title: 'Architecture & challenges',
+    lead: 'n8n for transport. TypeScript for control. Desk for operators.',
+    body: 'Gmail into n8n for intake and integrations. automation-api applies Zod schemas, deterministic routing and retrieval. Supabase holds durable state and audit. Next.js is the operator Control Centre. LLM proposes only.',
+    challenges: [
+      {
+        title: 'Deterministic safety over model improvisation',
+        body: 'Urgent and chargeable paths are rule-driven after structured extraction. The model does not decide spend authority or hazard escalation on its own.',
+        tradeoff: 'Trade-off: less “agent magic,” more predictable behaviour under risk.',
+      },
+      {
+        title: 'Approve is not execute',
+        body: 'Sensitive actions stay human-gated. Lab execute paths for chargeable work stop short of real invoicing or contractor dispatch so demos stay honest.',
+        tradeoff: 'Trade-off: narrower automation surface for clearer trust boundaries.',
+      },
+      {
+        title: 'Integration failure must be visible',
+        body: 'When HubSpot or another step fails, the case lands in needs-attention with retry instead of disappearing into silent workflow errors. Idempotent intake guards duplicate mail processing.',
+        tradeoff: 'Trade-off: operator attention over invisible “self-healing” that hides truth.',
+      },
+      {
+        title: 'Grounded drafts without leaking internals',
+        body: 'Keyword retrieval pulls policy and site context into the desk. Customer-facing email stays clean; internal sources stay on the operator view.',
+        tradeoff: 'Trade-off: keyword retrieval before embeddings or pgvector for a thinner, inspectable first version.',
+      },
+      {
+        title: 'Playbook over monolith (DEC-022)',
+        body: 'OpsDesk is packaged as reusable production-style workflow capabilities demonstrated on Quayside, not as a claim of a finished multi-tenant OS.',
+        tradeoff: 'Trade-off: capability clarity over platform marketing.',
+      },
+      {
+        title: 'Real integration friction',
+        body: 'Lab work hit TLS verify issues in Docker OAuth, model ID deprecation on free tiers, and n8n expression bugs that broke idempotency and drafts. Each became a documented failure with a constrained fix, not a silent workaround sold as best practice.',
+        tradeoff: 'Trade-off: honest lab constraints (for example local-only TLS exceptions) over pretending production was painless.',
+      },
+    ],
+  }}
+  results={{
+    title: 'Results & learnings',
+    lead: 'A live production-style ops desk you can walk through end to end.',
+    items: [
+      'Live operator desk on opsdesk-quayside.vercel.app with real Gmail, HubSpot, Slack and Supabase against synthetic Quayside data.',
+      'Six demo beats: routine, urgent, chargeable HITL, failure/retry, grounding, evidence pack.',
+      'Structured extraction with Zod validation and deterministic routing for safety and authority.',
+      'Thin routing evaluation fixtures (npm run eval:routing) with honest scope, not invented accuracy claims.',
+      'Documented failure log and decision log: what broke, what we changed, and why.',
+      'client-delivery/ methodology maps synthetic lab work to how a real engagement would run, without fake client outcomes.',
+    ],
+    pullquote:
+      'The hard part was not adding a chatbot. It was making intake, routing, drafts, approvals and recovery behave like something an operations team could trust.',
+    next: [
+      'Capture real desk screenshots for each demo beat (placeholders on this page for now)',
+      'Record a short walkthrough video once the hosted scenario pack is run clean',
+      'Publish measured routing-eval numbers only after they are real',
+      'Inspection vertical as a later portability proof, not part of this case study',
+    ],
+    note: 'OpsDesk AI is a production-style simulation with real APIs and synthetic Quayside property data. It is a growing playbook of capability modules, not a finished multi-tenant OS, real invoicing, or real-client outcomes. Staff login is in place; row-level security and fuller recovery queues are deferred and called out honestly.',
+  }}
+  screenshot={{
+    frame: 'browser',
+    frameLabel: 'opsdesk-quayside.vercel.app',
+    shots: [
+      {
+        image: '/images/projects/opsdesk/placeholder.svg',
+        alt: 'OpsDesk routine boiler path screenshot placeholder',
+        label: '1 · Routine · Approve → Send',
+      },
+      {
+        image: '/images/projects/opsdesk/placeholder.svg',
+        alt: 'OpsDesk urgent hazard path screenshot placeholder',
+        label: '2 · Urgent · hazard escalate',
+      },
+      {
+        image: '/images/projects/opsdesk/placeholder.svg',
+        alt: 'OpsDesk chargeable approval path screenshot placeholder',
+        label: '3 · Chargeable · human gate',
+      },
+      {
+        image: '/images/projects/opsdesk/placeholder.svg',
+        alt: 'OpsDesk failure and retry screenshot placeholder',
+        label: '4 · Failure · needs attention → Retry',
+      },
+      {
+        image: '/images/projects/opsdesk/placeholder.svg',
+        alt: 'OpsDesk internal grounding screenshot placeholder',
+        label: '5 · Grounding · sources on desk',
+      },
+      {
+        image: '/images/projects/opsdesk/placeholder.svg',
+        alt: 'OpsDesk evidence pack screenshot placeholder',
+        label: '6 · Evidence pack · audit export',
+      },
+    ],
+  }}
+/>
