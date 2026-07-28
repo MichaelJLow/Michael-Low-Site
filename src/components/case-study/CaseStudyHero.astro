@@ -73,7 +73,9 @@ const hasRetinaCover =
               </div>
             </div>
 
-            <dl class="case-study-hero__facts">
+            <div class="case-study-hero__facts-wrap">
+              {caseOverview.factsHeading && <p class="case-study-hero__facts-heading">{caseOverview.factsHeading}</p>}
+              <dl class="case-study-hero__facts">
               {caseOverview.facts.map((fact) => (
                 <div>
                   <dt>{fact.label}</dt>
@@ -88,7 +90,8 @@ const hasRetinaCover =
                   </dd>
                 </div>
               ))}
-            </dl>
+              </dl>
+            </div>
           </div>
         ) : (
           <>
@@ -262,6 +265,16 @@ const hasRetinaCover =
     display: grid;
     gap: 0;
     margin: 0;
+  }
+
+  .case-study-hero__facts-heading {
+    color: var(--ml-ink);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.85rem;
+    text-transform: uppercase;
   }
 
   .case-study-hero__facts > div {

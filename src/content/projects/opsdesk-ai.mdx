@@ -4,8 +4,8 @@ description: >-
   A controlled operations workflow for property-maintenance requests: urgent
   triage, policy-based drafts, approval gates and a clear decision trail.
 descriptionExtra: >-
-  OpsDesk turns messy maintenance email into trackable cases without removing
-  the people who need to approve risk, spend and sensitive actions.
+  OpsDesk turns messy maintenance email into trackable cases while keeping
+  Gmail, HubSpot and Slack in the operational loop.
 date: 2026-07-27
 status: Live
 category: Operational AI workflow
@@ -15,17 +15,23 @@ featured: true
 order: 1
 role: Builder / systems designer / workflow engineer
 caseOverview:
-  lead: Messy shared inbox. Controlled operations.
+  lead: A maintenance operations desk for Quayside Property Services.
   body: >-
-    OpsDesk turns maintenance email into trackable cases. It identifies urgency,
-    prepares a reply using your policies and property information, and holds
-    sensitive or chargeable actions for approval.
-  note: Working prototype · real integrations · synthetic Quayside property data.
+    From shared inbox to controlled operations: when maintenance requests arrive
+    by email, OpsDesk identifies urgency, prepares an AI-drafted reply using
+    your policies and property information, and keeps spend and sensitive
+    actions behind approval. Gmail, HubSpot and Slack stay in the loop.
+  note: Working prototype · real Gmail, HubSpot and Slack integrations · synthetic Quayside data.
+  factsHeading: What this gives your team
   facts:
-    - label: Role
-      value: Designed and built the workflow, desk and integrations
-    - label: Status
-      value: Working live prototype
+    - label: Urgent work
+      value: Surfaced quickly
+    - label: Chargeable work
+      value: Held for approval
+    - label: Decision trail
+      value: Recorded against the case
+    - label: Integrations
+      value: Gmail · HubSpot · Slack
 audience: [smb, employer]
 coverImage: /images/projects/opsdesk/cover.png
 cardImage: /images/projects/opsdesk/cover.png
@@ -34,7 +40,7 @@ coverPosition: top
 coverFrame: browser
 coverFrameLabel: opsdesk-quayside.vercel.app
 showHeroCover: true
-systemLine: Intake → Classify → Route → Draft → Approve → Audit
+systemLine: Gmail intake → HubSpot context → Automatic Slack routing → AI-drafted reply → Approve → Audit
 liveUrl: https://opsdesk-quayside.vercel.app
 liveLabel: Open live desk
 liveCtaNote: Working prototype · synthetic Quayside data
@@ -72,13 +78,13 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
   solution={{
     title: 'What changes in practice',
     lead: 'Every request becomes a case your team can approve and track.',
-    body: 'OpsDesk reads the message, identifies the property, issue and urgency, checks the request against your rules, and prepares a reply using relevant policy and site context. When risk, cost or uncertainty matters, the case waits for your team to approve the next step. Failed integrations stay visible and can be retried without losing the history.',
+    body: 'OpsDesk reads the message in Gmail, identifies the property, issue and urgency, checks the request against your rules, looks up relevant context in HubSpot, and routes the right alerts through Slack. It prepares a reply using your policies and site context. When risk, cost or uncertainty matters, the case waits for your team to approve the next step. Failed integrations stay visible and can be retried without losing the history.',
     pipeline: [
-      'Intake',
-      'Identify the issue and urgency',
-      'Prepare the reply and next step',
-      'Approve sensitive actions',
-      'Keep the decision trail',
+      'Gmail intake',
+      'Identify issue and urgency',
+      'HubSpot context and policy check',
+      'Automatic Slack routing · AI-drafted reply',
+      'Approve and audit',
     ],
     systems: [
       {
@@ -86,8 +92,8 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
         items: [
           'Find the property, issue, urgency and requester',
           'Check the request against safety and authority rules',
-          'Prepare a customer-ready draft from your policies',
-          'Show failures clearly so the team can recover',
+          'Pull relevant context from HubSpot and prepare a customer-ready draft',
+          'Route alerts through Slack and show failures clearly for recovery',
         ],
       },
       {

@@ -19,6 +19,7 @@ const projectSchema = z.object({
       lead: z.string(),
       body: z.string(),
       note: z.string().optional(),
+      factsHeading: z.string().optional(),
       facts: z.array(
         z.object({
           label: z.string(),
