@@ -48,6 +48,7 @@ interface BriefSection {
   systems?: SystemPanel[];
   /** Solution: briefing section chips */
   sections?: string[];
+  sectionsHeading?: string;
   /** Build: numbered challenge cards */
   challenges?: Challenge[];
   /** Results: applied-AI pullquote */
@@ -162,10 +163,13 @@ const { problem, solution, build, results, screenshot } = Astro.props;
 
     {
       solution.sections && solution.sections.length > 0 && (
-        <div class="project-brief__chips" aria-label="Briefing sections">
-          {solution.sections.map((section) => (
-            <span>{section}</span>
-          ))}
+        <div class="project-brief__chips-wrap">
+          {solution.sectionsHeading && <p class="project-brief__column-title">{solution.sectionsHeading}</p>}
+          <div class="project-brief__chips" aria-label="Briefing sections">
+            {solution.sections.map((section) => (
+              <span>{section}</span>
+            ))}
+          </div>
         </div>
       )
     }
@@ -477,18 +481,18 @@ const { problem, solution, build, results, screenshot } = Astro.props;
   .project-brief__chips {
     display: grid;
     gap: 0.55rem;
-    margin: 1.5rem 0 0;
+    margin: 0.65rem 0 0;
   }
 
   .project-brief__chips span {
     display: flex;
     align-items: center;
-    min-height: 3rem;
-    padding: 0.7rem 0.85rem;
+    min-height: 4.15rem;
+    padding: 0.85rem 0.95rem;
     border: 1px solid var(--ml-line);
     color: var(--ml-ink-soft, var(--ml-muted));
     font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: 0.62rem;
+    font-size: 0.64rem;
     letter-spacing: 0.04em;
     line-height: 1.45;
     text-transform: uppercase;
@@ -712,10 +716,6 @@ const { problem, solution, build, results, screenshot } = Astro.props;
 
     .project-brief__challenge:last-child:nth-child(odd) {
       grid-column: 1 / -1;
-    }
-
-    .project-brief__cta {
-      grid-template-columns: minmax(0, 1fr) auto;
     }
 
     .project-brief__chips {
