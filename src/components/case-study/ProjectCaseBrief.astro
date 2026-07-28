@@ -60,6 +60,7 @@ interface BriefSection {
     label: string;
     href: string;
     note?: string;
+    title?: string;
   };
 }
 
@@ -283,7 +284,7 @@ const { problem, solution, build, results, screenshot } = Astro.props;
     {results.cta && (
       <div class="project-brief__cta">
         <div>
-          <p class="project-brief__column-title">If your workflow looks like this</p>
+          <p class="project-brief__column-title">{results.cta.title ?? 'If your workflow looks like this'}</p>
           {results.cta.note && <p>{results.cta.note}</p>}
         </div>
         <a href={results.cta.href}>{results.cta.label} <span aria-hidden="true">→</span></a>
@@ -474,19 +475,22 @@ const { problem, solution, build, results, screenshot } = Astro.props;
   }
 
   .project-brief__chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
+    display: grid;
+    gap: 0.55rem;
     margin: 1.5rem 0 0;
   }
 
   .project-brief__chips span {
-    padding: 0.4rem 0.7rem;
+    display: flex;
+    align-items: center;
+    min-height: 3rem;
+    padding: 0.7rem 0.85rem;
     border: 1px solid var(--ml-line);
     color: var(--ml-ink-soft, var(--ml-muted));
     font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: 0.58rem;
+    font-size: 0.62rem;
     letter-spacing: 0.04em;
+    line-height: 1.45;
     text-transform: uppercase;
   }
 
@@ -712,6 +716,10 @@ const { problem, solution, build, results, screenshot } = Astro.props;
 
     .project-brief__cta {
       grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .project-brief__chips {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>

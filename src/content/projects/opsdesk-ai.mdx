@@ -24,7 +24,7 @@ caseOverview:
   note: Working prototype · real Gmail, HubSpot and Slack integrations · synthetic Quayside data.
   factsHeading: What this gives your team
   facts:
-    - label: Urgent work
+    - label: Urgent issues
       value: Surfaced quickly
     - label: Chargeable work
       value: Held for approval
@@ -53,7 +53,7 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
 <ProjectCaseBrief
   problem={{
     title: 'Sound familiar?',
-    lead: 'Urgent work should not depend on who notices the inbox first.',
+    lead: 'Urgent issues should not depend on who notices the inbox first.',
     scenario: 'Tuesday, 9:14am. A tenant emails: “Water dripping near the light fitting in Flat 8.” In a shared inbox, that can sit beside boiler questions and contractor updates until someone notices. OpsDesk turns it into a case immediately: flagged as a hazard, routed to the right person, and held for approval before anything sensitive happens.',
     body: 'The same inbox also carries routine fixes and chargeable requests. Without a clear path, urgency gets buried, authority is debated mid-conversation, and the evidence of who decided what is scattered across email, chat and memory.',
     columns: [
@@ -148,12 +148,13 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
       'Claims, onboarding and compliance requests',
       'Internal support and other high-volume shared inboxes',
     ],
-    pullquote: 'The hard part was not adding a chatbot. It was making intake, routing, drafts, approvals and recovery behave like something an operations team could trust.',
+    pullquote: 'The hard part is not adding a chatbot. It is making intake, routine fixes, urgent issues, chargeable actions, approvals and recovery behave like something an operations team can trust.',
     note: 'OpsDesk is a working prototype with real integrations and synthetic property data. Contractor dispatch, invoicing and production-scale access controls are outside the current demonstration.',
     cta: {
-      label: 'Discuss a workflow',
+      title: 'Have a workflow like this?',
+      label: 'Start with a workflow audit',
       href: '/contact',
-      note: 'I usually start with a focused workflow audit.',
+      note: 'Bring one messy process. I’ll help map what to automate, what must stay human-controlled, and what a focused first step could look like.',
     },
   }}
 />
