@@ -40,6 +40,7 @@ interface BriefSection {
   note?: string;
   body?: string;
   scenario?: string;
+  scenarioLabel?: string;
   /** Problem: two compact columns */
   columns?: ColumnList[];
   /** Solution: pipeline steps */
@@ -69,11 +70,12 @@ interface Props {
   problem: BriefSection;
   solution: BriefSection;
   build: BriefSection;
+  evaluation?: BriefSection;
   results: BriefSection;
   screenshot?: Screenshot;
 }
 
-const { problem, solution, build, results, screenshot } = Astro.props;
+const { problem, solution, build, evaluation, results, screenshot } = Astro.props;
 ---
 
 <div class="project-brief">
@@ -86,7 +88,7 @@ const { problem, solution, build, results, screenshot } = Astro.props;
 
     {problem.scenario && (
       <aside class="project-brief__scenario">
-        <p class="project-brief__scenario-label">A typical request</p>
+        <p class="project-brief__scenario-label">{problem.scenarioLabel ?? 'A typical request'}</p>
         <p>{problem.scenario}</p>
       </aside>
     )}
@@ -251,10 +253,88 @@ const { problem, solution, build, results, screenshot } = Astro.props;
     {build.note && <p class="project-brief__note">{build.note}</p>}
   </section>
 
+  <!-- Evaluation -->
+  {
+    evaluation && (
+      <section
+        class="project-brief__section project-brief__section--evaluation"
+        aria-labelledby="brief-evaluation-title"
+      >
+        <header class="project-brief__head">
+          <p class="project-brief__index">
+            <span aria-hidden="true">04</span> {evaluation.title}
+          </p>
+          <h2 id="brief-evaluation-title">{evaluation.lead}</h2>
+        </header>
+
+        {evaluation.scenario && (
+          <aside class="project-brief__scenario">
+            <p class="project-brief__scenario-label">{evaluation.scenarioLabel ?? 'Why this matters'}</p>
+            <p>{evaluation.scenario}</p>
+          </aside>
+        )}
+
+        {evaluation.body && <p class="project-brief__body">{evaluation.body}</p>}
+
+        {
+          evaluation.columns && evaluation.columns.length > 0 ? (
+            <div class="project-brief__columns">
+              {evaluation.columns.map((column) => (
+                <div class="project-brief__column">
+                  <p class="project-brief__column-title">{column.title}</p>
+                  <ul class="project-brief__list" role="list">
+                    {column.items.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          ) : (
+            evaluation.items &&
+            evaluation.items.length > 0 && (
+              <ul class="project-brief__list" role="list">
+                {evaluation.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )
+          )
+        }
+
+        {evaluation.pullquote && (
+          <blockquote class="project-brief__pullquote">{evaluation.pullquote}</blockquote>
+        )}
+
+        {evaluation.note && <p class="project-brief__note">{evaluation.note}</p>}
+
+        {
+          evaluation.shot?.src && (
+            <figure
+              class={`project-brief__shot${evaluation.shot.frame ? ` project-brief__shot--${evaluation.shot.frame}` : ''}`}
+            >
+              {evaluation.shot.frame && (
+                <div class="product-frame__bar" aria-hidden="true">
+                  <span class="product-frame__dots"><i></i><i></i><i></i></span>
+                  <span class="product-frame__label">{evaluation.shot.frameLabel ?? evaluation.shot.alt}</span>
+                  <span></span>
+                </div>
+              )}
+              <img src={evaluation.shot.src} alt={evaluation.shot.alt ?? ''} loading="lazy" decoding="async" />
+              {evaluation.shot.caption && <figcaption>{evaluation.shot.caption}</figcaption>}
+            </figure>
+          )
+        }
+      </section>
+    )
+  }
+
   <!-- Results -->
   <section class="project-brief__section project-brief__section--results" aria-labelledby="brief-results-title">
     <header class="project-brief__head">
-      <p class="project-brief__index"><span aria-hidden="true">04</span> {results.title}</p>
+      <p class="project-brief__index">
+        <span aria-hidden="true">{evaluation ? '05' : '04'}</span> {results.title}
+      </p>
       <h2 id="brief-results-title">{results.lead}</h2>
     </header>
 

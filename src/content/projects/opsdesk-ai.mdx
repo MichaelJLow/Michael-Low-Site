@@ -32,6 +32,8 @@ caseOverview:
       value: Recorded against the case
     - label: Integrations
       value: Gmail · HubSpot · Slack
+    - label: Quality gate
+      value: 25 lab scenarios · scorecard
 audience: [smb, employer]
 coverImage: /images/projects/opsdesk/cover-overview-v3.png
 cardImage: /images/projects/opsdesk/cover-overview-v3.png
@@ -140,6 +142,39 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
         tradeoff: 'Simple and inspectable before complex retrieval.',
       },
     ],
+  }}
+  evaluation={{
+    title: 'How we measure quality',
+    lead: 'Shipping the workflow is not the same as proving it still behaves.',
+    body: 'OpsDesk routes urgent hazards, holds chargeable work for approval, and keeps failures visible on the timeline. Those are policy choices — not something you re-check manually every time a prompt, model, or routing rule changes. A separate evaluation harness runs 25 labelled lab scenarios against the same routing, schema, and approval logic the desk relies on. Each run produces a scorecard: what passed, whether trust boundaries held, and whether anything regressed since the last known-good run.',
+    scenarioLabel: 'Why this matters',
+    scenario:
+      'A routing tweak that silently stops escalating “water near electrics” is worse than a broken button — it looks fine until someone gets hurt or money moves without authority. The harness makes that class of change visible before it reaches a demo or a client inbox.',
+    columns: [
+      {
+        title: 'What gets checked',
+        items: [
+          'Urgent hazards still beat chargeable language when both appear',
+          'Chargeable work still requires human approval',
+          'Invalid model output is blocked before routing runs',
+          'Policy citations appear when the desk retrieves context',
+          'Integration failures show on the timeline before retry',
+          'Customer drafts strip internal Sources footnotes',
+        ],
+      },
+      {
+        title: 'What the scorecard shows',
+        items: [
+          '25/25 cases passed on this labelled set (90 checks)',
+          'Trust boundaries — chargeable approval 4/4 held; auto-send blocked 3/3',
+          'Regression diff vs a committed baseline in CI',
+          'Explicit limits on every report (lab metrics, not production claims)',
+        ],
+      },
+    ],
+    pullquote:
+      'The hard part is not getting a green demo once. It is knowing that safety and authority rules still hold after the next model or prompt change.',
+    note: 'Lab results on 25 synthetic Quayside scenarios, checked deterministically — not live model calls on production traffic. This does not claim production accuracy, ROI, or that every real-world edge case is covered. It proves stated policy gates were exercised and held on the labelled set. Harness: github.com/MichaelJLow/AI-Workflow-Eval · Methodology: github.com/MichaelJLow/AI-Workflow-Eval/blob/main/docs/METHODOLOGY.md',
   }}
   results={{
     title: 'Where this approach fits',
