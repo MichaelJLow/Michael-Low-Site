@@ -22,25 +22,23 @@ caseOverview:
     your policies and property information, and keeps spend and sensitive
     actions behind approval. Gmail, HubSpot and Slack stay in the loop.
   note: Working prototype · real Gmail, HubSpot and Slack integrations · synthetic Quayside data.
-  factsHeading: What this gives your team
+  factsHeading: What your team gets
   facts:
     - label: Urgent issues
-      value: Surfaced quickly
+      value: Hazards reach the right person without waiting on inbox triage
     - label: Chargeable work
-      value: Held for approval
+      value: Spend and sensitive actions wait for a named approver
     - label: Decision trail
-      value: Recorded against the case
+      value: Drafts, approvals and outcomes stay on the case
     - label: Integrations
-      value: Gmail · HubSpot · Slack
+      value: Gmail, HubSpot and Slack stay in the workflow
     - label: Quality gate
-      value: 25 lab scenarios · scorecard
+      value: A separate evaluation procedure checks the workflow before your team relies on it
 audience: [smb, employer]
-coverImage: /images/projects/opsdesk/cover-overview-v3.png
-cardImage: /images/projects/opsdesk/cover-overview-v3.png
+coverImage: /images/projects/opsdesk/opsdesk-editorial-story-cover-v4.png
+cardImage: /images/projects/opsdesk/opsdesk-editorial-story-cover-v4.png
 coverFit: contain
-coverPosition: top
-coverFrame: browser
-coverFrameLabel: opsdesk-quayside.vercel.app
+coverPosition: center
 showHeroCover: true
 systemLine: Gmail intake → HubSpot context → Automatic Slack routing → AI-drafted reply → Approve → Audit
 liveUrl: https://opsdesk-quayside.vercel.app
@@ -145,11 +143,15 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
   }}
   evaluation={{
     title: 'How we measure quality',
-    lead: 'Shipping the workflow is not the same as proving it still behaves.',
-    body: 'OpsDesk routes urgent hazards, holds chargeable work for approval, and keeps failures visible on the timeline. Those are policy choices — not something you re-check manually every time a prompt, model, or routing rule changes. A separate evaluation harness runs 25 labelled lab scenarios against the same routing, schema, and approval logic the desk relies on. Each run produces a scorecard: what passed, whether trust boundaries held, and whether anything regressed since the last known-good run.',
+    lead: 'Getting it working once is not the same as knowing your team can still rely on it.',
+    body: 'Your team relies on urgent hazards being surfaced quickly, chargeable work waiting for approval, and failed steps staying visible on the case. Those rules should still hold when the workflow changes, without someone manually re-testing every path.',
     scenarioLabel: 'Why this matters',
     scenario:
-      'A routing tweak that silently stops escalating “water near electrics” is worse than a broken button — it looks fine until someone gets hurt or money moves without authority. The harness makes that class of change visible before it reaches a demo or a client inbox.',
+      'If “water near electrics” stops escalating, the desk can still look fine. That is more dangerous than a broken button: the problem hides until someone is at risk or chargeable work moves without approval. The evaluation procedure catches that before your team or tenants rely on it.',
+    framework: {
+      label: 'Evaluation procedure',
+      body: 'Alongside the desk itself, there is a separate evaluation procedure that runs practice scenarios through the same routing, approval, and draft rules your team would rely on in real use. Each scenario describes a situation and the policy the workflow should follow. The run produces a simple scorecard: what passed, whether approval gates held, and whether anything broke compared with the last known-good version.',
+    },
     columns: [
       {
         title: 'What gets checked',
@@ -165,16 +167,20 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
       {
         title: 'What the scorecard shows',
         items: [
-          '25/25 cases passed on this labelled set (90 checks)',
-          'Trust boundaries — chargeable approval 4/4 held; auto-send blocked 3/3',
-          'Regression diff vs a committed baseline in CI',
-          'Explicit limits on every report (lab metrics, not production claims)',
+          'Which practice scenarios passed or failed',
+          'Whether approval gates held on sensitive cases',
+          'What changed since the last known-good run',
+          'What was tested, and what was not',
         ],
       },
     ],
     pullquote:
-      'The hard part is not getting a green demo once. It is knowing that safety and authority rules still hold after the next model or prompt change.',
-    note: 'Lab results on 25 synthetic Quayside scenarios, checked deterministically — not live model calls on production traffic. This does not claim production accuracy, ROI, or that every real-world edge case is covered. It proves stated policy gates were exercised and held on the labelled set. Harness: github.com/MichaelJLow/AI-Workflow-Eval · Methodology: github.com/MichaelJLow/AI-Workflow-Eval/blob/main/docs/METHODOLOGY.md',
+      'Your team should not have to wonder whether the rules still work after the system changes. The scorecard confirms they still hold before your team relies on them.',
+    shot: {
+      src: '/images/projects/opsdesk/eval-scorecard-editorial.png',
+      alt: 'OpsDesk evaluation scorecard with practice scenario pass rates, check results, and trust boundary gates',
+      caption: 'Evaluation scorecard · practice scenarios before your team relies on the workflow',
+    },
   }}
   results={{
     title: 'Where this approach fits',
@@ -196,34 +202,40 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
   screenshot={{
     shots: [
       {
-        image: '/images/projects/opsdesk/gmail intake.png',
+        image: '/images/projects/opsdesk/gmail-intake-editorial-v3.png',
         alt: 'Gmail maintenance request becoming an OpsDesk case with an AI-drafted reply',
-        label: 'Gmail intake → AI-drafted reply',
+        label: 'Gmail intake',
+        note: 'Email becomes a case immediately, with urgency and property identified.',
       },
       {
         image: '/images/projects/opsdesk/urgent-issue-slack-routing-editorial-v2.png',
         alt: 'Urgent OpsDesk case routed automatically to Slack',
-        label: 'Urgent issue → automatic Slack routing',
+        label: 'Urgent routing',
+        note: 'Hazards reach the right person in Slack without waiting for inbox triage.',
       },
       {
         image: '/images/projects/opsdesk/hubspot-context-editorial.png',
         alt: 'OpsDesk CRM context enriched with a HubSpot contact and property record',
-        label: 'HubSpot context lookup → enriched case',
+        label: 'HubSpot context',
+        note: 'CRM history is attached before anyone drafts a response.',
       },
       {
-        image: '/images/projects/opsdesk/chargeable-work-approval-editorial-v2.png',
+        image: '/images/projects/opsdesk/chargeable-work-approval-editorial-v3.png',
         alt: 'Chargeable maintenance work held for authority in OpsDesk',
-        label: 'Chargeable work → approval required',
+        label: 'Chargeable work',
+        note: 'Spend stays blocked until someone with authority approves it.',
       },
       {
-        image: '/images/projects/opsdesk/failure-retry-audit-editorial.png',
+        image: '/images/projects/opsdesk/failure-retry-audit-editorial-v2.png',
         alt: 'Failed HubSpot integration recovered with retry and recorded in the audit trail',
-        label: 'Failure → retry → audit trail',
+        label: 'Failure recovery',
+        note: 'Integration errors stay visible on the case, with retry and audit.',
       },
       {
-        image: '/images/projects/opsdesk/draft-edit-sources-audit-final-v3.png',
+        image: '/images/projects/opsdesk/draft-edit-sources-audit-final-v4.png',
         alt: 'OpsDesk draft grounded in policy and site context before approval',
-        label: 'Draft → policy and site context',
+        label: 'Draft review',
+        note: 'The reply is grounded in policy and site context before it goes out.',
       },
     ],
     frameLabel: 'OpsDesk workflow',

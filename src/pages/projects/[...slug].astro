@@ -59,7 +59,6 @@ const isCaseStudy = featuredProjectSlugs.includes(project.slug as (typeof featur
     margin-inline: auto;
     max-width: 100%;
     min-width: 0;
-    overflow-x: clip;
     width: var(--ml-shell);
   }
 
@@ -125,7 +124,7 @@ const isCaseStudy = featuredProjectSlugs.includes(project.slug as (typeof featur
     line-height: 1.65;
   }
 
-  .project-case-study__content :global(a) {
+  .project-case-study__content :global(a:not(.project-brief__cta-action)) {
     color: var(--ml-clay);
     text-decoration: underline;
     text-underline-offset: 0.18em;
@@ -134,5 +133,13 @@ const isCaseStudy = featuredProjectSlugs.includes(project.slug as (typeof featur
   .project-case-study__content :global(strong) {
     color: var(--ml-ink);
     font-weight: 500;
+  }
+
+  .project-case-study__article:has(:global(.project-brief__cta-band)) {
+    padding-bottom: 0;
+  }
+
+  .project-case-study__article:has(:global(.project-brief__cta-band)) .project-case-study__body {
+    padding-bottom: 0;
   }
 </style>
