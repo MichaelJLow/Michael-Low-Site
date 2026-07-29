@@ -451,12 +451,12 @@ const hasRetinaCover =
   }
 
   .case-study-hero__artifact {
-    background: var(--ml-paper-deep);
-    border-radius: 0.55rem;
-    box-shadow: 0 1.25rem 3rem rgba(18, 18, 16, 0.08);
     margin: 2.75rem 0 0;
-    overflow: hidden;
-    padding: clamp(0.65rem, 1.5vw, 1.25rem);
+    overflow: visible;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .case-study-hero__artifact--browser,
@@ -465,6 +465,7 @@ const hasRetinaCover =
     border: 1px solid rgba(48, 47, 43, 0.22);
     border-radius: 0.55rem;
     box-shadow: 0 0.8rem 2rem rgba(48, 47, 43, 0.08);
+    overflow: hidden;
     padding: 0;
   }
 
@@ -511,12 +512,16 @@ const hasRetinaCover =
   .case-study-hero__artifact img {
     display: block;
     width: 100%;
-    border-radius: 0.35rem;
+    border-radius: 0.55rem;
+    box-shadow:
+      0 1.35rem 3.25rem rgba(18, 18, 16, 0.12),
+      0 0.4rem 1.1rem rgba(18, 18, 16, 0.06);
   }
 
   .case-study-hero__artifact--browser img,
   .case-study-hero__artifact--window img {
     border-radius: 0;
+    box-shadow: none;
   }
 
   @media (min-width: 860px) {
