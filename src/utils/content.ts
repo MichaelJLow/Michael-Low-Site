@@ -1,6 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
-import { featuredProjectSlugs } from '../config/site';
+import { featuredProjectSlugs, homeFeaturedProjectSlugs } from '../config/site';
 
 export async function getPublishedProjects() {
   const projects = await getCollection('projects');
@@ -9,11 +9,19 @@ export async function getPublishedProjects() {
     .sort((a, b) => a.data.order - b.data.order || b.data.date.valueOf() - a.data.date.valueOf());
 }
 
-export async function getFeaturedProjects() {
+async function getProjectsBySlugs(slugs: readonly string[]) {
   const projects = await getPublishedProjects();
-  return featuredProjectSlugs
+  return slugs
     .map((slug) => projects.find((project) => project.slug === slug))
     .filter((project): project is CollectionEntry<'projects'> => Boolean(project));
+}
+
+export async function getFeaturedProjects() {
+  return getProjectsBySlugs(featuredProjectSlugs);
+}
+
+export async function getHomeFeaturedProjects() {
+  return getProjectsBySlugs(homeFeaturedProjectSlugs);
 }
 
 export async function getPublishedBuildLogs() {

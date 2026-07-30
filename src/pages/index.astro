@@ -1,9 +1,9 @@
 ---
 import Layout from '../components/Layout.astro';
 import { site } from '../config/site';
-import { getFeaturedProjects } from '../utils/content';
+import { getHomeFeaturedProjects } from '../utils/content';
 
-const systems = await getFeaturedProjects();
+const systems = await getHomeFeaturedProjects();
 
 const process = [
   {

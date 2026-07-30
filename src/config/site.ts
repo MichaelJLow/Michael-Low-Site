@@ -189,12 +189,21 @@ export const workPage = {
   ],
 } as const;
 
+/** Homepage systems section: one featured + three supporting cards. */
+export const homeFeaturedProjectSlugs = [
+  'opsdesk-ai',
+  'sentinel-mental-game-agent',
+  'libertrade-journal-analytics',
+  'ai-daily-pulse',
+] as const;
+
+/** Full featured list for /projects and case-study routing. */
 export const featuredProjectSlugs = [
   'opsdesk-ai',
-  'libertrade-journal-analytics',
   'sentinel-mental-game-agent',
-  'macro-signal-room',
+  'libertrade-journal-analytics',
   'ai-daily-pulse',
+  'macro-signal-room',
 ] as const;
 
 export const nav = [
