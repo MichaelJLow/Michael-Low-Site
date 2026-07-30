@@ -35,12 +35,12 @@ caseOverview:
     - label: Quality gate
       value: A separate evaluation procedure checks the workflow before your team relies on it
 audience: [smb, employer]
-coverImage: /images/projects/opsdesk/opsdesk-editorial-story-cover-v4.png
-cardImage: /images/projects/opsdesk/opsdesk-editorial-story-cover-v4.png
+coverImage: /images/projects/opsdesk/opsdesk-editorial-story-cover-v5.png
+cardImage: /images/projects/opsdesk/opsdesk-editorial-story-cover-v5.png
 coverFit: contain
 coverPosition: center
 showHeroCover: true
-systemLine: Gmail intake → HubSpot context → Automatic Slack routing → AI-drafted reply → Approve → Audit
+systemLine: Gmail intake → case workspace → HubSpot context + policy → Approve → Audit
 liveUrl: https://opsdesk-quayside.vercel.app
 liveLabel: Open live desk
 liveCtaNote: Working prototype · synthetic Quayside data
@@ -202,40 +202,28 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
   screenshot={{
     shots: [
       {
-        image: '/images/projects/opsdesk/gmail-intake-editorial-v3.png',
-        alt: 'Gmail maintenance request becoming an OpsDesk case with an AI-drafted reply',
-        label: 'Gmail intake',
-        note: 'Email becomes a case immediately, with urgency and property identified.',
+        image: '/images/projects/opsdesk/command-centre-editorial-v1.png',
+        alt: 'OpsDesk command centre with request queue, resident message, proposed reply, and evidence rail on one case workspace',
+        label: 'Command centre',
+        note: 'Email becomes a case in one workspace: message, AI draft, HubSpot match, and policy evidence side by side.',
       },
       {
-        image: '/images/projects/opsdesk/urgent-issue-slack-routing-editorial-v2.png',
-        alt: 'Urgent OpsDesk case routed automatically to Slack',
+        image: '/images/projects/opsdesk/urgent-routing-editorial-v3.png',
+        alt: 'Urgent hazard case flagged in the OpsDesk queue with Slack routing on the activity timeline',
         label: 'Urgent routing',
-        note: 'Hazards reach the right person in Slack without waiting for inbox triage.',
+        note: 'Hazards reach the right person in Slack without waiting on inbox triage.',
       },
       {
-        image: '/images/projects/opsdesk/hubspot-context-editorial.png',
-        alt: 'OpsDesk CRM context enriched with a HubSpot contact and property record',
-        label: 'HubSpot context',
-        note: 'CRM history is attached before anyone drafts a response.',
+        image: '/images/projects/opsdesk/approval-gates-editorial-v1.png',
+        alt: 'Chargeable maintenance work held for authority approval in OpsDesk before any spend proceeds',
+        label: 'Approval gates',
+        note: 'Spend and sensitive actions stay blocked until someone with authority approves.',
       },
       {
-        image: '/images/projects/opsdesk/chargeable-work-approval-editorial-v3.png',
-        alt: 'Chargeable maintenance work held for authority in OpsDesk',
-        label: 'Chargeable work',
-        note: 'Spend stays blocked until someone with authority approves it.',
-      },
-      {
-        image: '/images/projects/opsdesk/failure-retry-audit-editorial-v2.png',
-        alt: 'Failed HubSpot integration recovered with retry and recorded in the audit trail',
+        image: '/images/projects/opsdesk/failure-recovery-editorial-v3.png',
+        alt: 'Failed HubSpot integration visible on the case with retry and audit on the activity timeline',
         label: 'Failure recovery',
-        note: 'Integration errors stay visible on the case, with retry and audit.',
-      },
-      {
-        image: '/images/projects/opsdesk/draft-edit-sources-audit-final-v4.png',
-        alt: 'OpsDesk draft grounded in policy and site context before approval',
-        label: 'Draft review',
-        note: 'The reply is grounded in policy and site context before it goes out.',
+        note: 'Integration errors stay on the case, with retry and a full audit trail.',
       },
     ],
     frameLabel: 'OpsDesk workflow',
