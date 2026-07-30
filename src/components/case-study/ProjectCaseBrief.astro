@@ -252,29 +252,31 @@ const navItems = [
           {solution.note && <p class="project-brief__walkthrough-intro">{solution.note}</p>}
 
           {
-            screenshot?.shots && screenshot.shots.length > 0 ? (
+            screenshot?.src && (
+              <figure
+                class={`project-brief__shot project-brief__shot--lead${screenshot.frame ? ` project-brief__shot--${screenshot.frame}` : ''}`}
+              >
+                {screenshot.frame && (
+                  <div class="product-frame__bar" aria-hidden="true">
+                    <span class="product-frame__dots"><i></i><i></i><i></i></span>
+                    <span class="product-frame__label">{screenshot.frameLabel ?? screenshot.alt}</span>
+                    <span></span>
+                  </div>
+                )}
+                <img src={screenshot.src} alt={screenshot.alt ?? ''} loading="lazy" decoding="async" />
+                {screenshot.caption && <figcaption>{screenshot.caption}</figcaption>}
+              </figure>
+            )
+          }
+
+          {
+            screenshot?.shots && screenshot.shots.length > 0 && (
               <BrowserShotCarousel
                 feature
                 frameLabel={screenshot.frameLabel ?? 'libertrade.app'}
                 idPrefix={screenshot.idPrefix ?? 'workflow-frame'}
                 shots={screenshot.shots}
               />
-            ) : (
-              screenshot?.src && (
-                <figure
-                  class={`project-brief__shot${screenshot.frame ? ` project-brief__shot--${screenshot.frame}` : ''}`}
-                >
-                  {screenshot.frame && (
-                    <div class="product-frame__bar" aria-hidden="true">
-                      <span class="product-frame__dots"><i></i><i></i><i></i></span>
-                      <span class="product-frame__label">{screenshot.frameLabel ?? screenshot.alt}</span>
-                      <span></span>
-                    </div>
-                  )}
-                  <img src={screenshot.src} alt={screenshot.alt ?? ''} loading="lazy" decoding="async" />
-                  {screenshot.caption && <figcaption>{screenshot.caption}</figcaption>}
-                </figure>
-              )
             )
           }
         </div>
@@ -849,6 +851,19 @@ const navItems = [
 
   .project-brief__shot {
     margin: 2rem 0 0;
+  }
+
+  .project-brief__shot--lead {
+    margin: 0;
+  }
+
+  .project-brief__shot--lead img {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .project-brief__walkthrough--feature :global(.browser-shot-carousel) {
+    margin-top: 0.15rem;
   }
 
   .project-brief__shot--browser,

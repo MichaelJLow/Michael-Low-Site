@@ -170,7 +170,8 @@ const firstNote = shots[0]?.note ?? '';
   }
 
   .browser-shot-carousel__media {
-    align-items: flex-start;
+    align-items: center;
+    aspect-ratio: 16 / 9;
     background: #e9e7e1;
     display: flex;
     justify-content: center;
@@ -180,8 +181,9 @@ const firstNote = shots[0]?.note ?? '';
 
   .browser-shot-carousel__media img {
     display: block;
-    height: auto;
+    height: 100%;
     max-width: 100%;
+    object-fit: cover;
     width: 100%;
   }
 

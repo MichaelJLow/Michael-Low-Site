@@ -200,18 +200,15 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
     },
   }}
   screenshot={{
+    src: '/images/projects/opsdesk/command-centre-editorial-v1.png',
+    alt: 'OpsDesk command centre with request queue, resident message, proposed reply, and evidence rail on one case workspace',
+    caption: 'Command centre · message, AI draft, HubSpot match, and policy evidence in one workspace',
     shots: [
       {
-        image: '/images/projects/opsdesk/command-centre-editorial-v1.png',
-        alt: 'OpsDesk command centre with request queue, resident message, proposed reply, and evidence rail on one case workspace',
-        label: 'Command centre',
-        note: 'Email becomes a case in one workspace: message, AI draft, HubSpot match, and policy evidence side by side.',
-      },
-      {
         image: '/images/projects/opsdesk/urgent-routing-editorial-v3.png',
-        alt: 'Urgent hazard case on OpsDesk with safety escalation, HAZARD category, Slack alert guidance, and urgent policy evidence',
+        alt: 'Urgent hazard case with safety escalation banner prompting Slack alert confirmation before a routine reply',
         label: 'Urgent routing',
-        note: 'Hazards are flagged for urgent escalation, with Slack alerting in the loop.',
+        note: 'Hazards reach the right person in Slack without waiting on inbox triage.',
       },
       {
         image: '/images/projects/opsdesk/approval-gates-editorial-v1.png',
@@ -221,7 +218,7 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
       },
       {
         image: '/images/projects/opsdesk/failure-recovery-editorial-v3.png',
-        alt: 'Failed HubSpot integration visible on the case with retry and audit on the activity timeline',
+        alt: 'Failed HubSpot integration visible on the case with retry and needs-attention status',
         label: 'Failure recovery',
         note: 'Integration errors stay on the case, with retry and a full audit trail.',
       },
