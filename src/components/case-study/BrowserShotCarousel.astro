@@ -1,9 +1,20 @@
 ---
+interface ShotFocus {
+  /** Horizontal focus as % from left (0–100). */
+  x: number;
+  /** Vertical focus as % from top (0–100). */
+  y: number;
+  /** Zoom scale when the slide is active (e.g. 1.55). */
+  scale: number;
+}
+
 interface Shot {
   image: string;
   alt: string;
   label?: string;
   note?: string;
+  /** Optional auto-zoom target when this slide becomes active. */
+  focus?: ShotFocus;
 }
 
 interface Props {
@@ -45,6 +56,9 @@ const firstNote = shots[0]?.note ?? '';
             data-snapshot-slide
             data-snapshot-label={shot.label ?? `Screen ${index + 1}`}
             data-snapshot-note={shot.note ?? ''}
+            data-focus-x={shot.focus ? String(shot.focus.x) : undefined}
+            data-focus-y={shot.focus ? String(shot.focus.y) : undefined}
+            data-focus-scale={shot.focus ? String(shot.focus.scale) : undefined}
           >
             <div class="browser-shot-carousel__media">
               <img src={shot.image} alt={shot.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
@@ -182,9 +196,28 @@ const firstNote = shots[0]?.note ?? '';
   .browser-shot-carousel__media img {
     display: block;
     height: 100%;
-    max-width: 100%;
+    max-width: none;
     object-fit: cover;
+    transform: scale(1);
+    transform-origin: 50% 50%;
+    transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
     width: 100%;
+    will-change: transform;
+  }
+
+  .browser-shot-carousel__slide.is-focused .browser-shot-carousel__media img {
+    transform: scale(var(--focus-scale, 1.55));
+    transform-origin: var(--focus-x, 50%) var(--focus-y, 50%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .browser-shot-carousel__media img {
+      transition: none;
+    }
+
+    .browser-shot-carousel__slide.is-focused .browser-shot-carousel__media img {
+      transform: scale(var(--focus-scale, 1.35));
+    }
   }
 
   .browser-shot-carousel__caption-bar {
@@ -336,9 +369,43 @@ const firstNote = shots[0]?.note ?? '';
     queueHeightSync();
     window.addEventListener('resize', queueHeightSync);
 
+    const applyFocus = (slide: HTMLElement, active: boolean) => {
+      const img = slide.querySelector<HTMLImageElement>('.browser-shot-carousel__media img');
+      if (!img) return;
+
+      const x = slide.dataset.focusX;
+      const y = slide.dataset.focusY;
+      const scale = slide.dataset.focusScale;
+
+      if (!x || !y || !scale) {
+        slide.classList.remove('is-focused');
+        img.style.removeProperty('--focus-x');
+        img.style.removeProperty('--focus-y');
+        img.style.removeProperty('--focus-scale');
+        return;
+      }
+
+      img.style.setProperty('--focus-x', `${x}%`);
+      img.style.setProperty('--focus-y', `${y}%`);
+      img.style.setProperty('--focus-scale', scale);
+
+      if (active) {
+        // Restart the zoom animation when returning to a slide.
+        slide.classList.remove('is-focused');
+        void img.offsetWidth;
+        slide.classList.add('is-focused');
+      } else {
+        slide.classList.remove('is-focused');
+      }
+    };
+
     const setActiveSlide = (activeIndex: number) => {
       const slide = slides[activeIndex];
       if (!slide) return;
+
+      slides.forEach((item, index) => {
+        applyFocus(item, index === activeIndex);
+      });
 
       indicators.forEach((indicator, index) => {
         if (index === activeIndex) {
@@ -381,5 +448,6 @@ const firstNote = shots[0]?.note ?? '';
     );
 
     slides.forEach((slide) => observer.observe(slide));
+    setActiveSlide(0);
   });
 </script>

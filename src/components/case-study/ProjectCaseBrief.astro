@@ -22,6 +22,12 @@ interface Shot {
   alt: string;
   label?: string;
   note?: string;
+  /** Optional auto-zoom target when this slide becomes active. */
+  focus?: {
+    x: number;
+    y: number;
+    scale: number;
+  };
 }
 
 interface Screenshot {
