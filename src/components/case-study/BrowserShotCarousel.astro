@@ -369,9 +369,22 @@ const firstNote = shots[0]?.note ?? '';
     queueHeightSync();
     window.addEventListener('resize', queueHeightSync);
 
+    const FOCUS_DELAY_MS = 1750;
+    const focusTimers = new Map<HTMLElement, number>();
+
+    const clearFocusTimer = (slide: HTMLElement) => {
+      const timer = focusTimers.get(slide);
+      if (timer !== undefined) {
+        window.clearTimeout(timer);
+        focusTimers.delete(slide);
+      }
+    };
+
     const applyFocus = (slide: HTMLElement, active: boolean) => {
       const img = slide.querySelector<HTMLImageElement>('.browser-shot-carousel__media img');
       if (!img) return;
+
+      clearFocusTimer(slide);
 
       const x = slide.dataset.focusX;
       const y = slide.dataset.focusY;
@@ -389,14 +402,19 @@ const firstNote = shots[0]?.note ?? '';
       img.style.setProperty('--focus-y', `${y}%`);
       img.style.setProperty('--focus-scale', scale);
 
-      if (active) {
-        // Restart the zoom animation when returning to a slide.
-        slide.classList.remove('is-focused');
+      // Always reset to the full image first.
+      slide.classList.remove('is-focused');
+
+      if (!active) return;
+
+      // Pause on the full shot, then ease into the highlight region.
+      const timer = window.setTimeout(() => {
         void img.offsetWidth;
         slide.classList.add('is-focused');
-      } else {
-        slide.classList.remove('is-focused');
-      }
+        focusTimers.delete(slide);
+      }, FOCUS_DELAY_MS);
+
+      focusTimers.set(slide, timer);
     };
 
     const setActiveSlide = (activeIndex: number) => {
