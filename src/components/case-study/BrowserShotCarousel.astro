@@ -1,11 +1,13 @@
 ---
 interface ShotFocus {
-  /** Horizontal focus as % from left (0–100). */
+  /** Left edge of highlight as % from left (0–100). */
   x: number;
-  /** Vertical focus as % from top (0–100). */
+  /** Top edge of highlight as % from top (0–100). */
   y: number;
-  /** Zoom scale when the slide is active (e.g. 1.55). */
-  scale: number;
+  /** Highlight width as % of image (0–100). */
+  w: number;
+  /** Highlight height as % of image (0–100). */
+  h: number;
 }
 
 interface Shot {
@@ -13,7 +15,7 @@ interface Shot {
   alt: string;
   label?: string;
   note?: string;
-  /** Optional auto-zoom target when this slide becomes active. */
+  /** Optional highlight region; click expands that area. */
   focus?: ShotFocus;
 }
 
@@ -56,12 +58,27 @@ const firstNote = shots[0]?.note ?? '';
             data-snapshot-slide
             data-snapshot-label={shot.label ?? `Screen ${index + 1}`}
             data-snapshot-note={shot.note ?? ''}
-            data-focus-x={shot.focus ? String(shot.focus.x) : undefined}
-            data-focus-y={shot.focus ? String(shot.focus.y) : undefined}
-            data-focus-scale={shot.focus ? String(shot.focus.scale) : undefined}
           >
             <div class="browser-shot-carousel__media">
               <img src={shot.image} alt={shot.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+              {shot.focus && (
+                <button
+                  type="button"
+                  class="browser-shot-carousel__hotspot"
+                  style={`left:${shot.focus.x}%;top:${shot.focus.y}%;width:${shot.focus.w}%;height:${shot.focus.h}%`}
+                  aria-label={`Expand detail: ${shot.label ?? `screen ${index + 1}`}`}
+                  data-snapshot-hotspot
+                  data-hotspot-src={shot.image}
+                  data-hotspot-alt={shot.alt}
+                  data-hotspot-label={shot.label ?? `Screen ${index + 1}`}
+                  data-hotspot-x={String(shot.focus.x)}
+                  data-hotspot-y={String(shot.focus.y)}
+                  data-hotspot-w={String(shot.focus.w)}
+                  data-hotspot-h={String(shot.focus.h)}
+                >
+                  <span class="browser-shot-carousel__hotspot-label">Click to expand</span>
+                </button>
+              )}
             </div>
           </div>
         ))}
@@ -90,6 +107,27 @@ const firstNote = shots[0]?.note ?? '';
         </nav>
       )}
     </figure>
+  )
+}
+
+{/* Shared lightbox lives outside the overflow-hidden carousel so it can center on screen. */}
+{
+  shots.some((shot) => shot.focus) && (
+    <dialog class="browser-shot-lightbox" data-snapshot-lightbox aria-label="Expanded screenshot detail">
+      <form method="dialog" class="browser-shot-lightbox__panel">
+        <header class="browser-shot-lightbox__header">
+          <p class="browser-shot-lightbox__title" data-lightbox-title></p>
+          <button type="submit" class="browser-shot-lightbox__close" data-lightbox-close aria-label="Close expanded view">
+            <span aria-hidden="true">×</span>
+            Close
+          </button>
+        </header>
+        <div class="browser-shot-lightbox__crop" data-lightbox-crop>
+          <img src="" alt="" data-lightbox-image />
+        </div>
+        <p class="browser-shot-lightbox__hint">Press Escape or click outside to close</p>
+      </form>
+    </dialog>
   )
 }
 
@@ -190,34 +228,64 @@ const firstNote = shots[0]?.note ?? '';
     display: flex;
     justify-content: center;
     overflow: hidden;
+    position: relative;
     width: 100%;
   }
 
   .browser-shot-carousel__media img {
     display: block;
     height: 100%;
-    max-width: none;
+    max-width: 100%;
     object-fit: cover;
-    transform: scale(1);
-    transform-origin: 50% 50%;
-    transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
     width: 100%;
-    will-change: transform;
   }
 
-  .browser-shot-carousel__slide.is-focused .browser-shot-carousel__media img {
-    transform: scale(var(--focus-scale, 1.55));
-    transform-origin: var(--focus-x, 50%) var(--focus-y, 50%);
+  .browser-shot-carousel__hotspot {
+    background: rgba(48, 47, 43, 0.04);
+    border: 1.5px solid rgba(48, 47, 43, 0.28);
+    border-radius: 0.3rem;
+    box-shadow: none;
+    cursor: zoom-in;
+    padding: 0;
+    position: absolute;
+    transition:
+      background 160ms ease,
+      border-color 160ms ease,
+      box-shadow 160ms ease;
+    z-index: 2;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .browser-shot-carousel__media img {
-      transition: none;
-    }
+  .browser-shot-carousel__hotspot:hover,
+  .browser-shot-carousel__hotspot:focus-visible {
+    background: rgba(48, 47, 43, 0.08);
+    border-color: rgba(48, 47, 43, 0.45);
+    box-shadow: 0 0.25rem 0.8rem rgba(48, 47, 43, 0.1);
+    outline: none;
+  }
 
-    .browser-shot-carousel__slide.is-focused .browser-shot-carousel__media img {
-      transform: scale(var(--focus-scale, 1.35));
-    }
+  .browser-shot-carousel__hotspot-label {
+    background: rgba(48, 47, 43, 0.72);
+    border-radius: 999px;
+    bottom: 0.3rem;
+    color: #f7f6f1;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.56rem;
+    letter-spacing: 0.06em;
+    left: 50%;
+    line-height: 1;
+    opacity: 0;
+    padding: 0.28rem 0.5rem;
+    pointer-events: none;
+    position: absolute;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+    transition: opacity 160ms ease;
+    white-space: nowrap;
+  }
+
+  .browser-shot-carousel__hotspot:hover .browser-shot-carousel__hotspot-label,
+  .browser-shot-carousel__hotspot:focus-visible .browser-shot-carousel__hotspot-label {
+    opacity: 1;
   }
 
   .browser-shot-carousel__caption-bar {
@@ -310,6 +378,138 @@ const firstNote = shots[0]?.note ?? '';
       grid-template-columns: repeat(6, minmax(0, 1fr));
     }
   }
+
+  .browser-shot-lightbox {
+    background: transparent;
+    border: none;
+    max-height: none;
+    max-width: none;
+    padding: 0;
+    width: auto;
+  }
+
+  .browser-shot-lightbox[open] {
+    box-sizing: border-box;
+    display: grid;
+    height: 100%;
+    inset: 0;
+    margin: 0;
+    max-height: none;
+    max-width: none;
+    overflow: auto;
+    padding: 1.25rem;
+    place-items: center;
+    position: fixed;
+    width: 100%;
+  }
+
+  .browser-shot-lightbox::backdrop {
+    background: rgba(28, 27, 24, 0.68);
+    backdrop-filter: blur(4px);
+  }
+
+  .browser-shot-lightbox__panel {
+    background: #f7f6f1;
+    border: 1px solid rgba(48, 47, 43, 0.14);
+    border-radius: 0.85rem;
+    box-shadow: 0 1.5rem 3.5rem rgba(18, 18, 16, 0.28);
+    box-sizing: border-box;
+    display: grid;
+    gap: 0.85rem;
+    margin: 0;
+    max-height: min(90vh, 52rem);
+    max-width: min(92vw, 72rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 1rem 1.15rem 1.05rem;
+    width: min(92vw, 72rem);
+  }
+
+  .browser-shot-lightbox__header {
+    align-items: center;
+    background: #f7f6f1;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    min-width: 0;
+    padding-right: 0.1rem;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+  }
+
+  .browser-shot-lightbox__title {
+    color: var(--ml-ink);
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .browser-shot-lightbox__close {
+    align-items: center;
+    background: var(--ml-ink);
+    border: 1px solid var(--ml-ink);
+    border-radius: 999px;
+    color: #f7f6f1;
+    cursor: pointer;
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-family: var(--font-sans, system-ui, sans-serif);
+    font-size: 0.82rem;
+    font-weight: 600;
+    gap: 0.3rem;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    margin-left: auto;
+    padding: 0.55rem 0.95rem 0.55rem 0.8rem;
+    white-space: nowrap;
+  }
+
+  .browser-shot-lightbox__close span {
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 0.8;
+  }
+
+  .browser-shot-lightbox__close:hover,
+  .browser-shot-lightbox__close:focus-visible {
+    background: #1f1e1b;
+    outline: 2px solid rgba(48, 47, 43, 0.25);
+    outline-offset: 2px;
+  }
+
+  .browser-shot-lightbox__crop {
+    background: #e9e7e1;
+    border: 1px solid rgba(48, 47, 43, 0.14);
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    margin-inline: auto;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .browser-shot-lightbox__crop img {
+    display: block;
+    max-width: none;
+    position: absolute;
+  }
+
+  .browser-shot-lightbox__hint {
+    color: var(--ml-muted);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    margin: 0;
+    text-align: center;
+  }
 </style>
 
 <script>
@@ -324,10 +524,23 @@ const firstNote = shots[0]?.note ?? '';
     const liveIndex = carousel.querySelector<HTMLElement>('[data-snapshot-live-index]');
     const liveLabel = carousel.querySelector<HTMLElement>('[data-snapshot-live-label]');
     const liveNote = carousel.querySelector<HTMLElement>('[data-snapshot-live-note]');
+    // Lightbox is a sibling after the figure (outside overflow:hidden).
+    const lightbox =
+      carousel.parentElement?.querySelector<HTMLDialogElement>(':scope > [data-snapshot-lightbox]') ??
+      document.querySelector<HTMLDialogElement>('[data-snapshot-lightbox]');
+    const lightboxCrop = lightbox?.querySelector<HTMLElement>('[data-lightbox-crop]');
+    const lightboxImage = lightbox?.querySelector<HTMLImageElement>('[data-lightbox-image]');
+    const lightboxTitle = lightbox?.querySelector<HTMLElement>('[data-lightbox-title]');
+    const hotspots = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-snapshot-hotspot]'));
 
     if (!track || slides.length === 0) return;
 
     carousel.dataset.snapshotCarouselEnhanced = 'true';
+
+    // Keep the modal on document.body so fixed centering is never clipped by ancestors.
+    if (lightbox && lightbox.parentElement !== document.body) {
+      document.body.appendChild(lightbox);
+    }
 
     const medias = Array.from(carousel.querySelectorAll<HTMLElement>('.browser-shot-carousel__media'));
     const images = Array.from(carousel.querySelectorAll<HTMLImageElement>('.browser-shot-carousel__media img'));
@@ -369,61 +582,9 @@ const firstNote = shots[0]?.note ?? '';
     queueHeightSync();
     window.addEventListener('resize', queueHeightSync);
 
-    const FOCUS_DELAY_MS = 1750;
-    const focusTimers = new Map<HTMLElement, number>();
-
-    const clearFocusTimer = (slide: HTMLElement) => {
-      const timer = focusTimers.get(slide);
-      if (timer !== undefined) {
-        window.clearTimeout(timer);
-        focusTimers.delete(slide);
-      }
-    };
-
-    const applyFocus = (slide: HTMLElement, active: boolean) => {
-      const img = slide.querySelector<HTMLImageElement>('.browser-shot-carousel__media img');
-      if (!img) return;
-
-      clearFocusTimer(slide);
-
-      const x = slide.dataset.focusX;
-      const y = slide.dataset.focusY;
-      const scale = slide.dataset.focusScale;
-
-      if (!x || !y || !scale) {
-        slide.classList.remove('is-focused');
-        img.style.removeProperty('--focus-x');
-        img.style.removeProperty('--focus-y');
-        img.style.removeProperty('--focus-scale');
-        return;
-      }
-
-      img.style.setProperty('--focus-x', `${x}%`);
-      img.style.setProperty('--focus-y', `${y}%`);
-      img.style.setProperty('--focus-scale', scale);
-
-      // Always reset to the full image first.
-      slide.classList.remove('is-focused');
-
-      if (!active) return;
-
-      // Pause on the full shot, then ease into the highlight region.
-      const timer = window.setTimeout(() => {
-        void img.offsetWidth;
-        slide.classList.add('is-focused');
-        focusTimers.delete(slide);
-      }, FOCUS_DELAY_MS);
-
-      focusTimers.set(slide, timer);
-    };
-
     const setActiveSlide = (activeIndex: number) => {
       const slide = slides[activeIndex];
       if (!slide) return;
-
-      slides.forEach((item, index) => {
-        applyFocus(item, index === activeIndex);
-      });
 
       indicators.forEach((indicator, index) => {
         if (index === activeIndex) {
@@ -445,6 +606,98 @@ const firstNote = shots[0]?.note ?? '';
         liveNote.textContent = slide.dataset.snapshotNote ?? '';
       }
     };
+
+    let activeHotspot: HTMLButtonElement | null = null;
+
+    const layoutLightboxCrop = (xPct: number, yPct: number, wPct: number, hPct: number) => {
+      if (!lightboxCrop || !lightboxImage) return;
+      if (!lightboxImage.naturalWidth || !lightboxImage.naturalHeight) return;
+
+      const natW = lightboxImage.naturalWidth;
+      const natH = lightboxImage.naturalHeight;
+      const regionW = (wPct / 100) * natW;
+      const regionH = (hPct / 100) * natH;
+
+      // Enlarge the crop, but leave room for panel padding so the Close button never clips.
+      const maxW = Math.min(window.innerWidth * 0.92 - 56, 68 * 16);
+      const maxH = window.innerHeight * 0.7;
+      const scale = Math.min(maxW / regionW, maxH / regionH);
+
+      const displayW = regionW * scale;
+      const displayH = regionH * scale;
+
+      lightboxCrop.style.width = `${Math.round(displayW)}px`;
+      lightboxCrop.style.height = `${Math.round(displayH)}px`;
+
+      lightboxImage.style.width = `${Math.round(natW * scale)}px`;
+      lightboxImage.style.height = `${Math.round(natH * scale)}px`;
+      lightboxImage.style.left = `${Math.round(-((xPct / 100) * natW * scale))}px`;
+      lightboxImage.style.top = `${Math.round(-((yPct / 100) * natH * scale))}px`;
+    };
+
+    const openHotspot = (hotspot: HTMLButtonElement) => {
+      if (!lightbox || !lightboxImage || !lightboxTitle) return;
+
+      const src = hotspot.dataset.hotspotSrc;
+      const alt = hotspot.dataset.hotspotAlt ?? '';
+      const label = hotspot.dataset.hotspotLabel ?? 'Detail';
+      const x = Number(hotspot.dataset.hotspotX);
+      const y = Number(hotspot.dataset.hotspotY);
+      const w = Number(hotspot.dataset.hotspotW);
+      const h = Number(hotspot.dataset.hotspotH);
+
+      // x/y may be 0 (flush to an edge); only width/height must be positive.
+      if (!src || ![x, y, w, h].every((value) => Number.isFinite(value)) || w <= 0 || h <= 0) return;
+
+      activeHotspot = hotspot;
+      lightboxTitle.textContent = label;
+      lightboxImage.alt = alt;
+
+      const show = () => {
+        layoutLightboxCrop(x, y, w, h);
+        if (typeof lightbox.showModal === 'function') {
+          lightbox.showModal();
+        } else {
+          lightbox.setAttribute('open', '');
+        }
+      };
+
+      if (lightboxImage.getAttribute('src') === src && lightboxImage.complete && lightboxImage.naturalWidth > 0) {
+        show();
+        return;
+      }
+
+      lightboxImage.src = src;
+      if (lightboxImage.complete && lightboxImage.naturalWidth > 0) {
+        show();
+      } else {
+        lightboxImage.addEventListener('load', show, { once: true });
+      }
+    };
+
+    hotspots.forEach((hotspot) => {
+      hotspot.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        openHotspot(hotspot);
+      });
+    });
+
+    lightbox?.addEventListener('click', (event) => {
+      if (event.target === lightbox) {
+        lightbox.close();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (!lightbox?.open || !activeHotspot) return;
+      layoutLightboxCrop(
+        Number(activeHotspot.dataset.hotspotX),
+        Number(activeHotspot.dataset.hotspotY),
+        Number(activeHotspot.dataset.hotspotW),
+        Number(activeHotspot.dataset.hotspotH),
+      );
+    });
 
     if (slides.length < 2) {
       setActiveSlide(0);

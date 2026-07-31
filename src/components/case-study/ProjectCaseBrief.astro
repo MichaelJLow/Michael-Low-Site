@@ -22,11 +22,12 @@ interface Shot {
   alt: string;
   label?: string;
   note?: string;
-  /** Optional auto-zoom target when this slide becomes active. */
+  /** Optional highlight region; click expands that area in a lightbox. */
   focus?: {
     x: number;
     y: number;
-    scale: number;
+    w: number;
+    h: number;
   };
 }
 

@@ -25,7 +25,7 @@ caseOverview:
   factsHeading: What your team gets
   facts:
     - label: Urgent issues
-      value: Hazards reach the right person without waiting on inbox triage
+      value: Issues reach the right person without waiting on inbox triage
     - label: Chargeable work
       value: Spend and sensitive actions wait for a named approver
     - label: Decision trail
@@ -200,29 +200,36 @@ import ProjectCaseBrief from '../../components/case-study/ProjectCaseBrief.astro
     },
   }}
   screenshot={{
-    src: '/images/projects/opsdesk/command-centre-editorial-v1.png',
-    alt: 'OpsDesk command centre with request queue, resident message, proposed reply, and evidence rail on one case workspace',
-    caption: 'Command centre · message, AI draft, HubSpot match, and policy evidence in one workspace',
     shots: [
+      {
+        image: '/images/projects/opsdesk/command-centre-editorial-v1.png',
+        alt: 'OpsDesk command centre with request queue, resident message, proposed reply, and evidence rail on one case workspace',
+        label: 'Command centre',
+        note: 'Message, AI draft, HubSpot match, and policy evidence in one workspace.',
+      },
       {
         image: '/images/projects/opsdesk/urgent-routing-editorial-v3.png',
         alt: 'Urgent hazard case with safety escalation banner prompting Slack alert confirmation before a routine reply',
         label: 'Urgent routing',
-        note: 'Hazards reach the right person in Slack without waiting on inbox triage.',
-        // Calibrated from red-box markup: URGENT title + SAFETY ESCALATION banner.
-        focus: { x: 15, y: 14, scale: 2.35 },
+        note: 'Issues reach the right person in Slack without waiting on inbox triage.',
+        // Left half of SAFETY ESCALATION banner (text + key message).
+        focus: { x: 1, y: 10, w: 48, h: 9 },
       },
       {
         image: '/images/projects/opsdesk/approval-gates-editorial-v1.png',
         alt: 'Chargeable maintenance work held for authority approval in OpsDesk before any spend proceeds',
         label: 'Approval gates',
         note: 'Spend and sensitive actions stay blocked until someone with authority approves.',
+        // Nudged slightly left to sit flush with the AUTHORITY REQUIRED banner.
+        focus: { x: 0.2, y: 10, w: 46, h: 14 },
       },
       {
         image: '/images/projects/opsdesk/failure-recovery-editorial-v3.png',
         alt: 'Failed HubSpot integration visible on the case with retry and needs-attention status',
         label: 'Failure recovery',
         note: 'Integration errors stay on the case, with retry and a full audit trail.',
+        // Left portion of WORKFLOW FAILED alert + Retry in the main pane.
+        focus: { x: 21, y: 12, w: 40, h: 15 },
       },
     ],
     frameLabel: 'OpsDesk workflow',
