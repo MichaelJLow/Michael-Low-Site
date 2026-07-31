@@ -1,0 +1,215 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { pageTitle, capabilities } from '../config/site';
+---
+
+<Layout
+  title={pageTitle('Capabilities')}
+  description="What can be assembled into how a business operates: workflow intake and approvals, AI evaluation, connected automation, knowledge capture and decision support."
+>
+  <div class="inner-v2 cap">
+    <PageHeader
+      label="Capabilities"
+      title="What I can build into how you operate"
+      subtitle={capabilities.intro}
+    />
+
+    <section class="inner-v2-section">
+      <div class="home-v2-shell cap__list">
+        {capabilities.proven.map((item, index) => (
+          <article class="cap__item">
+            <span class="cap__index">0{index + 1}</span>
+            <div class="cap__body">
+              <h2>{item.title}</h2>
+              <p class="cap__outcome">{item.outcome}</p>
+              <dl class="cap__meta">
+                <div>
+                  <dt>Evidence</dt>
+                  <dd>{item.evidence}</dd>
+                </div>
+                <div>
+                  <dt>Usually delivered as</dt>
+                  <dd>{item.tier}</dd>
+                </div>
+              </dl>
+              {'caseStudy' in item && item.caseStudy && (
+                <a class="cap__link" href={item.caseStudy} aria-label={`Read the case study for ${item.title}`}>
+                  Read the case study <span aria-hidden="true">→</span>
+                </a>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="cap__developing">
+      <div class="home-v2-shell cap__developing-inner">
+        <div>
+          <p class="home-v2-kicker">{capabilities.developing.title}</p>
+          <p class="cap__developing-intro">{capabilities.developing.intro}</p>
+        </div>
+        <ul class="cap__developing-list">
+          {capabilities.developing.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <CtaBand
+      kicker="Next step"
+      title="Not sure which of these fits your workflow?"
+      body="That is what a Workflow Review is for. One session on a single workflow, then an honest recommendation on what to build, or whether to build anything at all."
+    />
+  </div>
+</Layout>
+
+<style>
+  .cap__list {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .cap__item {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2.5rem);
+    padding-top: clamp(1.75rem, 3vw, 2.5rem);
+    border-top: 1px solid var(--ml-line);
+    align-items: start;
+  }
+
+  .cap__index {
+    padding-top: 0.4rem;
+    color: var(--ml-clay, #3d5a4c);
+    font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+  }
+
+  .cap__body h2 {
+    max-width: 24ch;
+    margin: 0;
+    color: var(--ml-ink);
+    font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+  }
+
+  .cap__outcome {
+    max-width: 44rem;
+    margin: 0.9rem 0 0;
+    color: var(--ml-ink-soft);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .cap__meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 2.5rem;
+    max-width: 48rem;
+    margin: 1.5rem 0 0;
+  }
+
+  .cap__meta dt {
+    color: var(--ml-muted);
+    font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cap__meta dd {
+    margin: 0.5rem 0 0;
+    color: var(--ml-ink-soft);
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .cap__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1.35rem;
+    color: var(--ml-ink);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .cap__link span {
+    display: inline-block;
+    transition: transform 180ms ease;
+  }
+
+  .cap__link:hover span {
+    transform: translateX(3px);
+  }
+
+  .cap__developing {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background: var(--ml-paper-raised);
+    border-block: 1px solid var(--ml-line);
+  }
+
+  .cap__developing-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .cap__developing-intro {
+    max-width: 34rem;
+    margin: 1rem 0 0;
+    color: var(--ml-muted);
+    font-size: 0.98rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .cap__developing-list {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cap__developing-list li {
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--ml-line);
+    color: var(--ml-ink-soft);
+    font-size: 0.98rem;
+    font-weight: 300;
+    line-height: 1.55;
+  }
+
+  .cap__developing-list li:first-child {
+    padding-top: 0;
+  }
+
+  .cap__developing-list li:last-child {
+    border-bottom: none;
+  }
+
+  @media (max-width: 860px) {
+    .cap__item {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .cap__index {
+      padding-top: 0;
+    }
+
+    .cap__meta,
+    .cap__developing-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

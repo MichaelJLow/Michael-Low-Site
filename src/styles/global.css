@@ -132,6 +132,26 @@ html[data-accent='linen'] {
   h3 {
     @apply font-serif font-normal tracking-tight;
   }
+
+  /* Keyboard only: keep mouse clicks quiet, but never leave Tab focus invisible. */
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ml-ink, #1d1f1e);
+    outline-offset: 3px;
+  }
+
+  /* Light rings on dark surfaces so the focus mark stays legible. */
+  .cta-band :focus-visible,
+  .mock-contact :focus-visible,
+  .site-nav__cta:focus-visible,
+  a.mock-button--primary:focus-visible,
+  .contact-page__button:focus-visible,
+  .cta-band__button:focus-visible {
+    outline-color: #f4f0e8;
+  }
 }
 
 /* Linen: flat off-white canvas — no grey atmospheric overlays */

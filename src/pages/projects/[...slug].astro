@@ -5,7 +5,7 @@ import CaseStudyHero from '../../components/case-study/CaseStudyHero.astro';
 import OutcomeList from '../../components/OutcomeList.astro';
 import RelatedProjects from '../../components/RelatedProjects.astro';
 import { getFeaturedProjects } from '../../utils/content';
-import { featuredProjectSlugs } from '../../config/site';
+import { featuredProjectSlugs, pageTitle } from '../../config/site';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -24,7 +24,7 @@ const { title, description, outcomes } = project.data;
 const isCaseStudy = featuredProjectSlugs.includes(project.slug as (typeof featuredProjectSlugs)[number]);
 ---
 
-<Layout title={`${title} — Michael Low`} description={description} ogImage={project.data.coverImage}>
+<Layout title={pageTitle(title)} description={description} ogImage={project.data.coverImage}>
   <main class="project-case-study">
     <CaseStudyHero project={project} />
     <article class="project-case-study__article">

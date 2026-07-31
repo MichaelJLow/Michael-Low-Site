@@ -1,0 +1,105 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { site, pageTitle } from '../config/site';
+
+const updated = 'July 2026';
+
+const sections = [
+  {
+    title: 'Analytics',
+    paragraphs: [
+      'This site uses Vercel Web Analytics to count page views and understand which pages and referrers are useful. It is cookie free and does not follow you across other websites.',
+      'What is collected is aggregated and anonymised: page paths, referrer, approximate country, device type and browser. It is not used to build a profile of you, and it is not sold or shared with advertisers.',
+      'There is no Google Analytics, no advertising pixel, no session recording and no heatmap tracking on this site.',
+    ],
+  },
+  {
+    title: 'When you email me',
+    paragraphs: [
+      `If you send a Workflow Review enquiry, you are emailing ${site.email} directly. I keep that correspondence, and the details you choose to share about your business and workflow, so I can respond and quote for the work.`,
+      'Enquiry and client details are recorded in my CRM (HubSpot) for the purpose of managing the enquiry and any engagement that follows. They are not used for unrelated marketing lists.',
+      'You can ask me to delete your enquiry details at any time by replying to the email thread.',
+    ],
+  },
+  {
+    title: 'Fonts and hosting',
+    paragraphs: [
+      'Typefaces are served by Google Fonts, which receives a request from your browser when a page loads. The site is hosted on Vercel, whose servers process standard request logs.',
+    ],
+  },
+  {
+    title: 'Client data during a project',
+    paragraphs: [
+      'During an engagement, access to your systems and data is handled under the terms we agree in writing before work starts. Wherever practical, accounts, tool subscriptions and data stay owned by you rather than by me, and credentials are handed back or rotated at the end of the project.',
+    ],
+  },
+  {
+    title: 'Questions',
+    paragraphs: [
+      `If you want to know what I hold about you, or want it removed, email ${site.email}.`,
+    ],
+  },
+];
+---
+
+<Layout
+  title={pageTitle('Privacy')}
+  description="How michaeljlow.com handles analytics, enquiries and client data."
+>
+  <div class="inner-v2">
+    <PageHeader
+      label="Privacy"
+      title="What this site collects"
+      subtitle="Short version: cookie free, aggregated analytics, and whatever you choose to tell me in an email."
+      compact
+    />
+
+    <section class="inner-v2-section">
+      <div class="home-v2-shell privacy">
+        <p class="privacy__updated">Last updated {updated}</p>
+        {sections.map((section) => (
+          <section class="privacy__section">
+            <h2>{section.title}</h2>
+            {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </section>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .privacy {
+    max-width: 46rem;
+  }
+
+  .privacy__updated {
+    margin: 0;
+    color: var(--ml-muted);
+    font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .privacy__section {
+    margin-top: clamp(2.25rem, 4vw, 3rem);
+  }
+
+  .privacy h2 {
+    margin: 0;
+    color: var(--ml-ink);
+    font-size: clamp(1.3rem, 2vw, 1.7rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+  }
+
+  .privacy p {
+    margin: 0.9rem 0 0;
+    color: var(--ml-ink-soft);
+    font-size: 0.98rem;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+</style>

@@ -2,22 +2,33 @@
 import Layout from '../../components/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import EditorialProjectCard from '../../components/EditorialProjectCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
 import { getFeaturedProjects } from '../../utils/content';
+import { pageTitle } from '../../config/site';
 
 const projects = await getFeaturedProjects();
 ---
 
-<Layout title="Systems I’ve built — Michael Low" description="Products, operating systems, and AI workflows designed and built by Michael Low.">
+<Layout
+  title={pageTitle('Case Studies')}
+  description="Applied AI systems designed and built by Michael J. Low: workflow intake and approvals, research pipelines and decision support."
+>
   <div class="inner-v2">
     <PageHeader
-      label="Selected work"
-      title="Systems I’ve built"
-      subtitle="Products and workflows that turn scattered information into something people can understand, operate and improve."
+      label="Case Studies"
+      title="Systems built around real operational work"
+      subtitle="How each system was designed, what it does, and where the limits are. Prototypes and synthetic data are labelled as such."
     />
     <section class="inner-v2-section">
       <div class="home-v2-shell home-v2-system-list">
         {projects.map((project, index) => <EditorialProjectCard project={project} index={index} />)}
       </div>
     </section>
+
+    <CtaBand
+      kicker="Next step"
+      title="Have a workflow like one of these?"
+      body="Start with a Workflow Review. One working session on a single workflow, a short written summary, and an honest recommendation on whether it is worth automating."
+    />
   </div>
 </Layout>

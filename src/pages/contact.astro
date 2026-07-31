@@ -1,38 +1,340 @@
 ---
 import Layout from '../components/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import { site } from '../config/site';
+import { site, contact, enquiryMailto, offerLadder } from '../config/site';
 
-const links = [
-  { index: '01', label: 'Email', value: site.email, href: `mailto:${site.email}`, external: false },
-  { index: '02', label: 'LinkedIn', value: 'Connect on LinkedIn', href: site.linkedin, external: true },
-  { index: '03', label: 'GitHub', value: 'See the work behind the systems', href: site.github, external: true },
+const review = offerLadder.groups[0].tiers[0];
+
+const alternatives = [
+  { label: 'Email directly', value: site.email, href: `mailto:${site.email}`, external: false },
+  { label: 'LinkedIn', value: 'Connect on LinkedIn', href: site.linkedin, external: true },
+  { label: 'GitHub', value: 'See the work behind the systems', href: site.github, external: true },
+];
+
+const prompts = [
+  'What your business does',
+  'The workflow that is causing problems',
+  'The tools you currently use',
+  'Roughly how often it happens',
+  'How you found me',
 ];
 ---
 
-<Layout title={`Contact — ${site.name}`} description="Talk to Michael Low about a practical AI system, product, or information-heavy workflow.">
-  <div class="inner-v2 contact-v2">
-    <PageHeader
-      label="Contact"
-      title="Let’s make the messy part clearer."
-      subtitle="If you have an information-heavy workflow that is held together by tabs, memory and repeated manual work, tell me what is happening."
-    />
-    <section class="contact-v2__body">
-      <div class="home-v2-shell contact-v2__layout">
-        <div class="contact-v2__status">
-          <p class="home-v2-kicker">Current availability</p>
-          <p><span aria-hidden="true"></span>{site.availability}</p>
+<Layout
+  title={`Contact · ${site.brand}`}
+  description="Request a Workflow Review from £350. One working session on a single workflow, with a short written recommendation."
+>
+  <div class="inner-v2 contact-page">
+    <PageHeader label={contact.kicker} title={contact.title} subtitle={contact.intro} />
+
+    <section class="inner-v2-section">
+      <div class="home-v2-shell contact-page__layout">
+        <div class="contact-page__action">
+          <div class="contact-page__price">
+            <span>Workflow Review</span>
+            <strong>{contact.price}</strong>
+          </div>
+
+          <a class="contact-page__button" href={enquiryMailto}>
+            Start a Workflow Review enquiry <span aria-hidden="true">↗</span>
+          </a>
+
+          <p class="contact-page__helper">{contact.helper}</p>
+
+          <ul class="contact-page__prompts">
+            {prompts.map((prompt) => <li>{prompt}</li>)}
+          </ul>
+
+          <p class="contact-page__fallback">
+            The button opens your email client with the subject and prompts already filled in. If it does not,
+            email <a href={`mailto:${site.email}`}>{site.email}</a> with the subject
+            <strong>{contact.subject}</strong>.
+          </p>
         </div>
-        <div class="contact-v2__links">
-          {links.map((link) => (
-            <a href={link.href} {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
-              <span>{link.index}</span>
-              <div><small>{link.label}</small><strong>{link.value}</strong></div>
-              <i aria-hidden="true">↗</i>
+
+        <aside class="contact-page__aside">
+          <div class="contact-page__panel">
+            <p class="home-v2-kicker">What a Review includes</p>
+            <ul class="contact-page__list">
+              {review.includes.map((item) => <li>{item}</li>)}
+            </ul>
+            <p class="contact-page__credit">{offerLadder.creditLine}</p>
+            <a class="contact-page__link" href="/how-i-work">
+              Compare Review and Audit <span aria-hidden="true">→</span>
             </a>
-          ))}
-        </div>
+          </div>
+
+          <div class="contact-page__panel contact-page__panel--quiet">
+            <p class="home-v2-kicker">Other ways to reach me</p>
+            <div class="contact-page__alts">
+              {alternatives.map((link) => (
+                <a
+                  href={link.href}
+                  {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  <small>{link.label}</small>
+                  <strong>{link.value}</strong>
+                </a>
+              ))}
+            </div>
+            <p class="contact-page__availability">
+              <i aria-hidden="true"></i>{site.availability}
+            </p>
+          </div>
+        </aside>
       </div>
     </section>
   </div>
 </Layout>
+
+<style>
+  .contact-page__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(2.5rem, 6vw, 5.5rem);
+    align-items: start;
+  }
+
+  .contact-page__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.6rem 1rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--ml-line);
+  }
+
+  .contact-page__price span {
+    color: var(--ml-muted);
+    font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .contact-page__price strong {
+    color: var(--ml-ink);
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+  }
+
+  .contact-page__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 3.6rem;
+    margin-top: 1.75rem;
+    padding: 0.95rem 1.5rem;
+    border-radius: 0.35rem;
+    color: var(--ml-paper);
+    background: var(--ml-ink);
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(31, 31, 28, 0.12);
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .contact-page__button:hover {
+    transform: translateY(-2px);
+  }
+
+  .contact-page__button span {
+    transition: transform 180ms ease;
+  }
+
+  .contact-page__button:hover span {
+    transform: translate(2px, -2px);
+  }
+
+  .contact-page__helper {
+    max-width: 38rem;
+    margin: 1.5rem 0 0;
+    color: var(--ml-muted);
+    font-size: 0.94rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .contact-page__prompts {
+    display: grid;
+    gap: 0.55rem;
+    max-width: 38rem;
+    margin: 1.1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .contact-page__prompts li {
+    position: relative;
+    padding-left: 1.1rem;
+    color: var(--ml-ink-soft);
+    font-size: 0.93rem;
+    font-weight: 300;
+    line-height: 1.55;
+  }
+
+  .contact-page__prompts li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 0.38rem;
+    height: 1px;
+    background: var(--ml-line-strong, rgba(48, 47, 43, 0.24));
+  }
+
+  .contact-page__fallback {
+    max-width: 38rem;
+    margin: 1.75rem 0 0;
+    color: var(--ml-muted);
+    font-size: 0.86rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .contact-page__fallback a {
+    color: var(--ml-ink);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  .contact-page__fallback strong {
+    color: var(--ml-ink-soft);
+    font-weight: 500;
+  }
+
+  .contact-page__aside {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .contact-page__panel {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--ml-paper-raised);
+    border: 1px solid var(--ml-line);
+    border-radius: 0.35rem;
+  }
+
+  .contact-page__panel--quiet {
+    background: transparent;
+  }
+
+  .contact-page__list {
+    display: grid;
+    gap: 0.5rem;
+    margin: 1.1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .contact-page__list li {
+    position: relative;
+    padding-left: 1.1rem;
+    color: var(--ml-ink-soft);
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.55;
+  }
+
+  .contact-page__list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 0.38rem;
+    height: 1px;
+    background: var(--ml-line-strong, rgba(48, 47, 43, 0.24));
+  }
+
+  .contact-page__credit {
+    margin: 1.25rem 0 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--ml-line);
+    color: var(--ml-muted);
+    font-size: 0.86rem;
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  .contact-page__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1rem;
+    color: var(--ml-ink);
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .contact-page__link span {
+    display: inline-block;
+    transition: transform 180ms ease;
+  }
+
+  .contact-page__link:hover span {
+    transform: translateX(3px);
+  }
+
+  .contact-page__alts {
+    display: grid;
+    margin-top: 1rem;
+  }
+
+  .contact-page__alts a {
+    display: grid;
+    gap: 0.2rem;
+    padding-block: 0.9rem;
+    border-bottom: 1px solid var(--ml-line);
+    text-decoration: none;
+  }
+
+  .contact-page__alts a:last-of-type {
+    border-bottom: none;
+  }
+
+  .contact-page__alts small {
+    color: var(--ml-muted);
+    font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .contact-page__alts strong {
+    color: var(--ml-ink-soft);
+    font-size: 0.94rem;
+    font-weight: 400;
+  }
+
+  .contact-page__alts a:hover strong {
+    color: var(--ml-ink);
+  }
+
+  .contact-page__availability {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 1.35rem 0 0;
+    color: var(--ml-muted);
+    font-size: 0.86rem;
+    font-weight: 300;
+  }
+
+  .contact-page__availability i {
+    flex-shrink: 0;
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: #638067;
+    box-shadow: 0 0 0 3px rgba(99, 128, 103, 0.1);
+  }
+
+  @media (max-width: 980px) {
+    .contact-page__layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

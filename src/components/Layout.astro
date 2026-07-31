@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 import Navbar from './Navbar.astro';
 import Footer from './Footer.astro';
 import AmbientBackground from './AmbientBackground.astro';
@@ -9,15 +10,23 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  /** Keep design sandboxes and utility routes out of search results. */
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>;
 }
 
 const {
   title = site.title,
   description = site.description,
   ogImage = '/images/og-default.svg',
+  noindex = false,
+  jsonLd,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+/** Design sandboxes live at /*-lab and are never indexed. */
+const hideFromSearch = noindex || Astro.url.pathname.includes('-lab');
 ---
 
 <!doctype html>
@@ -27,8 +36,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content={site.name} />
+    {hideFromSearch && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalURL} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.brand} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
@@ -43,7 +54,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <title>{title}</title>
+    <Analytics mode="production" />
   </head>
   <body class="relative min-h-screen flex flex-col">
     <AmbientBackground />

@@ -24,13 +24,6 @@ export async function getHomeFeaturedProjects() {
   return getProjectsBySlugs(homeFeaturedProjectSlugs);
 }
 
-export async function getPublishedBuildLogs() {
-  const posts = await getCollection('build-log');
-  return posts
-    .filter((p) => !p.data.draft)
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-}
-
 export function formatDate(date: Date): string {
   return date.toLocaleDateString('en-GB', {
     year: 'numeric',
