@@ -1,0 +1,420 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  insight: CollectionEntry<'insights'>;
+  readingMinutes: number;
+}
+
+const { insight, readingMinutes } = Astro.props;
+const { data } = insight;
+const seriesLabel = data.seriesNumber
+  ? `${data.series} · ${String(data.seriesNumber).padStart(2, '0')}`
+  : data.series;
+const published = data.publishedAt.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<main class="insight-article">
+  <header class="insight-hero">
+    <div class="insight-shell">
+      <div class="insight-hero__visual" style={`background-image: url('${data.coverImage}')`}>
+        <div class="insight-hero__visual-wash"></div>
+        <div class="insight-hero__visual-copy">
+          <a class="insight-back" href="/insights">Insights</a>
+          <p>{seriesLabel}</p>
+          <h1>{data.title}</h1>
+          <span>{data.description}</span>
+          <div class="insight-byline">
+            <span>{published}</span>
+            <span>{readingMinutes} min read</span>
+            <span>{data.topic}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <article class="insight-body">
+    <div class="insight-shell insight-body__grid">
+      <aside class="insight-rail" aria-label="Article information">
+        <p>In this article</p>
+        <span>A practical look at how the workflow handles intake, checks, exceptions, approvals and accounting handoff.</span>
+        <a href="/#contact">Discuss this workflow <b aria-hidden="true">→</b></a>
+      </aside>
+
+      <div class="insight-prose">
+        {data.bodyImage && (
+          <figure class="insight-body__figure">
+            <a href={data.bodyImage} target="_blank" rel="noopener noreferrer" aria-label="Open workflow screenshot at full size">
+              <img src={data.bodyImage} alt={data.bodyImageAlt || ''} width="1024" height="800" loading="lazy" decoding="async" />
+            </a>
+            <figcaption>Example workflow using synthetic invoice data. Select to view at full size.</figcaption>
+          </figure>
+        )}
+        <slot />
+      </div>
+    </div>
+  </article>
+
+  <section class="insight-end" aria-labelledby="insight-end-title">
+    <div class="insight-shell insight-end__grid">
+      <div>
+        <p class="insight-series">Your first step</p>
+        <h2 id="insight-end-title">{data.closing.title}</h2>
+      </div>
+      <div>
+        <p>{data.closing.body}</p>
+        {data.disclaimer && <p class="insight-end__disclaimer">{data.disclaimer}</p>}
+        <a class="insight-end__button" href={data.closing.href}>
+          {data.closing.label} <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<style>
+  .insight-article {
+    --insight-ink: #12151a;
+    --insight-soft: #4f5965;
+    --insight-muted: #737b85;
+    --insight-navy: #1d3557;
+    --insight-paper: #f6f4ef;
+    --insight-line: rgba(29, 53, 87, 0.14);
+    color: var(--insight-ink);
+    background: var(--insight-paper);
+  }
+
+  .insight-shell {
+    width: min(100% - 3rem, 92rem);
+    margin-inline: auto;
+  }
+
+  .insight-hero {
+    padding-block: clamp(4.5rem, 9vw, 8rem) clamp(3.5rem, 7vw, 6rem);
+    background:
+      radial-gradient(circle at 86% 10%, rgba(202, 139, 113, 0.19), transparent 29%),
+      linear-gradient(145deg, #f8f5ef 0%, #eceff0 58%, #e2e7e8 100%);
+  }
+
+  .insight-back {
+    display: inline-flex;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.82rem;
+    text-decoration: none;
+  }
+
+  .insight-back::before {
+    content: '←';
+    margin-right: 0.55rem;
+  }
+
+  .insight-series,
+  .insight-rail > p {
+    margin: 0;
+    color: var(--insight-navy);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .insight-byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.2rem;
+    margin-top: 2rem;
+    color: var(--insight-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .insight-byline span + span {
+    position: relative;
+  }
+
+  .insight-byline span + span::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -0.65rem;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .insight-hero__visual {
+    position: relative;
+    display: flex;
+    align-items: end;
+    min-height: clamp(25rem, 42vw, 38rem);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 0.55rem;
+    background-color: #172b47;
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 28px 70px rgba(29, 53, 87, 0.2);
+  }
+
+  .insight-hero__visual-wash {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(7, 17, 30, 0.72) 100%);
+  }
+
+  .insight-hero__visual-copy {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.65rem;
+    width: min(100%, 42rem);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    color: #f4f5f7;
+  }
+
+  .insight-hero__visual-copy p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.62);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .insight-hero__visual-copy h1 {
+    margin: 0;
+    font-size: clamp(2.6rem, 6vw, 6.2rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    line-height: 0.94;
+    text-wrap: balance;
+  }
+
+  .insight-hero__visual-copy span {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.84rem;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .insight-body__figure {
+    margin: 0 0 clamp(3rem, 6vw, 5rem);
+  }
+
+  .insight-body__figure a {
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--insight-line);
+    border-radius: 0.55rem;
+    background: #fff;
+    box-shadow: 0 22px 55px rgba(29, 53, 87, 0.12);
+  }
+
+  .insight-body__figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .insight-body__figure figcaption {
+    margin-top: 0.65rem;
+    color: var(--insight-muted);
+    font-size: 0.72rem;
+  }
+
+  .insight-body {
+    padding-block: clamp(4.5rem, 9vw, 8rem);
+  }
+
+  .insight-body__grid {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.42fr) minmax(0, 1fr);
+    gap: clamp(3rem, 9vw, 9rem);
+    align-items: start;
+  }
+
+  .insight-rail {
+    position: sticky;
+    top: 7rem;
+    display: grid;
+    gap: 1rem;
+    padding-top: 0.25rem;
+  }
+
+  .insight-rail span {
+    max-width: 17rem;
+    color: var(--insight-muted);
+    font-size: 0.82rem;
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  .insight-rail a {
+    color: var(--insight-navy);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .insight-rail b {
+    margin-left: 0.35rem;
+  }
+
+  .insight-prose {
+    width: min(100%, 47rem);
+  }
+
+  .insight-prose :global(> p:first-child) {
+    color: var(--insight-ink);
+    font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+    font-weight: 300;
+    letter-spacing: -0.025em;
+    line-height: 1.48;
+  }
+
+  .insight-prose :global(p) {
+    margin: 0 0 1.35rem;
+    color: var(--insight-soft);
+    font-size: 1.03rem;
+    font-weight: 300;
+    line-height: 1.82;
+  }
+
+  .insight-prose :global(h2) {
+    margin: clamp(4rem, 8vw, 6.5rem) 0 1.35rem;
+    color: var(--insight-ink);
+    font-size: clamp(2rem, 4vw, 3.35rem);
+    font-weight: 400;
+    letter-spacing: -0.055em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  .insight-prose :global(ul),
+  .insight-prose :global(ol) {
+    display: grid;
+    gap: 0.7rem;
+    margin: 1.5rem 0 2rem;
+    padding-left: 1.35rem;
+  }
+
+  .insight-prose :global(li) {
+    padding-left: 0.4rem;
+    color: var(--insight-soft);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  .insight-prose :global(blockquote) {
+    margin: clamp(3rem, 6vw, 5rem) 0;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px solid var(--insight-line);
+    border-left: 3px solid var(--insight-navy);
+    background:
+      radial-gradient(circle at 95% 10%, rgba(198, 137, 111, 0.14), transparent 35%),
+      #eef0ef;
+  }
+
+  .insight-prose :global(blockquote p) {
+    margin: 0;
+    color: var(--insight-ink);
+    font-size: clamp(1.18rem, 2vw, 1.5rem);
+    line-height: 1.55;
+  }
+
+  .insight-end {
+    padding-block: clamp(4.5rem, 9vw, 8rem);
+    color: #f4f5f7;
+    background:
+      radial-gradient(circle at 4% 5%, rgba(191, 117, 90, 0.4), transparent 34%),
+      linear-gradient(135deg, #172b47, #1d3557 58%, #354e62);
+  }
+
+  .insight-end__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.72fr);
+    gap: clamp(3rem, 9vw, 9rem);
+    align-items: start;
+  }
+
+  .insight-end .insight-series {
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .insight-end h2 {
+    max-width: 13ch;
+    margin: 1rem 0 0;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    line-height: 0.98;
+  }
+
+  .insight-end__grid > div:last-child > p {
+    margin: 0 0 1.4rem;
+    color: rgba(255, 255, 255, 0.74);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .insight-end__disclaimer {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 0.78rem;
+  }
+
+  .insight-end__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 0.35rem;
+    padding: 0.85rem 1.15rem;
+    border-radius: 0.3rem;
+    color: var(--insight-navy);
+    background: #f5f3ee;
+    font-size: 0.86rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  @media (max-width: 960px) {
+    .insight-body__grid,
+    .insight-end__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .insight-back {
+      margin-bottom: 3rem;
+    }
+
+    .insight-rail {
+      position: static;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--insight-line);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .insight-shell {
+      width: min(100% - 2rem, 92rem);
+    }
+
+    .insight-connections {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(9rem, 1fr);
+      grid-template-columns: unset;
+      overflow-x: auto;
+      padding-bottom: 0.35rem;
+    }
+  }
+</style>

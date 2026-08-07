@@ -760,6 +760,7 @@ export const footerNav = [
   { label: 'What We Build', href: '/#what-we-build' },
   { label: 'Systems', href: '/#systems' },
   { label: 'How We Work', href: '/#how-we-work' },
+  { label: 'Insights', href: '/insights' },
   { label: 'Contact', href: '/#contact' },
   { label: 'Privacy', href: '/privacy' },
 ] as const;

@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+import InsightArticle from '../../components/insights/InsightArticle.astro';
+import { pageTitle } from '../../config/site';
+
+export async function getStaticPaths() {
+  const insights = await getCollection('insights', ({ data }) => !data.draft);
+
+  return insights.map((insight) => ({
+    params: { slug: insight.slug },
+    props: { insight },
+  }));
+}
+
+const { insight } = Astro.props;
+const { Content } = await render(insight);
+const wordCount = insight.body.trim().split(/\s+/).length;
+const readingMinutes = Math.max(1, Math.ceil(wordCount / 220));
+---
+
+<Layout
+  title={pageTitle(insight.data.title)}
+  description={insight.data.description}
+  ogImage={insight.data.coverImage}
+>
+  <InsightArticle insight={insight} readingMinutes={readingMinutes}>
+    <Content />
+  </InsightArticle>
+</Layout>

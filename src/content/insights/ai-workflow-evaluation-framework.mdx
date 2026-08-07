@@ -1,0 +1,155 @@
+---
+title: How we test AI workflows before people rely on them
+description: A practical evaluation framework for checking routing, approvals, failures and policy behaviour.
+publishedAt: 2026-08-07
+series: Controls in practice
+seriesNumber: 1
+topic: AI evaluation
+coverImage: /images/insights/controls-in-practice-blended-atmosphere.png
+coverAlt: Blended navy, teal, amber and clay atmosphere for the Controls in practice series.
+bodyImage: /images/projects/opsdesk/eval-scorecard-editorial.png
+bodyImageAlt: OpsDesk evaluation scorecard showing practice scenario results, approval gates and workflow checks.
+closing:
+  title: Does your workflow behave reliably when the conditions change?
+  body: We can help identify the rules, approval boundaries and failure cases your workflow needs to handle before your team relies on it.
+  label: Discuss your workflow
+  href: /#contact
+featured: false
+tags:
+  - AI evaluation
+  - Workflow testing
+  - Human approval
+  - AI governance
+disclaimer: Example evaluation framework demonstrated with synthetic workflow scenarios. The right checks depend on the organisation's process, policies and risk boundaries.
+---
+
+A working demo is not enough.
+
+An AI workflow can look successful when the happy path is tested once. The real test comes when an urgent request arrives, a rule conflicts with the message, an integration fails, or the model produces output that should not be trusted.
+
+Before people rely on an operational AI system, its important behaviour needs to be observable and testable.
+
+This article explains a practical evaluation framework for checking routing, approvals, failures and policy behaviour. It uses the OpsDesk workflow as an example, but the same approach can apply to other systems that classify information, coordinate tools or support operational decisions.
+
+## A working demo is not enough
+
+Getting a workflow to run once proves that the pieces can connect. It does not prove that the right rules still hold when the conditions change.
+
+A system can appear healthy while quietly failing in the situations that matter most. An urgent hazard might stop escalating. Chargeable work might move forward without approval. A failed integration might disappear without anyone knowing.
+
+Those are not cosmetic defects. They are failures at the boundary between automation, authority and risk.
+
+The evaluation framework starts by making those boundaries explicit.
+
+## What the evaluation framework checks
+
+Each practice scenario describes a situation, the relevant context and the behaviour the workflow should follow.
+
+The evaluation then checks whether the system:
+
+- Identifies the right issue and urgency
+- Routes the case to the right person or queue
+- Holds sensitive actions behind the required approval
+- Uses the right policy or supporting context
+- Blocks invalid or unsafe model output
+- Keeps integration failures visible
+- Produces a response that is appropriate for the audience
+
+The result is a simple record of what passed, what failed, what changed and what was not tested.
+
+## Test the behaviour that matters
+
+The framework is not trying to measure whether an AI system sounds intelligent. It is checking whether the workflow behaves correctly in the situations the team has agreed matter.
+
+For an operations workflow, that can include:
+
+### Urgent issues still escalate
+
+If a message describes a hazard, the urgent path should take priority over routine language or chargeable details elsewhere in the request.
+
+### Chargeable work still requires approval
+
+The workflow should not allow a confident draft or a familiar supplier to bypass an authority boundary.
+
+### Invalid model output is blocked
+
+If the model response does not match the expected structure, the workflow should stop or route the case for attention rather than continuing as if nothing happened.
+
+### Policy context appears when needed
+
+When a draft depends on a policy or property detail, the workflow should make the relevant context visible instead of relying on an unexplained answer.
+
+### Integration failures stay visible
+
+If a message cannot be routed or context cannot be retrieved, that failure should appear on the case with a path to recovery.
+
+## Use realistic practice scenarios
+
+Practice scenarios do not need to use production data. They need to represent the situations the workflow is expected to handle.
+
+A useful scenario describes:
+
+1. What arrived
+2. What the system should identify
+3. Which policy or rule applies
+4. Whether approval is required
+5. What output is acceptable
+6. What should happen if a step fails
+
+This makes the expected behaviour clear before the system runs. It also gives the team a shared language for discussing what passed and what needs to change.
+
+## Check the trust boundaries
+
+The evaluation should confirm not only that the workflow reaches an outcome, but that it reaches that outcome in the right way.
+
+For example, an AI-generated reply may be useful, but the model should not decide spending authority on its own. A request can be classified automatically while the consequential action remains behind a human approval step.
+
+The checks should make that boundary visible:
+
+- What the model proposes
+- What the rules decide
+- What the workflow blocks
+- What a person must approve
+- What gets recorded for later review
+
+This is how automation can remain useful without becoming opaque.
+
+## Make failures visible
+
+A visible failure is easier to manage than a silent success that never happened.
+
+When an integration fails, the case should move into a clear needs-attention state. The team should be able to see what failed, retry the step and keep the existing history.
+
+The evaluation framework checks that recovery behaviour as well as the normal path. A workflow is not dependable if it only works when every connection responds perfectly.
+
+## Track change over time
+
+The scorecard is most useful when it becomes a record of change.
+
+Each run can show:
+
+- Which practice scenarios passed or failed
+- Whether approval gates held
+- What changed since the last known-good version
+- Which checks were run
+- What remains untested
+
+This creates a practical release boundary. A workflow can be changed and checked against the behaviour the team already relies on before the new version is used.
+
+## What a useful result looks like
+
+The goal is not to say that the AI is perfect. The useful result is a clearer answer to a more practical set of questions:
+
+- Which behaviours can the team rely on?
+- Which cases still need attention?
+- Did a recent change affect an approval boundary?
+- Are failures visible and recoverable?
+- What has not been tested yet?
+
+That record helps the team decide what is ready, what needs work and where human review remains essential.
+
+## The practical aim
+
+The practical aim is simple: make important workflow behaviour testable before a team relies on it.
+
+Evaluation does not remove uncertainty from operational AI. It makes uncertainty easier to see, discuss and manage.

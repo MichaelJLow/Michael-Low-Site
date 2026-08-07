@@ -11,6 +11,7 @@ export default defineConfig({
   site: 'https://michaeljlow.com',
   redirects: {
     '/work': '/how-i-work',
+    '/systems/invoiceflow-ap': '/insights/invoice-and-document-processing',
   },
   integrations: [
     mdx(),

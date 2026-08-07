@@ -60,6 +60,31 @@ const projectSchema = z.object({
   draft: z.boolean().default(false),
 });
 
+const insightSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  publishedAt: z.coerce.date(),
+  updatedAt: z.coerce.date().optional(),
+  series: z.string(),
+  seriesNumber: z.number().int().positive().optional(),
+  topic: z.string(),
+  coverImage: z.string(),
+  coverAlt: z.string(),
+  bodyImage: z.string().optional(),
+  bodyImageAlt: z.string().optional(),
+  closing: z.object({
+    title: z.string(),
+    body: z.string(),
+    label: z.string().default('Book a no-cost workflow review'),
+    href: z.string().default('/#contact'),
+  }),
+  featured: z.boolean().default(false),
+  draft: z.boolean().default(false),
+  tags: z.array(z.string()).default([]),
+  disclaimer: z.string().optional(),
+});
+
 export const collections = {
   projects: defineCollection({ type: 'content', schema: projectSchema }),
+  insights: defineCollection({ type: 'content', schema: insightSchema }),
 };
