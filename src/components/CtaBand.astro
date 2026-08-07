@@ -1,16 +1,18 @@
 ---
-import { site, primaryCta, contact } from '../config/site';
+import { site, primaryCta, discoveryCall } from '../config/site';
 
 interface Props {
   kicker?: string;
   title?: string;
   body?: string;
+  showFitCheck?: boolean;
 }
 
 const {
   kicker = 'Next step',
   title = 'Have a workflow like this?',
-  body = 'Start with a Workflow Review: one working session on a single workflow, a short written summary, and an honest recommendation on whether it is worth automating.',
+  body = discoveryCall.intro,
+  showFitCheck = false,
 } = Astro.props;
 ---
 
@@ -26,8 +28,14 @@ const {
         <a class="cta-band__button" href={primaryCta.href}>
           {primaryCta.label} <span aria-hidden="true">↗</span>
         </a>
-        <span class="cta-band__price">{contact.price}</span>
+        <span class="cta-band__price">{primaryCta.note}</span>
       </div>
+      {showFitCheck && (
+        <p class="cta-band__fit">
+          Prefer email first?
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </p>
+      )}
       <a class="cta-band__email" href={`mailto:${site.email}`}>{site.email}</a>
     </div>
   </div>
@@ -38,10 +46,8 @@ const {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    color: #f4f0e8;
-    background:
-      radial-gradient(ellipse 80% 55% at 50% -10%, rgba(255, 255, 255, 0.05) 0%, transparent 55%),
-      #202220;
+    color: #f7f8fa;
+    background: #12151a;
     padding-block: clamp(4.5rem, 8vw, 7.5rem);
     font-family: 'IBM Plex Sans', system-ui, sans-serif;
   }
@@ -59,7 +65,7 @@ const {
 
   .cta-band__kicker {
     margin: 0;
-    color: color-mix(in srgb, #f4f0e8 62%, transparent);
+    color: color-mix(in srgb, #f7f8fa 62%, transparent);
     font-family: 'IBM Plex Mono', ui-monospace, monospace;
     font-size: 0.68rem;
     letter-spacing: 0.08em;
@@ -70,7 +76,7 @@ const {
     max-width: 16ch;
     margin: 0.85rem 0 0;
     font-size: clamp(2.2rem, 4.2vw, 4rem);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.02;
     letter-spacing: -0.055em;
     text-wrap: balance;
@@ -78,15 +84,15 @@ const {
 
   .cta-band__copy {
     display: grid;
-    gap: 1.5rem;
+    gap: 1.25rem;
     justify-items: start;
   }
 
   .cta-band__copy > p {
     margin: 0;
-    color: color-mix(in srgb, #f4f0e8 68%, transparent);
+    color: color-mix(in srgb, #f7f8fa 72%, transparent);
     font-size: 1rem;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.7;
   }
 
@@ -104,42 +110,48 @@ const {
     min-height: 3.4rem;
     padding: 0.9rem 1.4rem;
     border-radius: 0.35rem;
-    color: #202220;
-    background: #f4f0e8;
+    color: #12151a;
+    background: #f7f8fa;
     font-size: 0.98rem;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
-    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    border: 1px solid #f7f8fa;
   }
 
   .cta-band__button:hover {
-    transform: translateY(-2px);
-  }
-
-  .cta-band__button span {
-    transition: transform 180ms ease;
-  }
-
-  .cta-band__button:hover span {
-    transform: translate(2px, -2px);
+    background: #ffffff;
   }
 
   .cta-band__price {
-    color: color-mix(in srgb, #f4f0e8 62%, transparent);
+    color: color-mix(in srgb, #f7f8fa 62%, transparent);
     font-family: 'IBM Plex Mono', ui-monospace, monospace;
     font-size: 0.72rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
+  .cta-band__fit {
+    margin: 0;
+    color: color-mix(in srgb, #f7f8fa 70%, transparent);
+    font-size: 0.92rem;
+  }
+
+  .cta-band__fit a {
+    margin-left: 0.35rem;
+    color: #7ba7c9;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
   .cta-band__email {
-    color: color-mix(in srgb, #f4f0e8 72%, transparent);
+    color: color-mix(in srgb, #f7f8fa 72%, transparent);
     font-size: 0.92rem;
     text-decoration: none;
   }
 
   .cta-band__email:hover {
-    color: #f4f0e8;
+    color: #f7f8fa;
   }
 
   @media (max-width: 980px) {

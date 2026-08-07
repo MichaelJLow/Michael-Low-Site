@@ -3,8 +3,6 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../../components/Layout.astro';
 import CaseStudyHero from '../../components/case-study/CaseStudyHero.astro';
 import OutcomeList from '../../components/OutcomeList.astro';
-import RelatedProjects from '../../components/RelatedProjects.astro';
-import { getFeaturedProjects } from '../../utils/content';
 import { featuredProjectSlugs, pageTitle } from '../../config/site';
 
 export async function getStaticPaths() {
@@ -19,7 +17,6 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const listedProjects = await getFeaturedProjects();
 const { title, description, outcomes } = project.data;
 const isCaseStudy = featuredProjectSlugs.includes(project.slug as (typeof featuredProjectSlugs)[number]);
 ---
@@ -34,11 +31,6 @@ const isCaseStudy = featuredProjectSlugs.includes(project.slug as (typeof featur
           <Content />
         </div>
       </div>
-      <RelatedProjects
-        projects={listedProjects}
-        currentSlug={project.slug}
-        relatedSlugs={project.data.related}
-      />
     </article>
   </main>
 </Layout>

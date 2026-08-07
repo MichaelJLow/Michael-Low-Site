@@ -1,26 +1,153 @@
 ---
 import Layout from '../components/Layout.astro';
-import OfferLadder from '../components/OfferLadder.astro';
-import CtaBand from '../components/CtaBand.astro';
-import {
-  site,
-  homeHero,
-  homeOfferSection,
-  homeProofSection,
-  homeWhoLabel,
-  homeWhoTitle,
-  homeWhoIntro,
-  homeWhoPains,
-  processStrip,
-  homeFounderLine,
-  primaryCta,
-  secondaryCta,
-  contact,
-} from '../config/site';
-import { getHomeFeaturedProjects } from '../utils/content';
+import { site } from '../config/site';
 
-const systems = await getHomeFeaturedProjects();
-const [flagship, ...supporting] = systems;
+const problems = [
+  'Your team spends hours moving the same information between systems.',
+  'Work gets stuck waiting for someone to notice, decide or follow up.',
+  'Nobody has the full picture when a request changes hands.',
+  'The process only works when the right person remembers every step.',
+];
+
+const pillars = [
+  {
+    slug: 'connect',
+    title: 'Connect',
+    impact: 'Bring the moving parts into one system.',
+    description: 'Bring together the tools, data and information your business already relies on.',
+    items: ['Tool and API integrations', 'Shared operational data', 'Structured information flows'],
+  },
+  {
+    slug: 'coordinate',
+    title: 'Coordinate',
+    impact: 'Move work forward without the chasing.',
+    description: 'Create workflows that route work, trigger actions and keep processes moving.',
+    items: ['Workflow coordination', 'AI-assisted decisions', 'Approvals and follow-ups'],
+  },
+  {
+    slug: 'control',
+    title: 'Control',
+    impact: 'Keep people in charge where it matters.',
+    description: 'Build in oversight, review points and clear exception handling.',
+    items: ['Human approval', 'Audit trails and alerts', 'Evaluation and manual override'],
+  },
+];
+
+const steps = [
+  {
+    number: '01',
+    title: 'Understand the workflow',
+    description: 'Map the existing process, tools, people, decisions and operational pain points.',
+    service: 'Workflow review',
+    output: 'A clear view of where a system could create value.',
+  },
+  {
+    number: '02',
+    title: 'Design the operating layer',
+    description: 'Design the operating layer and build one important workflow so the team can test it in practice.',
+    service: 'Starter workflow',
+    output: 'One useful workflow running with the right controls and integrations.',
+  },
+  {
+    number: '03',
+    title: 'Build the integrated system',
+    description: 'Extend the first workflow into a connected system across more tools, processes and teams.',
+    service: 'Integrated AI system',
+    output: 'A dependable operating layer supporting multiple workflows.',
+  },
+  {
+    number: '04',
+    title: 'Launch, support and improve',
+    description: 'Monitor performance, handle exceptions, improve workflows and support the team as the business changes.',
+    service: 'Ongoing system support',
+    output: 'A system that stays useful, reliable and improving.',
+  },
+];
+
+const systems = [
+  {
+    tone: 'ember',
+    title: 'Request-to-resolution systems',
+    description:
+      'Capture incoming requests, extract the relevant information, assign responsibility, manage approvals and track progress through to completion.',
+    exampleLabel: 'Example workflow case study',
+    image: '/images/projects/opsdesk/opsdesk-dashboard-homepage.png',
+    imageAlt: 'OpsDesk request queue with chargeable work awaiting approval',
+    href: '/projects/opsdesk-ai',
+    cta: 'View case study',
+    integrations: [
+      { label: 'Intake', name: 'Gmail', icon: '/images/integrations/gmail.png' },
+      { label: 'Alerts', name: 'Slack', icon: '/images/integrations/slack.png' },
+      { label: 'Context', name: 'HubSpot', icon: '/images/integrations/hubspot.png' },
+    ],
+  },
+  {
+    tone: 'violet',
+    title: 'Invoice and document processing',
+    description:
+      'Extract, validate and route information from invoices, forms, emails and business documents while escalating uncertain cases for review.',
+    exampleLabel: 'Example system',
+  },
+  {
+    tone: 'mist',
+    title: 'Internal knowledge and search',
+    description:
+      'Make policies, documents, project information and organisational knowledge easier for teams to find and use.',
+    exampleLabel: 'Example system',
+  },
+  {
+    tone: 'rose',
+    title: 'Lead qualification and follow-up',
+    description:
+      'Capture enquiries, enrich information, assess fit, draft responses and coordinate consistent follow-up.',
+    exampleLabel: 'Example system',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What kinds of businesses do you work with?',
+    answer: [
+      'Layer works with growing businesses that have important workflows spread across multiple tools, teams and manual processes.',
+      'The strongest fit is usually a business where repetitive operational work, disconnected information or unclear handovers are beginning to slow the team down.',
+    ],
+  },
+  {
+    question: 'Do we need to replace our existing software?',
+    answer: [
+      'No. Layer designs systems around the tools your business already uses.',
+      'Where practical, we connect and improve your existing software rather than asking your team to replace everything or adopt an entirely new platform.',
+    ],
+  },
+  {
+    question: 'What can AI handle within a workflow?',
+    answer: [
+      'AI can help classify information, extract and structure data, draft responses, search internal knowledge, summarise activity and support operational decisions.',
+      'The system can include human review, approval steps and escalation rules wherever judgement or oversight is required.',
+    ],
+  },
+  {
+    question: 'How does a project begin?',
+    answer: [
+      'Every project begins with a no-cost initial workflow review.',
+      'We look at how the process works today, which tools and people are involved, where work is slowing down and whether a custom system would create meaningful value.',
+    ],
+  },
+  {
+    question: 'How much does a system cost?',
+    answer: [
+      'Each project is scoped around the workflow, integrations, complexity and level of oversight required.',
+      'After the initial workflow review, Layer provides a clear recommendation, proposed scope and pricing before any work begins.',
+    ],
+  },
+  {
+    question: 'How long does a project take?',
+    answer: [
+      'Delivery time depends on the size and complexity of the workflow.',
+      'Where possible, Layer begins with a focused first version that solves the most important part of the process. The system can then be tested, improved and expanded in stages.',
+    ],
+  },
+];
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -29,957 +156,1677 @@ const jsonLd = {
   description: site.description,
   url: site.url,
   email: site.email,
-  founder: {
-    '@type': 'Person',
-    name: site.name,
-    url: `${site.url}/about`,
-    sameAs: [site.github, site.linkedin],
-  },
+  serviceType: 'Applied AI systems consultancy',
   areaServed: 'Worldwide',
-  serviceType: 'Applied AI workflow design, automation and implementation',
 };
 ---
 
 <Layout title={site.title} description={site.description} jsonLd={jsonLd}>
-  <div class="mock">
-    <section class="mock-hero" aria-labelledby="mock-hero-title">
-      <div class="mock-shell mock-hero__grid">
-        <div class="mock-hero__copy" data-reveal data-reveal-hero>
-          <p class="mock-kicker">{site.brand}</p>
-          <h1 id="mock-hero-title">{homeHero.headline}</h1>
-          <p class="mock-hero__intro">{homeHero.support}</p>
-          <div class="mock-actions">
-            <a class="mock-button mock-button--primary" href={primaryCta.href}>{primaryCta.label}</a>
-            <a class="mock-text-link" href={secondaryCta.href}>
-              {secondaryCta.label} <span aria-hidden="true">→</span>
+  <div class="layer-home">
+    <section class="layer-hero" aria-labelledby="hero-title">
+      <div class="layer-hero__atmosphere" aria-hidden="true">
+        <img
+          src="/images/layer-hero-floating-network-cleaned.png"
+          alt=""
+          width="1024"
+          height="576"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+      <div class="layer-shell layer-hero__inner">
+        <div class="layer-hero__copy" data-reveal data-hero-reveal>
+          <p class="layer-eyebrow"><span></span> AI systems and workflow automation</p>
+          <h1 id="hero-title">Build the operating layer between your team and your tools.</h1>
+          <p class="layer-hero__intro">
+            Layer connects your people, processes and existing software through practical AI systems and workflow
+            automation, shaped around how your business actually works.
+          </p>
+          <div class="layer-actions">
+            <a class="layer-button layer-button--primary" href="#contact">
+              Book a workflow review <span aria-hidden="true">↗</span>
             </a>
+            <a class="layer-link" href="#what-we-build">See what Layer builds <span aria-hidden="true">↓</span></a>
           </div>
-          <p class="mock-hero__price">{primaryCta.price} · one workflow, one session, a written recommendation</p>
+          <p class="layer-hero__note">No-cost initial workflow review</p>
         </div>
-
-        <figure class="mock-refinement" data-reveal data-reveal-hero data-reveal-hero-media>
-          <img
-            src="/images/neural-system-hero.png"
-            alt=""
-            width="1254"
-            height="1254"
-            loading="eager"
-            decoding="async"
-          />
-        </figure>
+      </div>
+      <div class="layer-shell layer-hero__legend" aria-hidden="true">
+        <span>Team</span><i></i><strong>Layer</strong><i></i><span>Tools</span>
       </div>
     </section>
 
-    <!-- SELECTED CASE STUDIES: OpsDesk flagship + two supporting -->
-    <section id="case-studies" class="mock-section mock-systems" aria-labelledby="systems-title">
-      <div class="mock-shell">
-        <header class="mock-systems__head" data-reveal>
-          <p class="mock-kicker">{homeProofSection.kicker}</p>
-          <h2 id="systems-title">{homeProofSection.title}</h2>
-          <p class="mock-systems__lede">{homeProofSection.intro}</p>
-        </header>
-
-        {flagship && (
-          <article class="mock-feature" data-reveal data-reveal-media>
-            <a href={`/projects/${flagship.slug}`} aria-label={`Read the ${flagship.data.title} case study`}>
-              <div class="mock-feature__visual">
-                {(flagship.data.cardImage ?? flagship.data.coverImage) ? (
-                  <img
-                    src={flagship.data.cardImage ?? flagship.data.coverImage}
-                    alt={`${flagship.data.title} interface`}
-                    loading="lazy"
-                    decoding="async"
-                    style={`object-position: ${flagship.data.coverPosition === 'top' ? 'left top' : (flagship.data.coverPosition ?? 'left top')};`}
-                  />
-                ) : null}
-              </div>
-              <div class="mock-feature__copy">
-                <div class="mock-feature__meta">
-                  <span>{flagship.data.category}</span>
-                  <span>{flagship.data.status}</span>
-                </div>
-                <h3>{flagship.data.title}</h3>
-                <p>{flagship.data.description}</p>
-                {flagship.data.systemLine && (
-                  <p class="mock-feature__system-line">{flagship.data.systemLine}</p>
-                )}
-                <span class="mock-feature__view">
-                  Case study <span aria-hidden="true">↗</span>
-                </span>
-              </div>
-            </a>
-          </article>
-        )}
-
-        <div class="mock-pair" data-reveal-stagger>
-          {supporting.map((project) => {
-            const { title, description, coverImage, cardImage, coverFit, coverPosition, category, status } =
-              project.data;
-            const thumb = cardImage ?? coverImage;
-            return (
-              <article class="mock-pair__item" data-reveal data-reveal-media>
-                <a href={`/projects/${project.slug}`} aria-label={`Read the ${title} case study`}>
-                  <div class={`mock-pair__visual${coverFit === 'contain' ? ' mock-pair__visual--contain' : ''}`}>
-                    {thumb ? (
-                      <img
-                        src={thumb}
-                        alt={`${title} interface`}
-                        loading="lazy"
-                        decoding="async"
-                        style={`object-fit: ${coverFit ?? 'cover'}; object-position: ${coverPosition ?? 'center top'};`}
-                      />
-                    ) : (
-                      <span>{title}</span>
-                    )}
-                  </div>
-                  <div class="mock-pair__copy">
-                    <div class="mock-pair__meta">
-                      <span>{category}</span>
-                      <span>{status}</span>
-                    </div>
-                    <h3>{title}</h3>
-                    <p>{description}</p>
-                    <span class="mock-pair__view">
-                      Case study <span aria-hidden="true">↗</span>
-                    </span>
-                  </div>
-                </a>
-              </article>
-            );
-          })}
+    <section class="layer-section layer-problem" aria-labelledby="problem-title">
+      <div class="layer-shell">
+        <div class="layer-problem__grid">
+          <header class="layer-section-head" data-reveal>
+            <p class="layer-kicker">The operational gap</p>
+            <h2 id="problem-title">Disconnected tools create manual work.</h2>
+          </header>
+          <div class="layer-problem__copy" data-reveal>
+            <p>
+              As businesses grow, work becomes spread across inboxes, spreadsheets, software and people. Teams spend
+              more time copying information, chasing updates and managing handovers than moving the work forward.
+            </p>
+          </div>
         </div>
-
-        <div class="mock-section-action" data-reveal>
-          <a class="mock-text-link" href="/projects">All case studies <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- WORKING WITH ME: the offer ladder -->
-    <section id="working-with-me" class="mock-section mock-offer" aria-labelledby="offer-title">
-      <div class="mock-shell">
-        <header class="mock-offer__head" data-reveal>
-          <p class="mock-kicker">{homeOfferSection.kicker}</p>
-          <h2 id="offer-title">{homeOfferSection.title}</h2>
-          <p class="mock-offer__lede">{homeOfferSection.intro}</p>
-        </header>
-
-        <div data-reveal>
-          <OfferLadder variant="compact" />
-        </div>
-
-        <div class="mock-section-action" data-reveal>
-          <a class="mock-text-link" href="/how-i-work">
-            Full detail on how I work <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHO THIS IS FOR -->
-    <section id="who" class="mock-section mock-who" aria-labelledby="who-title">
-      <div class="mock-shell mock-who__layout">
-        <header data-reveal>
-          <p class="mock-kicker">{homeWhoLabel}</p>
-          <h2 id="who-title">{homeWhoTitle}</h2>
-          <p class="mock-who__lede">{homeWhoIntro}</p>
-        </header>
-        <ul class="mock-who__list" data-reveal data-reveal-delay="1">
-          {homeWhoPains.map((pain) => <li>{pain}</li>)}
-        </ul>
-      </div>
-    </section>
-
-    <!-- PROCESS STRIP -->
-    <section id="process" class="mock-section mock-process" aria-labelledby="process-title">
-      <div class="mock-shell">
-        <header class="mock-process__head" data-reveal>
-          <p class="mock-kicker">How the work runs</p>
-          <h2 id="process-title">Observe, simplify, build, iterate.</h2>
-        </header>
-        <ol class="mock-process__steps" data-reveal-stagger>
-          {processStrip.map((step, index) => (
+        <ol class="layer-problem__list" data-reveal-stagger>
+          {problems.map((problem, index) => (
             <li data-reveal>
               <span>0{index + 1}</span>
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
+              <p>{problem}</p>
+              <i aria-hidden="true"></i>
             </li>
           ))}
         </ol>
-        <p class="mock-founder" data-reveal>
-          {homeFounderLine.text}
-          <a href={homeFounderLine.href}>
-            {homeFounderLine.linkLabel} <span aria-hidden="true">→</span>
-          </a>
+        <p class="layer-problem__transition" data-reveal>
+          <span class="layer-wordmark-inline" aria-label="Layer.">
+            layer<span aria-hidden="true">.</span>
+          </span>{' '}
+          connects the work happening between your systems.
         </p>
       </div>
     </section>
 
-    <CtaBand
-      kicker="Start here"
-      title="Tell me which workflow is costing you the most."
-      body={contact.intro}
-    />
+    <section id="what-we-build" class="layer-section layer-builds" aria-labelledby="builds-title">
+      <div class="layer-shell">
+        <header class="layer-section-head layer-section-head--light" data-reveal>
+          <p class="layer-kicker">The operating model</p>
+          <h2 id="builds-title">What Layer builds</h2>
+          <p>Layer builds the systems that connect information, coordinate work and keep people in control.</p>
+        </header>
+        <div class="layer-triptych" data-reveal-stagger>
+          {pillars.map((pillar) => (
+            <article class={`layer-pillar layer-pillar--${pillar.slug}`} data-reveal>
+              <div class="layer-pillar__copy">
+                <h3>{pillar.title}</h3>
+                <p class="layer-pillar__impact">{pillar.impact}</p>
+                <p>{pillar.description}</p>
+              </div>
+              <ul>
+                {pillar.items.map((item) => <li>{item}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="systems" class="layer-section layer-systems" aria-labelledby="systems-title">
+      <div class="layer-shell">
+        <header class="layer-section-head layer-systems__head" data-reveal>
+          <div>
+            <p class="layer-kicker">Example systems</p>
+            <h2 id="systems-title">Systems Layer can build</h2>
+          </div>
+          <p>Every system is shaped around the workflow, team and tools already inside the business.</p>
+        </header>
+        <div class="layer-system-grid" data-reveal-stagger>
+          {systems.map((system) => (
+            <article class={`layer-system-card layer-system-card--${system.tone}`} data-reveal>
+              <div class="layer-system-card__copy">
+                <span class="layer-system-card__badge">{system.exampleLabel}</span>
+                <h3>{system.title}</h3>
+                <p>{system.description}</p>
+                {system.href ? (
+                  <a class="layer-system-card__link" href={system.href}>
+                    {system.cta} <span aria-hidden="true">→</span>
+                  </a>
+                ) : (
+                  <span class="layer-system-card__soon">Case study coming soon</span>
+                )}
+              </div>
+              <div class="layer-system-card__stage">
+                <div class="layer-system-card__wash" aria-hidden="true"></div>
+                {system.image ? (
+                  <div class={`layer-system-card__media${system.integrations ? ' layer-system-card__media--showcase' : ''}`}>
+                    <figure class="layer-system-card__shot">
+                      <img
+                        src={system.image}
+                        alt={system.imageAlt || ''}
+                        width="1024"
+                        height="792"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </figure>
+                    {system.integrations && (
+                      <ul class="layer-system-card__integrations" aria-label="Connected tools">
+                        {system.integrations.map((tool) => (
+                          <li>
+                            <span>{tool.label}</span>
+                            <img src={tool.icon} alt="" width="40" height="40" loading="lazy" decoding="async" />
+                            <strong>{tool.name}</strong>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ) : (
+                  <div class="layer-system-card__placeholder">
+                    <span>Screenshot coming soon</span>
+                  </div>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="how-we-work" class="layer-section layer-process" aria-labelledby="process-title">
+      <div class="layer-shell">
+        <header class="layer-section-head layer-process__head" data-reveal>
+          <div>
+            <p class="layer-kicker">From friction to flow</p>
+            <h2 id="process-title">How we work</h2>
+          </div>
+          <p>From first workflow to operating system.</p>
+        </header>
+        <ol class="layer-step-grid" data-reveal-stagger>
+          {steps.map((step) => (
+            <li data-reveal>
+              <div class="layer-step__glow" aria-hidden="true"></div>
+              <div class="layer-step__top">
+                <span>{step.number}</span>
+              </div>
+              <p class="layer-step__phase">{step.title}</p>
+              <h3>{step.service}</h3>
+              <p>{step.description}</p>
+              <div class="layer-step__output">
+                <span>Result</span>
+                <p>{step.output}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <aside class="layer-review" data-reveal>
+          <div>
+            <p class="layer-kicker">Your first step</p>
+            <h3>Start with a workflow review</h3>
+          </div>
+          <div>
+            <p>
+              We begin with a focused conversation to understand where work is slowing down, what your team is handling
+              manually and whether a custom system would create meaningful value.
+            </p>
+            <a class="layer-button layer-button--primary" href="#contact">
+              Book a no-cost workflow review <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="layer-section layer-faq" aria-labelledby="faq-title">
+      <div class="layer-shell layer-faq__layout">
+        <header class="layer-section-head" data-reveal>
+          <p class="layer-kicker">Questions, answered</p>
+          <h2 id="faq-title">Frequently asked questions</h2>
+          <p>Clear answers about how Layer works, what we build and how a project begins.</p>
+        </header>
+        <div class="layer-faq__list" data-faq data-reveal>
+          {faqs.map((item, index) => (
+            <details open={index === 0}>
+              <summary>
+                <span>{item.question}</span>
+                <i aria-hidden="true"></i>
+              </summary>
+              <div class="layer-faq__answer">
+                {item.answer.map((paragraph) => <p>{paragraph}</p>)}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="layer-contact" aria-labelledby="contact-title">
+      <div class="layer-contact__atmosphere" aria-hidden="true"></div>
+      <div class="layer-shell layer-contact__layout">
+        <div class="layer-contact__copy" data-reveal>
+          <p class="layer-kicker">Start a conversation</p>
+          <h2 id="contact-title">Where is work getting stuck in your business?</h2>
+          <p>
+            Tell us about the process, the tools involved and where the manual work is happening. We’ll help you
+            understand what a better system could look like.
+          </p>
+          <p class="layer-contact__note">No-cost initial conversation. No obligation.</p>
+        </div>
+        <form class="layer-form" data-review-form data-email={site.email} data-reveal>
+          <div class="layer-form__row">
+            <label>
+              <span>Name</span>
+              <input name="name" type="text" autocomplete="name" required />
+            </label>
+            <label>
+              <span>Work email</span>
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+          </div>
+          <label>
+            <span>Company</span>
+            <input name="company" type="text" autocomplete="organization" required />
+          </label>
+          <label>
+            <span>What workflow or process would you like to improve?</span>
+            <textarea name="workflow" rows="4" required></textarea>
+          </label>
+          <label>
+            <span>What tools or software do you currently use?</span>
+            <textarea name="tools" rows="3" required placeholder="e.g. Gmail, HubSpot, Sheets, Slack"></textarea>
+          </label>
+          <button class="layer-button layer-button--light" type="submit">
+            Request a workflow review <span aria-hidden="true">↗</span>
+          </button>
+          <p class="layer-form__status" data-form-status aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
   </div>
 
   <script>
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const reveals = Array.from(document.querySelectorAll('[data-reveal]'));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealItems = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
 
-    const show = (el) => el.classList.add('is-in');
-
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-      reveals.forEach(show);
+    if (reducedMotion || !('IntersectionObserver' in window)) {
+      revealItems.forEach((item) => item.classList.add('is-visible'));
     } else {
-      document.querySelectorAll('[data-reveal-hero]').forEach((el) => {
-        window.setTimeout(() => show(el), 80);
-      });
-
-      const observer = new IntersectionObserver(
+      document.querySelectorAll<HTMLElement>('[data-hero-reveal]').forEach((item) => item.classList.add('is-visible'));
+      const revealObserver = new IntersectionObserver(
         (entries) => {
-          for (const entry of entries) {
-            if (!entry.isIntersecting) continue;
-            show(entry.target);
-            observer.unobserve(entry.target);
-          }
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          });
         },
-        { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+        { threshold: 0.12, rootMargin: '0px 0px -7% 0px' },
       );
-
-      reveals.forEach((el) => {
-        if (el.hasAttribute('data-reveal-hero')) return;
-        observer.observe(el);
+      revealItems.forEach((item) => {
+        if (!item.hasAttribute('data-hero-reveal')) revealObserver.observe(item);
       });
     }
+
+    document.querySelectorAll<HTMLDetailsElement>('[data-faq] details').forEach((detail) => {
+      detail.addEventListener('toggle', () => {
+        if (!detail.open) return;
+        document.querySelectorAll<HTMLDetailsElement>('[data-faq] details').forEach((other) => {
+          if (other !== detail) other.open = false;
+        });
+      });
+    });
+
+    const reviewForm = document.querySelector<HTMLFormElement>('[data-review-form]');
+    reviewForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(reviewForm);
+      const destination = reviewForm.dataset.email;
+      const subject = `Workflow review request from ${data.get('company')}`;
+      const body = [
+        `Name: ${data.get('name')}`,
+        `Work email: ${data.get('email')}`,
+        `Company: ${data.get('company')}`,
+        '',
+        'Workflow or process to improve:',
+        String(data.get('workflow')),
+        '',
+        'Tools or software currently used:',
+        String(data.get('tools')),
+      ].join('\n');
+      const status = reviewForm.querySelector<HTMLElement>('[data-form-status]');
+      if (status) status.textContent = 'Opening your email app to send the request…';
+      window.location.href = `mailto:${destination}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
   </script>
 </Layout>
 
 <style>
-  .mock {
-    --paper: #f4f0e8;
-    --raised: #faf7f1;
-    --deep: #e9e2d7;
-    --ink: #1d1f1e;
-    --soft: #454744;
-    --muted: #77756f;
-    --line: rgba(48, 47, 43, 0.14);
-    --line-strong: rgba(48, 47, 43, 0.24);
-    --signal: #3d5a4c;
-    --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    color: var(--ink);
-    background: var(--paper);
+  .layer-home {
+    --layer-paper: #f6f4ef;
+    --layer-paper-soft: #eceae5;
+    --layer-ink: #111317;
+    --layer-muted: #555d69;
+    --layer-navy: #1d3557;
+    --layer-navy-deep: #10233e;
+    --layer-line: rgba(17, 19, 23, 0.13);
+    color: var(--layer-ink);
+    background: var(--layer-paper);
     font-family: 'IBM Plex Sans', system-ui, sans-serif;
   }
 
-  .mock a {
+  .layer-home *,
+  .layer-home *::before,
+  .layer-home *::after {
+    box-sizing: border-box;
+  }
+
+  .layer-home a {
     text-decoration: none;
   }
 
-  .mock a:not(.mock-button) {
-    color: inherit;
-  }
-
-  .mock-shell {
-    width: min(92rem, calc(100% - 3rem));
+  .layer-shell {
+    width: min(88rem, calc(100% - 4rem));
     margin-inline: auto;
   }
 
-  .mock-kicker {
+  .layer-section {
+    padding-block: clamp(6rem, 10vw, 10rem);
+    scroll-margin-top: 4.75rem;
+  }
+
+  .layer-kicker,
+  .layer-eyebrow {
     margin: 0;
-    color: var(--muted);
     font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
   }
 
-  /* Hero */
-  .mock-hero {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    min-height: calc(100svh - 5.6rem);
-    display: flex;
-    flex-direction: column;
-    background: var(--paper);
+  .layer-kicker {
+    color: var(--layer-navy);
   }
 
-  .mock-hero::before,
-  .mock-hero::after {
+  .layer-section-head {
+    max-width: 47rem;
+  }
+
+  .layer-section-head h2 {
+    margin: 0.9rem 0 0;
+    font-size: clamp(2.7rem, 5.6vw, 5.8rem);
+    font-weight: 400;
+    letter-spacing: -0.065em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .layer-section-head > p:last-child {
+    max-width: 38rem;
+    margin: 1.4rem 0 0;
+    color: var(--layer-muted);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .layer-button {
+    display: inline-flex;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1.35rem;
+    padding: 0.85rem 1.2rem;
+    border: 1px solid transparent;
+    border-radius: 0.2rem;
+    font-size: 0.86rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  }
+
+  .layer-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .layer-button--primary {
+    color: #fff;
+    background: var(--layer-navy);
+    box-shadow: 0 12px 30px rgba(29, 53, 87, 0.2);
+  }
+
+  .layer-button--primary:hover {
+    color: #fff;
+    background: var(--layer-navy-deep);
+    box-shadow: 0 16px 34px rgba(29, 53, 87, 0.26);
+  }
+
+  .layer-button--light {
+    color: var(--layer-navy-deep);
+    background: #f8f6f1;
+  }
+
+  .layer-hero {
+    position: relative;
+    isolation: isolate;
+    min-height: calc(100svh - 4.75rem);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background: #d9d9d4;
+  }
+
+  .layer-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.12;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  .layer-hero__atmosphere {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    background: #e8e1d5;
+  }
+
+  .layer-hero__atmosphere img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .layer-hero__atmosphere::after {
     content: '';
     position: absolute;
     inset: 0;
     pointer-events: none;
+    background: linear-gradient(90deg, rgba(246, 244, 239, 0.22), transparent 45%);
   }
 
-  .mock-hero::before {
-    z-index: 0;
-    background:
-      radial-gradient(ellipse 38% 52% at 74% 40%, rgba(190, 128, 73, 0.22), transparent 68%),
-      radial-gradient(ellipse 34% 46% at 15% 73%, rgba(50, 73, 77, 0.13), transparent 70%),
-      radial-gradient(ellipse 29% 36% at 34% 24%, rgba(255, 255, 255, 0.72), transparent 68%),
-      radial-gradient(ellipse 30% 42% at 91% 84%, rgba(118, 95, 72, 0.12), transparent 72%),
-      linear-gradient(118deg, rgba(255, 255, 255, 0.4), transparent 46%);
+  .layer-hero__beam {
+    position: absolute;
+    left: 32%;
+    top: 48%;
+    width: 75%;
+    height: 8rem;
+    transform: translateY(-50%) rotate(-2deg);
+    background: linear-gradient(90deg, rgba(255, 221, 179, 0), rgba(255, 231, 202, 0.82) 30%, rgba(232, 239, 217, 0.7) 70%, rgba(192, 222, 216, 0));
+    filter: blur(22px);
   }
 
-  .mock-hero::after {
+  .layer-hero__planes {
+    position: absolute;
+    right: -9vw;
+    top: 50%;
+    width: min(61vw, 60rem);
+    height: 33rem;
+    transform: translateY(-48%) rotate(-7deg) skewX(-16deg);
+  }
+
+  .layer-hero__plane {
+    position: absolute;
+    left: 10%;
+    width: 84%;
+    height: 28%;
+    display: block;
+    border-radius: 1.5rem 0.35rem 1.5rem 0.35rem;
+    box-shadow: 0 24px 60px rgba(20, 32, 52, 0.2);
+  }
+
+  .layer-hero__plane--top {
+    top: 3%;
+    background: linear-gradient(100deg, rgba(231, 176, 142, 0.88), rgba(222, 205, 177, 0.58) 54%, rgba(152, 184, 179, 0.8));
+    filter: saturate(0.82);
+  }
+
+  .layer-hero__plane--core {
+    top: 35%;
+    left: 3%;
+    width: 94%;
     z-index: 2;
-    opacity: 1;
-    background-image:
-      repeating-linear-gradient(7deg, rgba(75, 62, 48, 0.038) 0, rgba(75, 62, 48, 0.038) 1px, transparent 1px, transparent 4px),
-      repeating-linear-gradient(97deg, rgba(255, 255, 255, 0.1) 0, rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 9px);
-    mix-blend-mode: multiply;
+    background:
+      radial-gradient(circle at 55% 45%, rgba(226, 170, 139, 0.7), transparent 34%),
+      linear-gradient(103deg, #152b4b 0%, #2e405e 46%, #647376 100%);
+    box-shadow: 0 28px 78px rgba(16, 35, 62, 0.35);
   }
 
-  .mock-hero__grid {
-    flex: 1;
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: min(92rem, calc(100% - 3rem));
-    max-width: 92rem;
-    margin-inline: auto;
-    padding-block: clamp(4rem, 7vh, 6rem) clamp(3rem, 5vh, 4rem);
-  }
-
-  .mock-hero__copy {
-    position: relative;
-    z-index: 3;
-    max-width: min(46rem, 52%);
-  }
-
-  .mock-hero h1 {
-    margin: 1.25rem 0 0;
-    font-size: clamp(2.7rem, 3.8vw + 0.9rem, 4.8rem);
-    font-weight: 500;
-    line-height: 1.02;
-    letter-spacing: -0.055em;
-    text-wrap: balance;
-  }
-
-  .mock-hero__intro {
-    max-width: 40rem;
-    margin: 1.7rem 0 0;
-    color: #263b47;
-    font-size: clamp(1.02rem, 1.4vw, 1.22rem);
-    font-weight: 400;
-    line-height: 1.65;
-    text-wrap: balance;
-  }
-
-  .mock-hero__price {
-    margin: 1.35rem 0 0;
-    color: var(--muted);
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .mock-actions {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.65rem;
-    margin-top: 2.5rem;
-  }
-
-  .mock-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
-    min-height: 3.65rem;
-    padding: 0.95rem 1.45rem;
-    border-radius: 0.35rem;
-    font-size: 0.98rem;
-    font-weight: 500;
-    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms ease;
-  }
-
-  .mock-button:hover {
-    transform: translateY(-2px);
-  }
-
-  .mock-button:active {
-    transform: translateY(1px) scale(0.985);
-  }
-
-  a.mock-button.mock-button--primary {
-    color: var(--paper);
-    background: var(--ink);
-    box-shadow: 0 8px 22px rgba(31, 31, 28, 0.12);
-  }
-
-  .mock-text-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    color: var(--soft);
-    font-size: 0.98rem;
-    font-weight: 500;
-  }
-
-  .mock-text-link span {
-    transition: transform 180ms ease;
-  }
-
-  .mock-text-link:hover {
-    color: var(--ink);
-  }
-
-  .mock-text-link:hover span {
-    transform: translate(2px, -1px);
-  }
-
-  .mock-refinement {
+  .layer-hero__plane--core::after {
+    content: 'OPERATING LAYER';
     position: absolute;
-    left: auto;
-    right: -1.5%;
-    top: 53%;
-    width: min(50%, 44rem);
-    height: auto;
-    aspect-ratio: 1;
-    transform: translateY(-50%);
-    margin: 0;
-    z-index: 1;
-    pointer-events: none;
-    overflow: visible;
+    right: 13%;
+    top: 50%;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.57rem;
+    letter-spacing: 0.18em;
+    transform: skewX(16deg) rotate(7deg);
   }
 
-  .mock-refinement img {
-    position: static;
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    display: block;
-    margin: 0;
-    object-fit: contain;
-    object-position: center;
-    mix-blend-mode: darken;
-    opacity: 0.98;
-    -webkit-mask-image: radial-gradient(circle, #000 68%, rgba(0, 0, 0, 0.72) 83%, transparent 100%);
-    mask-image: radial-gradient(circle, #000 68%, rgba(0, 0, 0, 0.72) 83%, transparent 100%);
+  .layer-hero__plane--bottom {
+    top: 67%;
+    left: 14%;
+    background: linear-gradient(100deg, rgba(73, 87, 114, 0.88), rgba(135, 111, 106, 0.6) 55%, rgba(150, 174, 169, 0.66));
   }
 
-  /* Shared section chrome */
-  .mock-section {
-    padding-block: clamp(5rem, 9vw, 8rem);
-    border-top: 1px solid var(--line);
+  .layer-hero__inner {
+    position: relative;
+    z-index: 2;
+    padding-block: clamp(5rem, 10vh, 8rem) clamp(7rem, 12vh, 10rem);
   }
 
-  .mock-systems__head h2,
-  .mock-offer__head h2,
-  .mock-who__layout h2,
-  .mock-process__head h2 {
-    max-width: 18ch;
-    margin: 0.75rem 0 0;
-    font-size: clamp(2.1rem, 3.8vw, 3.8rem);
-    font-weight: 400;
-    line-height: 1.03;
-    letter-spacing: -0.055em;
+  .layer-hero__copy {
+    max-width: 49rem;
+  }
+
+  .layer-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #46505c;
+  }
+
+  .layer-eyebrow span {
+    width: 1.6rem;
+    height: 1px;
+    background: var(--layer-navy);
+  }
+
+  .layer-hero h1 {
+    max-width: 13ch;
+    margin: 1.4rem 0 0;
+    font-size: clamp(3.25rem, 6.5vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.072em;
+    line-height: 0.92;
     text-wrap: balance;
   }
 
-  .mock-systems__lede,
-  .mock-offer__lede,
-  .mock-who__lede {
-    max-width: 36rem;
-    margin: 0.9rem 0 0;
-    color: var(--muted);
-    font-size: 1.02rem;
+  .layer-hero__intro {
+    max-width: 39rem;
+    margin: 1.8rem 0 0;
+    color: #424a55;
+    font-size: clamp(1rem, 1.45vw, 1.2rem);
     font-weight: 300;
-    line-height: 1.65;
+    line-height: 1.68;
   }
 
-  .mock-section-action {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 2.25rem;
-  }
-
-  /* Case studies */
-  .mock-systems {
-    background: linear-gradient(180deg, #f7f4ee 0%, #f2eee6 100%);
-  }
-
-  .mock-systems__head {
-    margin-bottom: clamp(3.25rem, 6.5vw, 5rem);
-  }
-
-  .mock-feature {
-    margin-bottom: clamp(3.25rem, 6vw, 5rem);
-  }
-
-  .mock-feature > a {
-    display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.75fr);
-    gap: clamp(1.75rem, 4vw, 3.5rem);
-    align-items: start;
-  }
-
-  .mock-feature__visual {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    min-height: 0;
-    background: #0a0a0a;
-    border-radius: 0.4rem;
-    box-shadow:
-      inset 0 0 0 1px rgba(48, 47, 43, 0.08),
-      0 0.8rem 2rem rgba(48, 47, 43, 0.055);
-  }
-
-  .mock-feature__visual img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    object-position: left top;
-    image-rendering: -webkit-optimize-contrast;
-    filter: contrast(1.04);
-    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), filter 300ms ease;
-  }
-
-  .mock-feature:hover .mock-feature__visual img {
-    transform: scale(1.03);
-    filter: contrast(1.05);
-  }
-
-  .mock-feature__copy {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 0.2rem;
-  }
-
-  .mock-feature__meta,
-  .mock-pair__meta {
+  .layer-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem 1.25rem;
-    color: var(--muted);
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.62rem;
+    align-items: center;
+    gap: 1rem 1.4rem;
+    margin-top: 2rem;
+  }
+
+  .layer-link {
+    display: inline-flex;
+    gap: 0.65rem;
+    align-items: center;
+    color: var(--layer-ink);
+    border-bottom: 1px solid rgba(17, 19, 23, 0.35);
+    padding: 0.75rem 0;
+    font-size: 0.86rem;
+  }
+
+  .layer-link:hover {
+    color: var(--layer-navy);
+    border-color: var(--layer-navy);
+  }
+
+  .layer-hero__note {
+    margin: 0.8rem 0 0;
+    color: #656d77;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
-  .mock-feature__copy h3 {
-    margin: 1.1rem 0 0;
-    font-size: clamp(1.9rem, 3vw, 3rem);
-    font-weight: 400;
-    letter-spacing: -0.05em;
-    line-height: 1.02;
-  }
-
-  .mock-feature__copy > p:not(.mock-feature__system-line) {
-    max-width: 28rem;
-    margin: 1.1rem 0 0;
-    color: var(--muted);
-    font-size: 0.95rem;
-    font-weight: 300;
-    line-height: 1.65;
-  }
-
-  .mock-feature__copy > p.mock-feature__system-line {
-    margin: 1rem 0 0;
-    color: var(--ink);
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
+  .layer-hero__legend {
+    position: absolute;
+    z-index: 3;
+    bottom: 1.3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: rgba(17, 19, 23, 0.52);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
-  .mock-feature__view,
-  .mock-pair__view {
-    display: inline-flex;
+  .layer-hero__legend i {
+    width: 1.4rem;
+    height: 1px;
+    background: rgba(17, 19, 23, 0.25);
+  }
+
+  .layer-hero__legend strong {
+    color: var(--layer-navy);
+    font-weight: 500;
+  }
+
+  .layer-problem {
+    background: var(--layer-paper);
+  }
+
+  .layer-problem__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.65fr);
+    gap: clamp(3rem, 8vw, 9rem);
+    align-items: end;
+  }
+
+  .layer-problem__copy p {
+    margin: 0;
+    color: var(--layer-muted);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .layer-problem__list {
+    margin: clamp(3.5rem, 7vw, 6.5rem) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--layer-line);
+  }
+
+  .layer-problem__list li {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr auto;
+    gap: 1.5rem;
     align-items: center;
-    gap: 0.45rem;
-    margin-top: 1.6rem;
-    font-size: 0.82rem;
-    font-weight: 500;
+    min-height: 5.6rem;
+    border-bottom: 1px solid var(--layer-line);
   }
 
-  .mock-feature__view span,
-  .mock-pair__view span {
-    transition: transform 180ms ease;
+  .layer-problem__list span {
+    color: var(--layer-navy);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
   }
 
-  .mock-feature:hover .mock-feature__view span,
-  .mock-pair__item:hover .mock-pair__view span {
-    transform: translate(2px, -2px);
+  .layer-problem__list p {
+    margin: 0;
+    font-size: clamp(1.08rem, 1.7vw, 1.4rem);
+    font-weight: 400;
   }
 
-  .mock-pair {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(1.5rem, 3.5vw, 2.75rem);
+  .layer-problem__list i {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--layer-navy);
+    opacity: 0.28;
   }
 
-  .mock-pair__item > a {
-    display: grid;
-    gap: 0.8rem;
-  }
-
-  .mock-pair__visual {
-    overflow: hidden;
-    aspect-ratio: 16 / 10;
-    background: #0a0a0a;
-    border-radius: 0.4rem;
-    box-shadow:
-      inset 0 0 0 1px rgba(48, 47, 43, 0.07),
-      0 0.55rem 1.4rem rgba(48, 47, 43, 0.045);
-  }
-
-  .mock-pair__visual--contain {
-    display: grid;
-    place-items: center;
-  }
-
-  .mock-pair__visual img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    object-position: center top;
-  }
-
-  .mock-pair__copy h3 {
-    margin: 0.3rem 0 0;
-    font-size: clamp(1.15rem, 1.7vw, 1.4rem);
-    font-weight: 500;
-    letter-spacing: -0.03em;
-    line-height: 1.2;
-  }
-
-  .mock-pair__copy > p {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    margin: 0.4rem 0 0;
-    color: var(--muted);
-    font-size: 0.88rem;
+  .layer-problem__transition {
+    margin: clamp(3rem, 6vw, 5rem) 0 0;
+    color: #3f4751;
+    font-size: clamp(1.5rem, 3.1vw, 2.8rem);
     font-weight: 300;
-    line-height: 1.55;
+    letter-spacing: -0.035em;
   }
 
-  .mock-pair__view {
-    margin-top: 0.5rem;
-    font-size: 0.78rem;
+  .layer-problem__transition .layer-wordmark-inline {
+    color: var(--layer-navy);
+    font-weight: 450;
+    letter-spacing: -0.06em;
+    white-space: nowrap;
   }
 
-  /* Working with me */
-  .mock-offer {
+  .layer-problem__transition .layer-wordmark-inline span {
+    color: var(--layer-navy);
+  }
+
+  .layer-builds {
     position: relative;
-    isolation: isolate;
     overflow: hidden;
+    color: #f4f5f7;
     background:
-      radial-gradient(ellipse 60% 50% at 90% 8%, rgba(48, 47, 43, 0.04) 0%, transparent 65%),
-      linear-gradient(165deg, #f3eee5 0%, #ebe5da 55%, #e5dfd3 100%);
+      radial-gradient(ellipse 45% 60% at 6% 7%, rgba(163, 96, 77, 0.45), transparent 64%),
+      radial-gradient(ellipse 55% 72% at 94% 100%, rgba(78, 116, 121, 0.4), transparent 64%),
+      #101b2b;
   }
 
-  .mock-offer::after {
+  .layer-builds::after,
+  .layer-systems::after,
+  .layer-contact::after {
     content: '';
     position: absolute;
     inset: 0;
-    z-index: 0;
     pointer-events: none;
-    opacity: 0.07;
-    background-image: var(--grain);
-    background-size: 140px 140px;
-    mix-blend-mode: multiply;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
   }
 
-  .mock-offer > * {
+  .layer-builds .layer-shell,
+  .layer-systems .layer-shell,
+  .layer-contact .layer-shell {
     position: relative;
     z-index: 1;
   }
 
-  .mock-offer__head {
-    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  .layer-section-head--light .layer-kicker {
+    color: #c7d4e4;
   }
 
-  /* Who this is for */
-  .mock-who__layout {
+  .layer-section-head--light > p:last-child {
+    color: rgba(244, 245, 247, 0.68);
+  }
+
+  .layer-triptych {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(2rem, 6vw, 6rem);
-    align-items: start;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
   }
 
-  .mock-who__list {
-    display: grid;
-    gap: 0;
-    margin: 0.4rem 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .mock-who__list li {
-    padding-block: 1.05rem;
-    border-bottom: 1px solid var(--line);
-    color: var(--soft);
-    font-size: 1rem;
-    font-weight: 300;
-    line-height: 1.55;
-  }
-
-  .mock-who__list li:first-child {
-    padding-top: 0;
-  }
-
-  .mock-who__list li:last-child {
-    border-bottom: none;
-  }
-
-  /* Process strip */
-  .mock-process {
+  .layer-pillar {
     position: relative;
     isolation: isolate;
-    background:
-      linear-gradient(180deg, rgba(255, 252, 247, 0.85) 0%, transparent 32%),
-      var(--raised);
+    overflow: hidden;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.75rem;
+    padding: clamp(1.25rem, 2.2vw, 1.75rem);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #27384a;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+    transition: transform 300ms ease, border-color 300ms ease;
   }
 
-  .mock-process::after {
+  .layer-pillar::before {
     content: '';
     position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.045;
-    background-image: var(--grain);
-    background-size: 160px 160px;
-    mix-blend-mode: multiply;
+    inset: -20%;
+    z-index: -1;
+    filter: blur(34px);
+    transform: scale(1.05);
+    transition: transform 700ms ease;
   }
 
-  .mock-process > * {
-    position: relative;
-    z-index: 1;
+  .layer-pillar:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.24);
   }
 
-  .mock-process__steps {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(1.25rem, 3vw, 2.5rem);
-    margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  .layer-pillar:hover::before {
+    transform: scale(1.12) translate3d(1%, -1%, 0);
+  }
+
+  .layer-pillar--connect::before {
+    background:
+      radial-gradient(circle at 24% 18%, rgba(230, 160, 122, 0.94), transparent 36%),
+      radial-gradient(circle at 83% 65%, rgba(97, 143, 149, 0.8), transparent 45%),
+      #263b52;
+  }
+
+  .layer-pillar--coordinate::before {
+    background:
+      radial-gradient(circle at 72% 25%, rgba(223, 171, 140, 0.85), transparent 38%),
+      radial-gradient(circle at 20% 82%, rgba(75, 91, 137, 0.86), transparent 42%),
+      #564452;
+  }
+
+  .layer-pillar--control::before {
+    background:
+      radial-gradient(circle at 38% 28%, rgba(152, 187, 180, 0.88), transparent 40%),
+      radial-gradient(circle at 76% 84%, rgba(197, 110, 92, 0.7), transparent 42%),
+      #24384a;
+  }
+
+  .layer-pillar__copy {
+    margin: 0;
     padding: 0;
-    list-style: none;
   }
 
-  .mock-process__steps li {
-    padding-top: 1.15rem;
-    border-top: 1px solid var(--line-strong);
-  }
-
-  .mock-process__steps span {
-    color: var(--signal);
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.65rem;
-  }
-
-  .mock-process__steps h3 {
-    margin: 0.8rem 0 0;
-    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  .layer-pillar h3 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2rem, 3.2vw, 2.85rem);
     font-weight: 500;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.055em;
   }
 
-  .mock-process__steps p {
-    margin: 0.55rem 0 0;
-    color: var(--muted);
+  .layer-pillar__impact {
+    margin: 0.85rem 0 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  .layer-pillar__copy > p:last-child {
+    margin: 0.7rem 0 0;
+    color: rgba(255, 255, 255, 0.68);
     font-size: 0.9rem;
     font-weight: 300;
     line-height: 1.6;
   }
 
-  .mock-founder {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem 0.9rem;
-    margin: clamp(2.75rem, 5vw, 4rem) 0 0;
-    padding-top: clamp(1.75rem, 3vw, 2.25rem);
-    border-top: 1px solid var(--line);
-    color: var(--muted);
-    font-size: 0.95rem;
-    font-weight: 300;
+  .layer-pillar ul {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 1rem 0 0;
+    list-style: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
   }
 
-  .mock-founder a {
-    color: var(--ink);
+  .layer-pillar li {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .layer-process {
+    background: #efede8;
+  }
+
+  .layer-process__head,
+  .layer-systems__head {
+    max-width: none;
+    display: grid;
+    grid-template-columns: 1fr minmax(20rem, 0.55fr);
+    gap: clamp(3rem, 9vw, 9rem);
+    align-items: end;
+  }
+
+  .layer-process__head > p,
+  .layer-systems__head > p {
+    margin: 0;
+    color: var(--layer-muted);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .layer-step-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin: clamp(3rem, 6vw, 5.5rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .layer-step-grid li {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 28rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(29, 53, 87, 0.13);
+    background: rgba(250, 249, 246, 0.72);
+    box-shadow: 0 18px 48px rgba(40, 48, 61, 0.07);
+  }
+
+  .layer-step__glow {
+    position: absolute;
+    z-index: -1;
+    inset: -30%;
+    opacity: 0.6;
+    background:
+      radial-gradient(circle at 30% 25%, rgba(218, 135, 106, 0.32), transparent 28%),
+      radial-gradient(circle at 70% 80%, rgba(70, 112, 128, 0.28), transparent 34%);
+    filter: blur(25px);
+    transition: transform 800ms ease, opacity 500ms ease;
+  }
+
+  .layer-step-grid li:hover .layer-step__glow {
+    opacity: 0.9;
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+
+  .layer-step__top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .layer-step__top > span:first-child {
+    color: var(--layer-navy);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+  }
+
+  .layer-step__phase {
+    margin: clamp(4rem, 7vw, 6.5rem) 0 0;
+    color: var(--layer-navy);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .layer-step-grid h3 {
+    margin: 0.65rem 0 0;
+    font-size: clamp(1.45rem, 2vw, 2rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+
+  .layer-step-grid p {
+    margin: 1rem 0 0;
+    color: var(--layer-muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  .layer-step-grid .layer-step__phase {
+    margin-top: clamp(4rem, 7vw, 6.5rem);
+  }
+
+  .layer-step__output {
+    margin-top: auto;
+    padding-top: 1.15rem;
+    border-top: 1px solid rgba(29, 53, 87, 0.14);
+  }
+
+  .layer-step__output > span {
+    color: var(--layer-navy);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .layer-step-grid .layer-step__output p {
+    margin-top: 0.45rem;
+    color: #3f4854;
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .layer-review {
+    display: grid;
+    grid-template-columns: 1fr minmax(22rem, 0.8fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: start;
+    margin-top: clamp(4rem, 8vw, 7rem);
+    padding: clamp(2rem, 4vw, 3.5rem);
+    color: #f4f5f7;
+    background:
+      radial-gradient(circle at 4% 5%, rgba(191, 117, 90, 0.45), transparent 35%),
+      linear-gradient(135deg, #172b47, #1d3557 58%, #354e62);
+    box-shadow: 0 28px 70px rgba(29, 53, 87, 0.18);
+  }
+
+  .layer-review .layer-kicker {
+    color: rgba(255, 255, 255, 0.64);
+  }
+
+  .layer-review h3 {
+    max-width: 12ch;
+    margin: 1rem 0 0;
+    font-size: clamp(2.3rem, 4.6vw, 4.8rem);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+
+  .layer-review > div:last-child > p {
+    margin: 0 0 1.7rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .layer-review .layer-button--primary {
+    color: var(--layer-navy-deep);
+    background: #f5f3ee;
+    box-shadow: none;
+  }
+
+  .layer-systems {
+    position: relative;
+    overflow: hidden;
+    background: #101b2b;
+    color: #f4f5f7;
+  }
+
+  .layer-systems .layer-systems__head > p,
+  .layer-systems .layer-kicker {
+    color: rgba(244, 245, 247, 0.68);
+  }
+
+  .layer-systems .layer-systems__head h2 {
+    color: #fff;
+  }
+
+  .layer-system-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
+  .layer-system-card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-height: 34rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0d1724;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.22);
+    transition: transform 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+  }
+
+  .layer-system-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28);
+  }
+
+  .layer-system-card__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: clamp(1.25rem, 2.4vw, 1.75rem);
+    background: #101b2b;
+  }
+
+  .layer-system-card__badge {
+    display: inline-flex;
+    align-self: start;
+    padding: 0.35rem 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.72);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .layer-system-card h3 {
+    margin: 0;
+    max-width: 16ch;
+    color: #fff;
+    font-size: clamp(1.55rem, 2.4vw, 2.1rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+  }
+
+  .layer-system-card__copy > p {
+    margin: 0;
+    max-width: 36rem;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .layer-system-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 0.35rem;
+    color: #fff;
+    font-size: 0.84rem;
     font-weight: 500;
   }
 
-  .mock-founder a span {
-    display: inline-block;
-    transition: transform 180ms ease;
+  .layer-system-card__link:hover {
+    color: #d7e0ea;
   }
 
-  .mock-founder a:hover span {
-    transform: translateX(3px);
+  .layer-system-card__soon {
+    margin-top: 0.35rem;
+    color: rgba(255, 255, 255, 0.42);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
-  @media (max-width: 980px) {
-    .mock-who__layout,
-    .mock-feature > a,
-    .mock-pair {
-      grid-template-columns: 1fr;
+  .layer-system-card__stage {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    place-items: end center;
+    min-height: 18rem;
+    padding: 1.35rem 1.15rem 1.15rem;
+    overflow: hidden;
+  }
+
+  .layer-system-card__wash {
+    position: absolute;
+    inset: -20%;
+    z-index: -1;
+    filter: blur(28px);
+    transition: transform 700ms ease;
+  }
+
+  .layer-system-card:hover .layer-system-card__wash {
+    transform: scale(1.08) translate3d(1%, -1%, 0);
+  }
+
+  .layer-system-card--ember .layer-system-card__wash {
+    background:
+      radial-gradient(circle at 24% 35%, #d7946f 0%, transparent 35%),
+      radial-gradient(circle at 82% 80%, #6b989b 0%, transparent 42%),
+      #263c53;
+  }
+
+  .layer-system-card--violet .layer-system-card__wash {
+    background:
+      radial-gradient(circle at 76% 20%, #c99786 0%, transparent 36%),
+      radial-gradient(circle at 20% 72%, #59688f 0%, transparent 44%),
+      #493e52;
+  }
+
+  .layer-system-card--mist .layer-system-card__wash {
+    background:
+      radial-gradient(circle at 30% 22%, #a9c1bd 0%, transparent 36%),
+      radial-gradient(circle at 80% 76%, #a06363 0%, transparent 38%),
+      #314657;
+  }
+
+  .layer-system-card--rose .layer-system-card__wash {
+    background:
+      radial-gradient(circle at 24% 78%, #d2977b 0%, transparent 38%),
+      radial-gradient(circle at 78% 22%, #738f9a 0%, transparent 38%),
+      #483d4b;
+  }
+
+  .layer-system-card__media {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 36rem);
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .layer-system-card__media--showcase {
+    gap: 0.75rem;
+  }
+
+  .layer-system-card__shot {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 0.55rem;
+    background: #fff;
+    box-shadow:
+      0 18px 40px rgba(8, 16, 28, 0.28),
+      0 2px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .layer-system-card__shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: left top;
+  }
+
+  .layer-system-card__integrations {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .layer-system-card__integrations li {
+    display: grid;
+    justify-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 0.45rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 0.55rem;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 8px 18px rgba(8, 16, 28, 0.12);
+  }
+
+  .layer-system-card__integrations span {
+    color: #6a7380;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .layer-system-card__integrations img {
+    width: 2.1rem;
+    height: 2.1rem;
+    display: block;
+    object-fit: contain;
+  }
+
+  .layer-system-card__integrations strong {
+    color: #1d2430;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .layer-system-card__placeholder {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: min(100%, 36rem);
+    aspect-ratio: 16 / 10;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 0.55rem;
+    background: rgba(10, 20, 34, 0.28);
+    color: rgba(255, 255, 255, 0.55);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .layer-faq {
+    background: var(--layer-paper);
+  }
+
+  .layer-faq__layout {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.62fr) minmax(28rem, 1fr);
+    gap: clamp(4rem, 10vw, 11rem);
+    align-items: start;
+  }
+
+  .layer-faq__layout .layer-section-head {
+    position: sticky;
+    top: 8rem;
+  }
+
+  .layer-faq__layout .layer-section-head h2 {
+    font-size: clamp(2.7rem, 4.8vw, 4.8rem);
+  }
+
+  .layer-faq__list {
+    border-top: 1px solid var(--layer-line);
+  }
+
+  .layer-faq details {
+    border-bottom: 1px solid var(--layer-line);
+  }
+
+  .layer-faq summary {
+    min-height: 5.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1.3rem;
+    gap: 1.5rem;
+    align-items: center;
+    cursor: pointer;
+    list-style: none;
+    color: var(--layer-ink);
+    font-size: clamp(1.05rem, 1.5vw, 1.28rem);
+    font-weight: 500;
+  }
+
+  .layer-faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .layer-faq summary i {
+    position: relative;
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .layer-faq summary i::before,
+  .layer-faq summary i::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background: var(--layer-navy);
+    transition: transform 220ms ease;
+  }
+
+  .layer-faq summary i::after {
+    transform: rotate(90deg);
+  }
+
+  .layer-faq details[open] summary i::after {
+    transform: rotate(0);
+  }
+
+  .layer-faq__answer {
+    overflow: hidden;
+    padding: 0 3rem 1.7rem 0;
+  }
+
+  .layer-faq__answer p {
+    max-width: 42rem;
+    margin: 0 0 0.75rem;
+    color: var(--layer-muted);
+    font-size: 0.96rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .layer-contact {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    scroll-margin-top: 4.75rem;
+    padding-block: clamp(6rem, 10vw, 10rem);
+    color: #f5f6f8;
+    background: #142742;
+  }
+
+  .layer-contact__atmosphere {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 45% 65% at 4% 14%, rgba(194, 113, 86, 0.52), transparent 62%),
+      radial-gradient(ellipse 50% 75% at 100% 100%, rgba(92, 137, 140, 0.48), transparent 64%),
+      linear-gradient(130deg, #152943, #1d3557 55%, #263f52);
+  }
+
+  .layer-contact__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(26rem, 0.75fr);
+    gap: clamp(4rem, 10vw, 10rem);
+    align-items: start;
+  }
+
+  .layer-contact .layer-kicker {
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .layer-contact h2 {
+    max-width: 11ch;
+    margin: 1rem 0 0;
+    font-size: clamp(3rem, 6vw, 6.5rem);
+    font-weight: 400;
+    letter-spacing: -0.068em;
+    line-height: 0.95;
+  }
+
+  .layer-contact__copy > p:not(.layer-kicker, .layer-contact__note) {
+    max-width: 38rem;
+    margin: 1.6rem 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1.03rem;
+    font-weight: 300;
+    line-height: 1.72;
+  }
+
+  .layer-contact__note {
+    margin: 2rem 0 0;
+    color: rgba(255, 255, 255, 0.52);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .layer-form {
+    display: grid;
+    gap: 1.25rem;
+    padding: clamp(1.5rem, 3vw, 2.4rem);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(10, 25, 43, 0.28);
+  }
+
+  .layer-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .layer-form label {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .layer-form label > span {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.78rem;
+  }
+
+  .layer-form input,
+  .layer-form textarea {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0;
+    outline: none;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+    font: inherit;
+    font-size: 0.92rem;
+    padding: 0.65rem 0.8rem;
+    transition: border-color 180ms ease, background 180ms ease;
+  }
+
+  .layer-form input {
+    min-height: 2.5rem;
+  }
+
+  .layer-form input::placeholder,
+  .layer-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.38);
+  }
+
+  .layer-form textarea {
+    resize: vertical;
+  }
+
+  .layer-form input:focus,
+  .layer-form textarea:focus {
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .layer-form .layer-button {
+    justify-self: start;
+    margin-top: 0.4rem;
+  }
+
+  .layer-form__status {
+    min-height: 1.2em;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.78rem;
+  }
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 650ms cubic-bezier(0.22, 1, 0.36, 1), transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal-stagger] > [data-reveal]:nth-child(2) { transition-delay: 70ms; }
+  [data-reveal-stagger] > [data-reveal]:nth-child(3) { transition-delay: 140ms; }
+  [data-reveal-stagger] > [data-reveal]:nth-child(4) { transition-delay: 210ms; }
+  [data-reveal-stagger] > [data-reveal]:nth-child(5) { transition-delay: 280ms; }
+
+  @media (max-width: 1080px) {
+    .layer-hero__planes {
+      right: -20vw;
+      width: 75vw;
+      opacity: 0.74;
     }
 
-    .mock-process__steps {
+    .layer-hero__atmosphere::after {
+      background: linear-gradient(90deg, rgba(246, 244, 239, 0.25), transparent 58%);
+    }
+
+    .layer-triptych,
+    .layer-step-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .mock-hero__copy {
-      max-width: min(46rem, 62%);
+    .layer-pillar:last-child {
+      grid-column: span 2;
     }
 
-    .mock-refinement {
-      left: auto;
-      right: -9%;
-      top: 53%;
-      bottom: auto;
-      width: min(58vw, 34rem);
-      height: auto;
-      transform: translateY(-50%);
+    .layer-faq__layout {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
     }
 
-    .mock-refinement img {
-      transform: none;
-      height: 100%;
+    .layer-faq__layout .layer-section-head {
+      position: static;
     }
   }
 
-  @media (max-width: 680px) {
-    .mock-hero {
-      min-height: auto;
+  @media (max-width: 820px) {
+    .layer-shell {
+      width: min(100% - 2rem, 46rem);
     }
 
-    .mock-hero h1 {
-      font-size: clamp(2.3rem, 9vw, 3.2rem);
+    .layer-hero {
+      min-height: calc(100svh - 4rem);
+      align-items: flex-start;
     }
 
-    .mock-hero__copy {
-      max-width: 100%;
+    .layer-hero__inner {
+      padding-block: 5rem 11rem;
     }
 
-    .mock-process__steps {
+    .layer-hero__planes {
+      top: 70%;
+      right: -35%;
+      width: 120vw;
+      height: 23rem;
+      opacity: 0.62;
+    }
+
+    .layer-hero__atmosphere::after {
+      background: linear-gradient(180deg, rgba(246, 244, 239, 0.2), transparent 58%);
+    }
+
+    .layer-hero__atmosphere img {
+      object-position: 64% center;
+    }
+
+    .layer-problem__grid,
+    .layer-process__head,
+    .layer-systems__head,
+    .layer-review,
+    .layer-contact__layout {
       grid-template-columns: 1fr;
     }
 
-    .mock-refinement {
-      position: relative;
-      left: auto;
-      right: auto;
-      top: auto;
-      bottom: auto;
-      width: 112%;
-      height: auto;
-      margin: 1.25rem -6% -1rem;
-      transform: none;
-      opacity: 0.72;
+    .layer-problem__grid,
+    .layer-process__head,
+    .layer-systems__head {
+      gap: 1.75rem;
     }
 
-    .mock-hero__grid {
-      flex-direction: column;
+    .layer-triptych,
+    .layer-step-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .layer-pillar,
+    .layer-pillar:last-child {
+      grid-column: auto;
+      min-height: 0;
+    }
+
+    .layer-step-grid li {
+      min-height: 22rem;
+    }
+
+    .layer-review {
+      gap: 2rem;
+    }
+
+    .layer-system-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .layer-system-card {
+      min-height: 0;
+    }
+
+    .layer-contact__layout {
+      gap: 3.5rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .layer-section {
+      padding-block: 5rem;
+    }
+
+    .layer-hero h1 {
+      font-size: clamp(2.9rem, 14vw, 4.2rem);
+    }
+
+    .layer-actions {
       align-items: stretch;
+      flex-direction: column;
+    }
+
+    .layer-button {
+      width: 100%;
+    }
+
+    .layer-link {
+      justify-content: center;
+      border: 0;
+    }
+
+    .layer-hero__legend {
+      justify-content: center;
+    }
+
+    .layer-problem__list li {
+      grid-template-columns: 2.3rem 1fr;
+      gap: 0.8rem;
+      padding-block: 1.2rem;
+    }
+
+    .layer-problem__list i {
+      display: none;
+    }
+
+    .layer-pillar,
+    .layer-step-grid li,
+    .layer-system-card__copy,
+    .layer-review,
+    .layer-form {
+      padding: 1.25rem;
+    }
+
+    .layer-form__row {
+      grid-template-columns: 1fr;
+    }
+
+    .layer-form .layer-button {
+      justify-self: stretch;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .mock *,
-    .mock *::before,
-    .mock *::after {
-      transition-duration: 0.01ms !important;
-    }
-
-    .mock [data-reveal] {
+    [data-reveal] {
       opacity: 1;
       transform: none;
       transition: none;
     }
 
-    .mock [data-reveal-hero-media] {
-      opacity: 1;
-      transform: translateY(-50%);
-    }
-  }
-
-  /* Scroll reveals */
-  .mock [data-reveal] {
-    opacity: 0;
-    transform: translateY(0.85rem);
-    transition:
-      opacity 820ms cubic-bezier(0.22, 0.61, 0.36, 1),
-      transform 820ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
-
-  .mock [data-reveal].is-in {
-    opacity: 1;
-    transform: none;
-  }
-
-  .mock [data-reveal-media] {
-    transform: translateY(0.45rem);
-    transition:
-      opacity 1100ms cubic-bezier(0.16, 0.7, 0.3, 1),
-      transform 1100ms cubic-bezier(0.16, 0.7, 0.3, 1);
-  }
-
-  .mock [data-reveal-delay='1'] {
-    transition-delay: 100ms;
-  }
-
-  .mock [data-reveal-stagger] > [data-reveal]:nth-child(1) {
-    transition-delay: 0ms;
-  }
-
-  .mock [data-reveal-stagger] > [data-reveal]:nth-child(2) {
-    transition-delay: 90ms;
-  }
-
-  .mock [data-reveal-stagger] > [data-reveal]:nth-child(3) {
-    transition-delay: 180ms;
-  }
-
-  .mock [data-reveal-stagger] > [data-reveal]:nth-child(4) {
-    transition-delay: 270ms;
-  }
-
-  .mock [data-reveal-hero] {
-    transform: translateY(0.9rem);
-  }
-
-  .mock [data-reveal-hero-media] {
-    transform: translateY(calc(-50% + 0.9rem));
-  }
-
-  .mock [data-reveal-hero-media].is-in {
-    transform: translateY(-50%);
-  }
-
-  @media (max-width: 680px) {
-    .mock [data-reveal-hero-media] {
-      transform: translateY(0.9rem);
-    }
-
-    .mock [data-reveal-hero-media].is-in {
-      transform: none;
-      opacity: 0.72;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .mock [data-reveal-hero-media] {
-        transform: none;
-        opacity: 0.72;
-      }
+    .layer-pillar,
+    .layer-pillar::before,
+    .layer-step__glow,
+    .layer-system-card,
+    .layer-system-card__wash {
+      transition: none;
     }
   }
 </style>

@@ -1,9 +1,10 @@
 /**
  * Accent color theme. Change this one value to restyle the site.
+ * ink = cool paper + ink CTAs (brand pack v1.1).
  */
-export const accentTheme = 'linen' as const;
+export const accentTheme = 'ink' as const;
 
-export type AccentTheme = 'gold' | 'cyan' | 'silver' | 'warm' | 'champagne' | 'blue' | 'violet' | 'linen';
+export type AccentTheme = 'gold' | 'cyan' | 'silver' | 'warm' | 'champagne' | 'blue' | 'violet' | 'linen' | 'ink';
 
 /*
  * Commercial source of truth for the public site.
@@ -13,21 +14,21 @@ export type AccentTheme = 'gold' | 'cyan' | 'silver' | 'warm' | 'champagne' | 'b
  */
 
 export const site = {
-  name: 'Michael J. Low',
-  practice: 'Applied AI Systems',
-  brand: 'Michael J. Low · Applied AI Systems',
-  title: 'Michael J. Low · Applied AI Systems',
+  name: 'Layer',
+  practice: 'Applied AI Systems Consultancy',
+  brand: 'Layer',
+  title: 'Layer · Applied AI Systems Consultancy',
   description:
-    'I help growing businesses turn messy operations into dependable AI systems. Start with a Workflow Review from £350.',
+    'Layer designs and builds controlled AI systems that connect your people, processes and existing software.',
   shortBio:
-    'Applied AI systems for operations teams. I map how work really happens, build controlled automation around it, and prove the improvement.',
-  tagline: 'Messy operations in. Dependable AI systems out.',
+    'Controlled AI systems for the way your business actually works.',
+  tagline: 'The operating layer between your team and your tools.',
   url: 'https://michaeljlow.com',
   email: 'mike@michaeljlow.com',
   github: 'https://github.com/MichaelJLow',
   linkedin: 'https://www.linkedin.com/in/michael-j-low/',
-  availability: 'Available for selected workflow projects and Workflow Reviews.',
-  availabilityShort: 'Available for selected workflow projects',
+  availability: 'Available for selected workflow projects and discovery calls.',
+  availabilityShort: 'Available for selected projects',
   location: 'Based in São Paulo, working with clients remotely',
   headshot: '/images/headshot-portfolio-tight.png',
   headshotCutout: '/images/headshot-portfolio-cutout.png',
@@ -41,15 +42,75 @@ export const pageTitle = (label?: string) => (label ? `${label} · ${site.brand}
  * Primary commercial CTA
  * ------------------------------------------------------------------ */
 
+/** Homepage and nav primary CTA: free discovery call. */
 export const primaryCta = {
+  label: 'Book a workflow review',
+  shortLabel: 'Book a workflow review',
+  href: '/#contact',
+  note: 'No-cost initial conversation. No obligation.',
+} as const;
+
+/** Paid entry after discovery. Used on How I work, Contact, and case studies. */
+export const reviewCta = {
   label: 'Start with a Workflow Review',
   href: '/contact',
   price: 'from £350',
 } as const;
 
 export const secondaryCta = {
-  label: 'See case studies',
-  href: '/projects',
+  label: 'See what Layer builds',
+  href: '/#what-we-build',
+} as const;
+
+export const howIWorkCta = {
+  label: 'How I work',
+  href: '/how-i-work',
+} as const;
+
+/**
+ * Free discovery call (homepage primary CTA).
+ * Qualifies fit and next step. Not a free strategy or build session.
+ */
+export const discoveryCall = {
+  label: 'Book a Free Discovery Call',
+  shortLabel: 'Free discovery call',
+  href: '/contact#discovery',
+  duration: 'about 15 minutes',
+  title: 'Book a free discovery call',
+  intro:
+    'A short call to discuss bottlenecks, assess whether automation is a fit, and outline a sensible next step. We will not design or build the fix on the call. If it looks worth doing, the usual next step is a Workflow Review.',
+  includes: [
+    'The workflow that is costing you the most',
+    'Tools you already use and where handoffs break',
+    'Honest go or no-go, and whether a Workflow Review is the right next step',
+  ],
+  subject: 'Free discovery call',
+  bodyLines: [
+    'Hello Michael,',
+    '',
+    'I would like to book a free discovery call.',
+    '',
+    'Business and what we do:',
+    'The workflow that is causing problems:',
+    'Tools we currently use:',
+    'Roughly how often it happens (per day or week):',
+    'Times that usually work for a short call:',
+    '',
+    'Thanks,',
+  ],
+} as const;
+
+/** @deprecated Prefer discoveryCall. Kept for older imports and lab pages. */
+export const fitCheck = {
+  label: discoveryCall.label,
+  shortLabel: discoveryCall.shortLabel,
+  href: discoveryCall.href,
+  duration: discoveryCall.duration,
+  title: 'Not sure a Review is right?',
+  intro: discoveryCall.intro,
+  includes: discoveryCall.includes,
+  subject: discoveryCall.subject,
+  bodyLines: discoveryCall.bodyLines,
 } as const;
 
 /* ------------------------------------------------------------------ *
@@ -195,66 +256,283 @@ export const notOffered = [
 ] as const;
 
 /* ------------------------------------------------------------------ *
- * Homepage
+ * Homepage (lean six-section layout)
  * ------------------------------------------------------------------ */
 
 export const homeHero = {
-  kicker: 'Applied AI systems for operations teams',
+  kicker: 'Michael J. Low · Applied AI Systems',
   brandLines: ['Michael J. Low', 'Applied AI Systems'] as const,
-  headline: 'I help growing businesses turn messy operations into dependable AI systems.',
+  headline: 'Save time, respond faster, and grow with smarter business automation.',
   support:
-    'I map how work really happens, build controlled automation around it, and prove the improvement before anyone is asked to trust it.',
+    'Custom AI and workflow automation for service businesses. Practical solutions built around the tools you already use.',
+  riskLine: 'Practical solutions built around the tools you already use. No obligation discovery call.',
+  priceLine: 'Free discovery call · about 15 minutes',
 } as const;
 
-export const homeOfferSection = {
-  kicker: 'Working with me',
-  title: 'Start small, scope properly, then build.',
-  intro:
-    'Most work starts with a short piece of discovery. That tells us whether the workflow is worth automating, and what the build should actually be.',
-} as const;
-
-export const homeProofSection = {
-  kicker: 'Selected case studies',
-  title: 'Systems built around real operational work.',
-  intro: 'Prototypes and working systems, labelled honestly. OpsDesk is the flagship operations build.',
-} as const;
-
-export const homeWhoLabel = 'Who this is for' as const;
-export const homeWhoTitle = 'For teams running operations out of an inbox and a spreadsheet.' as const;
-export const homeWhoIntro =
-  'Small and growing businesses where work arrives as messages and forms, gets tracked in spreadsheets or a CRM, and depends on someone remembering to move it along.' as const;
-export const homeWhoPains = [
-  'A shared inbox where requests arrive and get missed',
-  'Spreadsheets and a CRM that never quite agree',
-  'The same information re-typed between tools',
-  'Repeated admin that eats a person most of the week',
-  'Mistakes that cost money, compliance or customers',
+export const homeProblems = [
+  'Leads waiting too long for a reply',
+  'Staff copying the same details between tools',
+  'Follow-ups and appointments getting missed',
+  'Reporting eating hours every week',
 ] as const;
 
-/** Compact process strip kept on the homepage. */
-export const processStrip = [
+export const homeServicesSection = {
+  kicker: 'Services',
+  title: 'Problems your team recognises. Automations that fix them.',
+  intro:
+    'Each engagement starts from a real operational bottleneck, not a technology wishlist. Here is how automation usually helps service businesses.',
+  closing:
+    'Not sure what to automate? We will identify the highest-impact opportunity during your discovery call.',
+} as const;
+
+export const homeServices = [
   {
-    title: 'Observe',
-    description:
-      'Understand how the work really happens, including repeated friction, unofficial workarounds and unclear ownership.',
+    title: 'Lead capture and follow-up',
+    problem: 'Enquiries sit in an inbox while the team is busy elsewhere.',
+    automation:
+      'Qualify website enquiries, update the CRM, send a personalised response, and notify the right person.',
+    outcome: 'Faster response and fewer lost opportunities.',
   },
   {
-    title: 'Simplify',
-    description: 'Reduce the process to its essential inputs, decisions, actions, handoffs and exceptions.',
+    title: 'Customer service',
+    problem: 'Common questions and requests pile up in shared inboxes.',
+    automation:
+      'Answer frequent questions, route requests, summarise conversations, and escalate exceptions to a person.',
+    outcome: 'Quicker service without removing the human touch.',
+  },
+  {
+    title: 'Appointments and onboarding',
+    problem: 'Scheduling, forms, and setup still depend on someone remembering every step.',
+    automation:
+      'Schedule meetings, collect information, create records, send reminders, and trigger welcome sequences.',
+    outcome: 'Smoother handoffs and less administration.',
+  },
+  {
+    title: 'Operations and reporting',
+    problem: 'Documents, tools, and weekly reports stay manual and fragile.',
+    automation:
+      'Process documents, synchronise tools, generate reports, and alert the right people when something needs attention.',
+    outcome: 'Fewer errors and hours of repetitive work removed.',
+  },
+] as const;
+
+export const homeProcessSection = {
+  kicker: 'Process',
+  title: 'How the engagement works',
+  intro: 'One concrete workflow, three clear stages, and a person kept in control where risk sits.',
+  humanControl:
+    'Sensitive decisions and exceptions stay under human control, especially approvals and anything expensive to undo.',
+} as const;
+
+export const homeBeforeAfter = {
+  title: 'A typical service enquiry, before and after',
+  before: [
+    'Enquiry arrives by form or email',
+    'Someone replies when they notice it',
+    'Details get copied into a CRM or spreadsheet',
+    'Follow-up depends on memory',
+    'Weekly update is another manual spreadsheet',
+  ],
+  after: [
+    'Enquiry is qualified against simple rules',
+    'A personalised reply goes out promptly',
+    'CRM and tasks update automatically',
+    'Follow-ups are scheduled, not remembered',
+    'Results appear in a simple operating view',
+  ],
+} as const;
+
+export const homeProcessSteps = [
+  {
+    title: 'Discover',
+    description: 'Map the current process and select the highest-impact automation opportunity.',
   },
   {
     title: 'Build',
-    description: 'Ship the smallest complete system people can use in real work, not a demonstration of the model.',
+    description: 'Design, integrate, and test the workflow, with human approval points where they matter.',
   },
   {
-    title: 'Iterate',
-    description:
-      'Watch where it fails, learn from edge cases, and strengthen the workflow with clearer rules and human review.',
+    title: 'Launch',
+    description: 'Train the team, monitor performance, document ownership, and provide post-launch support.',
   },
 ] as const;
 
+export const homeResultsSection = {
+  kicker: 'Results',
+  title: 'What good automation should change.',
+  intro:
+    'I do not invent client metrics. Until a paid engagement produces verified numbers, the proof is a labelled demonstration plus clear working practices.',
+} as const;
+
+export const homeOutcomes = [
+  {
+    title: 'Saved staff hours',
+    detail: 'Remove copy-paste loops and chasing so people spend time on work that needs judgement.',
+  },
+  {
+    title: 'Faster responses',
+    detail: 'Qualified enquiries and common requests move without waiting on one overloaded inbox.',
+  },
+  {
+    title: 'Fewer errors',
+    detail: 'Data moves once between tools, with failures surfaced instead of silent drift.',
+  },
+  {
+    title: 'More capacity',
+    detail: 'Grow volume without adding the same amount of repetitive overhead.',
+  },
+] as const;
+
+/** Home proof cards keyed to featured project slugs. */
+export const homeProofCards = [
+  {
+    slug: 'opsdesk-ai',
+    label: 'Demonstration',
+    challenge: 'Maintenance requests arrive by email, get missed, and leave no clear decision trail.',
+    built: 'A controlled ops workflow: intake, triage, policy drafts, approval gates, and audit history.',
+    result:
+      'Shows how a messy shared inbox becomes a system people can run on a normal Tuesday. Not presented as a paid client case study.',
+  },
+] as const;
+
+export const homeTrust = {
+  credentials: [
+    'Applied AI systems practice focused on operational workflows',
+    'OpsDesk demonstration with intake, routing, approvals, and audit trail',
+    'Evaluation harness for scoring AI workflow behaviour before it touches customers',
+  ],
+  toolsLabel: 'Tools I commonly connect',
+  tools: [
+    'Gmail',
+    'Google Sheets',
+    'HubSpot',
+    'Notion',
+    'Slack',
+    'Calendly',
+    'Stripe',
+    'n8n',
+  ] as const,
+  securityLabel: 'How trust is handled',
+  security: [
+    'Sensitive actions wait for human approval',
+    'Accounts, credentials, and data stay client-owned where practical',
+    'Automated actions leave a trail you can inspect',
+    'Handover includes documentation, training, and a defect fix period',
+  ],
+} as const;
+
+export const homeAboutSection = {
+  kicker: 'About',
+  title: 'A boutique practice with one clear job.',
+  intro:
+    'I design and build the operating layer between your team and the tools you already pay for.',
+  paragraphs: [
+    'Most service businesses are not short of software. They are short of a process that fits the work. Requests arrive in an inbox, progress lives in a spreadsheet, and the real logic sits in one person\'s head.',
+    'I work directly with you: map the workflow, build controlled automation around it, document ownership, train the people who will run it, and stay available after launch while it stabilises.',
+  ],
+  differentiators: [
+    'Built around your actual workflow, not a generic template',
+    'Integrates with tools you already use where feasible',
+    'Direct collaboration with one practitioner, not a revolving account team',
+    'Documentation, training, and post-launch support included in the engagement',
+  ],
+  linkLabel: 'Full about page',
+  href: '/about',
+} as const;
+
+export const homeFaqSection = {
+  kicker: 'FAQ',
+  title: 'Questions that usually come up before booking.',
+} as const;
+
+export const homeFaq = [
+  {
+    question: 'What types of businesses do you work with?',
+    answer:
+      'Small and mid-sized service businesses where work arrives as enquiries, forms, or emails, and progress depends on people copying information between tools.',
+  },
+  {
+    question: 'What can you automate?',
+    answer:
+      'Lead capture and follow-up, customer service triage, appointments and onboarding, document handling, tool synchronisation, and recurring reporting. If a workflow is not worth automating, I will say so.',
+  },
+  {
+    question: 'Can you work with our current software?',
+    answer:
+      'Usually yes. Engagements are designed around tools you already pay for, such as email, sheets, CRM, scheduling, and payment tools. Tool subscriptions stay client-owned where practical.',
+  },
+  {
+    question: 'How long does a project take?',
+    answer:
+      'A free discovery call is about 15 minutes. A Workflow Review is one working session plus a written summary within a couple of days. Simple automations often take days; connected or controlled systems take one to a few weeks after scope is agreed.',
+  },
+  {
+    question: 'How much does it cost?',
+    answer:
+      'Discovery starts with a free call. A paid Workflow Review starts from £350. Implementation starts from £750 for a simple workflow, with larger connected or controlled builds scoped after discovery. Final quotes follow Review or Audit.',
+  },
+  {
+    question: 'Is our data secure, and what happens after launch?',
+    answer:
+      'Sensitive actions stay human-approved, and accounts stay client-owned where practical. After launch you get documentation, training, and a defect fix period so the system is yours to run.',
+  },
+] as const;
+
+export const homeFinalCta = {
+  kicker: 'Next step',
+  title: 'Find where automation saves the most time or recovers the most opportunity.',
+  body: 'On the free discovery call we discuss bottlenecks, assess fit, and recommend a sensible next step. No obligation.',
+} as const;
+
+/** Kept for How I work / legacy pages that still reference these names. */
+export const homeWaysSection = {
+  kicker: homeServicesSection.kicker,
+  title: homeServicesSection.title,
+  intro: homeServicesSection.intro,
+} as const;
+
+export const homeWaysIHelp = homeServices.map((item) => ({
+  title: item.title,
+  detail: `${item.problem} ${item.automation}`,
+  mapsTo: item.outcome,
+}));
+
+export const homeOfferSection = {
+  kicker: 'Working with me',
+  title: 'Start with discovery, then build what is worth fixing.',
+  intro:
+    'Most work starts with a free discovery call, then a short paid Review when the workflow looks worth scoping properly.',
+} as const;
+
+export const homeProofSection = {
+  kicker: homeResultsSection.kicker,
+  title: homeResultsSection.title,
+  intro: homeResultsSection.intro,
+  ctaLabel: 'All case studies',
+  ctaHref: '/projects',
+} as const;
+
+export const homeToolsSection = {
+  kicker: 'Tools you already use',
+  title: 'Built across the stack you already pay for.',
+  intro: 'Tool subscriptions usually stay client owned. I connect and control the workflow, not lock you into my accounts.',
+  tools: homeTrust.tools,
+} as const;
+
+export const homeWhoLabel = 'Who this is for' as const;
+export const homeWhoTitle = 'Service businesses running on an inbox and a spreadsheet.' as const;
+export const homeWhoIntro =
+  'Growing businesses where work arrives as messages and forms, gets tracked in spreadsheets or a CRM, and depends on someone remembering to move it along.' as const;
+export const homeWhoPains = homeProblems;
+
+/** Compact process strip kept for legacy / How I work references. */
+export const processStrip = homeProcessSteps.map((step) => ({
+  title: step.title,
+  description: step.description,
+}));
+
 export const homeFounderLine = {
-  text: 'Michael J. Low builds applied AI systems for operations teams.',
+  text: 'Michael J. Low builds applied AI systems for service businesses.',
   linkLabel: 'About',
   href: '/about',
 } as const;
@@ -279,10 +557,10 @@ const enquiryBodyLines = [
 
 export const contact = {
   kicker: 'Contact',
-  title: 'Start with a Workflow Review.',
+  title: 'Start with a free discovery call, or a Workflow Review.',
   price: 'from £350',
   intro:
-    'A Workflow Review is one 90 minute working session on a single workflow, plus a short written summary with an honest recommendation. If the workflow turns out to need proper scoping, I will say so and credit the Review against an Audit.',
+    'Prefer a short first conversation? Book a free discovery call. Ready for a working session on one workflow? A Workflow Review is one 90 minute session plus a short written summary with an honest recommendation.',
   subject: 'Workflow Review enquiry',
   bodyLines: enquiryBodyLines,
   helper:
@@ -292,6 +570,13 @@ export const contact = {
 export const enquiryMailto = `mailto:${site.email}?subject=${encodeURIComponent(
   contact.subject,
 )}&body=${encodeURIComponent(enquiryBodyLines.join('\n'))}`;
+
+export const discoveryMailto = `mailto:${site.email}?subject=${encodeURIComponent(
+  discoveryCall.subject,
+)}&body=${encodeURIComponent(discoveryCall.bodyLines.join('\n'))}`;
+
+/** @deprecated Prefer discoveryMailto. */
+export const fitCheckMailto = discoveryMailto;
 
 /* ------------------------------------------------------------------ *
  * About
@@ -416,6 +701,8 @@ export const capabilities = {
 export const howIWork = {
   intro:
     'Two ways to start, three ways to build. Discovery scopes the work. Implementation price depends on that scope.',
+  fitCheckNote:
+    'Not sure yet? Book a free discovery call first. It only decides whether a paid Review is worth it.',
   chooseDiscovery: {
     title: 'Review or Audit?',
     intro: 'The difference is depth and deliverable, not the size of your company.',
@@ -443,14 +730,15 @@ export const howIWork = {
     { step: 'Build and demonstrate', detail: 'You see it working against real cases before acceptance.' },
     { step: 'Handover and stabilise', detail: 'Documentation, training, and a defect fix period.' },
   ],
+  nextStepLabel: 'Next step after choosing',
 } as const;
 
 /* ------------------------------------------------------------------ *
  * Featured work
  * ------------------------------------------------------------------ */
 
-/** Homepage: OpsDesk flagship plus two supporting case studies. */
-export const homeFeaturedProjectSlugs = ['opsdesk-ai', 'ai-daily-pulse', 'macro-signal-room'] as const;
+/** Homepage: OpsDesk demonstration as the lean proof block. */
+export const homeFeaturedProjectSlugs = ['opsdesk-ai'] as const;
 
 /** Case Studies index and case-study routing. */
 export const featuredProjectSlugs = [
@@ -462,11 +750,18 @@ export const featuredProjectSlugs = [
 ] as const;
 
 export const nav = [
-  { label: 'How I work', href: '/how-i-work' },
-  { label: 'Case Studies', href: '/projects' },
-  { label: 'Capabilities', href: '/capabilities' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'What We Build', href: '/#what-we-build' },
+  { label: 'Systems', href: '/#systems' },
+  { label: 'How We Work', href: '/#how-we-work' },
+  { label: 'Contact', href: '/#contact' },
+] as const;
+
+export const footerNav = [
+  { label: 'What We Build', href: '/#what-we-build' },
+  { label: 'Systems', href: '/#systems' },
+  { label: 'How We Work', href: '/#how-we-work' },
+  { label: 'Contact', href: '/#contact' },
+  { label: 'Privacy', href: '/privacy' },
 ] as const;
 
 /* ------------------------------------------------------------------ *

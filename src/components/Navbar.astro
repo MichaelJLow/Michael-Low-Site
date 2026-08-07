@@ -4,14 +4,15 @@ import { site, nav, primaryCta } from '../config/site';
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
 
-const mainLinks = nav.filter((item) => item.href !== '/contact');
+const mainLinks = nav;
 ---
 
 <header class="site-nav" data-site-nav>
   <nav class="site-nav__inner" aria-label="Primary navigation">
     <a class="site-nav__brand" href="/">
-      <span class="site-nav__brand-name">{site.name}</span>
-      <span class="site-nav__brand-practice">{site.practice}</span>
+      <span class="site-nav__wordmark" aria-label="Layer">
+        layer<b>.</b>
+      </span>
     </a>
 
     <div class="site-nav__links">
@@ -21,8 +22,7 @@ const mainLinks = nav.filter((item) => item.href !== '/contact');
     </div>
 
     <div class="site-nav__actions">
-      <span class="site-nav__availability"><i aria-hidden="true"></i>{site.availabilityShort}</span>
-      <a class="site-nav__cta" href={primaryCta.href}>Start a Workflow Review</a>
+      <a class="site-nav__cta" href={primaryCta.href}>{primaryCta.shortLabel}</a>
       <details class="site-nav__menu">
         <summary>Menu</summary>
         <div>
@@ -37,16 +37,16 @@ const mainLinks = nav.filter((item) => item.href !== '/contact');
 
 <style>
   .site-nav {
-    --nav-paper: var(--ml-paper, #f4f0e8);
-    --nav-ink: var(--ml-ink, #1d1f1e);
-    --nav-soft: var(--ml-ink-soft, #454744);
-    --nav-muted: var(--ml-muted, #77756f);
-    --nav-line: var(--ml-line, rgba(48, 47, 43, 0.14));
+    --nav-paper: var(--ml-paper, #f7f8fa);
+    --nav-ink: var(--ml-ink, #12151a);
+    --nav-soft: var(--ml-ink-soft, #3a4250);
+    --nav-muted: var(--ml-muted, #5c6570);
+    --nav-line: var(--ml-line, rgba(18, 21, 26, 0.1));
     --nav-shell: var(--ml-shell, min(92rem, calc(100% - 3rem)));
     position: sticky;
     top: 0;
     z-index: 60;
-    background: color-mix(in srgb, var(--nav-paper) 88%, transparent);
+    background: color-mix(in srgb, #f6f4ef 90%, transparent);
     border-bottom: 1px solid var(--nav-line);
     backdrop-filter: blur(18px) saturate(120%);
     font-family: 'IBM Plex Sans', system-ui, sans-serif;
@@ -54,7 +54,7 @@ const mainLinks = nav.filter((item) => item.href !== '/contact');
 
   .site-nav__inner {
     width: var(--nav-shell);
-    min-height: 5.6rem;
+    min-height: 4.75rem;
     margin-inline: auto;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -64,25 +64,23 @@ const mainLinks = nav.filter((item) => item.href !== '/contact');
 
   .site-nav__brand {
     justify-self: start;
-    display: grid;
-    gap: 0.1rem;
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
     line-height: 1.15;
   }
 
-  .site-nav__brand-name {
+  .site-nav__wordmark {
     color: var(--nav-ink);
-    font-size: 0.92rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-size: 1.65rem;
+    font-weight: 450;
+    letter-spacing: -0.065em;
   }
 
-  .site-nav__brand-practice {
-    color: var(--nav-muted);
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
+  .site-nav__wordmark b {
+    color: #1d3557;
+    font-weight: 700;
+    letter-spacing: 0;
   }
 
   .site-nav__links {
@@ -106,7 +104,7 @@ const mainLinks = nav.filter((item) => item.href !== '/contact');
 
   .site-nav__links a[aria-current='page'],
   .site-nav__menu a[aria-current='page'] {
-    color: var(--nav-ink);
+    color: var(--ml-system, #1b4f72);
     font-weight: 500;
   }
 
@@ -117,30 +115,13 @@ const mainLinks = nav.filter((item) => item.href !== '/contact');
     gap: 1rem;
   }
 
-  .site-nav__availability {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--nav-muted);
-    font-size: 0.82rem;
-    white-space: nowrap;
-  }
-
-  .site-nav__availability i {
-    width: 0.42rem;
-    height: 0.42rem;
-    border-radius: 999px;
-    background: #638067;
-    box-shadow: 0 0 0 3px rgba(99, 128, 103, 0.1);
-  }
-
   .site-nav__cta {
     display: inline-flex;
     align-items: center;
     padding: 0.62rem 1.05rem;
     border-radius: 0.3rem;
-    color: var(--nav-paper);
-    background: var(--nav-ink);
+    color: #fff;
+    background: #1d3557;
     font-size: 0.86rem;
     font-weight: 500;
     white-space: nowrap;
@@ -150,7 +131,7 @@ const mainLinks = nav.filter((item) => item.href !== '/contact');
 
   .site-nav__cta:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(31, 31, 28, 0.16);
+    box-shadow: 0 8px 20px rgba(29, 53, 87, 0.2);
   }
 
   .site-nav__menu {
@@ -183,12 +164,6 @@ const mainLinks = nav.filter((item) => item.href !== '/contact');
 
   .site-nav__menu a {
     padding: 0.7rem 0.8rem;
-  }
-
-  @media (max-width: 1180px) {
-    .site-nav__availability {
-      display: none;
-    }
   }
 
   @media (max-width: 980px) {

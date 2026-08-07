@@ -1,5 +1,5 @@
 ---
-import { site, nav } from '../config/site';
+import { site, footerNav } from '../config/site';
 const year = new Date().getFullYear();
 ---
 
@@ -7,14 +7,18 @@ const year = new Date().getFullYear();
   <div class="site-footer-v2__inner">
     <div class="site-footer-v2__main">
       <div>
-        <a href="/" class="site-footer-v2__name">{site.brand}</a>
-        <p>{site.shortBio}</p>
+        <a href="/" class="site-footer-v2__name" aria-label="Layer">
+          layer<span aria-hidden="true">.</span>
+        </a>
+        <p>Controlled AI systems for the way your business actually works.</p>
+        <p class="site-footer-v2__contact">
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </p>
       </div>
 
       <nav aria-label="Footer navigation">
-        {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+        {footerNav.map((item) => <a href={item.href}>{item.label}</a>)}
         <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-        <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       </nav>
     </div>
 
@@ -27,11 +31,11 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer-v2 {
-    --foot-paper: var(--ml-paper, #f4f0e8);
-    --foot-ink: var(--ml-ink, #1d1f1e);
-    --foot-soft: var(--ml-ink-soft, #454744);
-    --foot-muted: var(--ml-muted, #77756f);
-    --foot-line: var(--ml-line, rgba(48, 47, 43, 0.14));
+    --foot-paper: var(--ml-paper, #f7f8fa);
+    --foot-ink: var(--ml-ink, #12151a);
+    --foot-soft: var(--ml-ink-soft, #3a4250);
+    --foot-muted: var(--ml-muted, #5c6570);
+    --foot-line: var(--ml-line, rgba(18, 21, 26, 0.1));
     --foot-shell: var(--ml-shell, min(92rem, calc(100% - 3rem)));
     color: var(--foot-ink);
     background: var(--foot-paper);
@@ -57,9 +61,14 @@ const year = new Date().getFullYear();
 
   .site-footer-v2__name {
     color: var(--foot-ink);
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 1.75rem;
+    font-weight: 450;
+    letter-spacing: -0.065em;
     text-decoration: none;
+  }
+
+  .site-footer-v2__name span {
+    color: #1d3557;
   }
 
   .site-footer-v2 p {
@@ -69,6 +78,21 @@ const year = new Date().getFullYear();
     font-size: 0.88rem;
     font-weight: 300;
     line-height: 1.6;
+  }
+
+  .site-footer-v2__contact {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .site-footer-v2__contact a {
+    color: var(--foot-ink);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .site-footer-v2__contact a:hover {
+    color: var(--foot-soft);
   }
 
   .site-footer-v2 nav {

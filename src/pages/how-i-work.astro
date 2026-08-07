@@ -3,7 +3,18 @@ import Layout from '../components/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import OfferLadder from '../components/OfferLadder.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { pageTitle, howIWork, whatYouGet, humanControl, notOffered } from '../config/site';
+import {
+  pageTitle,
+  howIWork,
+  whatYouGet,
+  humanControl,
+  notOffered,
+  discoveryCall,
+  reviewCta,
+  offerLadder,
+} from '../config/site';
+
+const review = offerLadder.groups[0].tiers[0];
 ---
 
 <Layout
@@ -13,13 +24,7 @@ import { pageTitle, howIWork, whatYouGet, humanControl, notOffered } from '../co
   <div class="inner-v2 hiw">
     <PageHeader label="How I work" title="Start small. Scope properly. Then build." subtitle={howIWork.intro} />
 
-    <section class="inner-v2-section">
-      <div class="home-v2-shell">
-        <OfferLadder variant="full" />
-      </div>
-    </section>
-
-    <section class="hiw-band">
+    <section class="hiw-band hiw-band--top">
       <div class="home-v2-shell hiw-choose">
         <div class="hiw-choose__col">
           <h2>{howIWork.chooseDiscovery.title}</h2>
@@ -45,11 +50,37 @@ import { pageTitle, howIWork, whatYouGet, humanControl, notOffered } from '../co
               </div>
             ))}
           </dl>
+          <p class="hiw-note">
+            {howIWork.fitCheckNote}
+            {' '}
+            <a href={discoveryCall.href}>{discoveryCall.shortLabel} <span aria-hidden="true">→</span></a>
+          </p>
         </div>
       </div>
     </section>
 
-    <section class="inner-v2-section">
+    <section class="inner-v2-section" aria-labelledby="offers-title">
+      <div class="home-v2-shell">
+        <header class="hiw-offers-head">
+          <p class="home-v2-kicker">Packages</p>
+          <h2 id="offers-title">What you can buy, and what each one is for.</h2>
+          <p class="hiw-lede">
+            Each package has a job, who it suits, what is included, and a clear next step.
+            Starting prices below. Final quote confirmed after discovery.
+          </p>
+        </header>
+        <OfferLadder variant="full" />
+        <div class="hiw-next">
+          <p class="home-v2-kicker">{howIWork.nextStepLabel}</p>
+          <p>
+            Ready to start? <a href={reviewCta.href}>{reviewCta.label}</a>
+            {' '}({review.price}). Still unsure? <a href={discoveryCall.href}>{discoveryCall.shortLabel}</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="inner-v2-section hiw-path-section">
       <div class="home-v2-shell">
         <p class="home-v2-kicker">The path</p>
         <h2 class="hiw-h2">Discovery scopes the work. The build is priced from that scope.</h2>
@@ -93,7 +124,8 @@ import { pageTitle, howIWork, whatYouGet, humanControl, notOffered } from '../co
     <CtaBand
       kicker="Next step"
       title="Not sure which one you need?"
-      body="Start with a Workflow Review. If the workflow turns out to need deeper scoping, I will tell you and credit the Review in full against an Audit within 30 days."
+      body="Book a free discovery call first. If the workflow looks worth fixing, the usual next step is a Workflow Review. If it needs deeper scoping, I will say so and credit the Review against an Audit within 30 days."
+      showFitCheck
     />
   </div>
 </Layout>
@@ -105,12 +137,22 @@ import { pageTitle, howIWork, whatYouGet, humanControl, notOffered } from '../co
     border-block: 1px solid var(--ml-line);
   }
 
+  .hiw-band--top {
+    border-top: 0;
+  }
+
+  .hiw-offers-head {
+    max-width: 40rem;
+    margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  .hiw-offers-head h2,
   .hiw-h2 {
     max-width: 22ch;
     margin: 0.9rem 0 0;
     color: var(--ml-ink);
     font-size: clamp(1.9rem, 3.4vw, 3.2rem);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.05;
     letter-spacing: -0.05em;
     text-wrap: balance;
@@ -127,7 +169,7 @@ import { pageTitle, howIWork, whatYouGet, humanControl, notOffered } from '../co
     margin: 0;
     color: var(--ml-ink);
     font-size: clamp(1.6rem, 2.6vw, 2.3rem);
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: -0.04em;
     line-height: 1.1;
   }
@@ -137,7 +179,7 @@ import { pageTitle, howIWork, whatYouGet, humanControl, notOffered } from '../co
     margin: 0.85rem 0 0;
     color: var(--ml-muted);
     font-size: 0.98rem;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.65;
   }
 
@@ -148,110 +190,123 @@ import { pageTitle, howIWork, whatYouGet, humanControl, notOffered } from '../co
   .hiw-signals > div {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.75rem 1.5rem;
+    gap: 1rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--ml-line);
     align-items: baseline;
-    padding-block: 0.85rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--ml-line) 70%, transparent);
   }
 
   .hiw-signals dt {
+    margin: 0;
     color: var(--ml-ink-soft);
-    font-size: 0.94rem;
-    font-weight: 300;
-    line-height: 1.55;
+    font-size: 0.95rem;
+    line-height: 1.45;
   }
 
   .hiw-signals dd {
     margin: 0;
-    color: var(--ml-ink);
-    font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, monospace);
-    font-size: 0.7rem;
+    color: var(--ml-system);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.78rem;
     font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    letter-spacing: 0.04em;
     white-space: nowrap;
   }
 
   .hiw-note {
-    max-width: 36rem;
-    margin: 1.5rem 0 0;
+    margin: 1.25rem 0 0;
     color: var(--ml-muted);
-    font-size: 0.9rem;
-    font-weight: 300;
-    line-height: 1.7;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .hiw-note a {
+    color: var(--ml-system);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .hiw-next {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--ml-line);
+  }
+
+  .hiw-next p:last-child {
+    margin: 0.6rem 0 0;
+    color: var(--ml-ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .hiw-next a {
+    color: var(--ml-system);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .hiw-path-section {
+    background: var(--ml-paper);
   }
 
   .hiw-path {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(1.25rem, 3vw, 2.25rem);
-    margin: clamp(2.25rem, 4vw, 3.25rem) 0 0;
+    margin: 2rem 0 0;
     padding: 0;
     list-style: none;
+    display: grid;
+    gap: 1rem;
   }
 
   .hiw-path li {
     display: grid;
-    gap: 0.9rem;
-    padding-top: 1.15rem;
-    border-top: 1px solid var(--ml-line-strong, rgba(48, 47, 43, 0.24));
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--ml-line);
   }
 
   .hiw-path span {
-    color: var(--ml-clay, #3d5a4c);
-    font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, monospace);
-    font-size: 0.65rem;
-    letter-spacing: 0.06em;
+    color: var(--ml-system);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
   }
 
   .hiw-path h3 {
     margin: 0;
-    color: var(--ml-ink);
-    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
-    font-weight: 500;
-    letter-spacing: -0.025em;
+    font-size: 1.1rem;
+    font-weight: 600;
   }
 
   .hiw-path p {
-    margin: 0.5rem 0 0;
-    color: var(--ml-muted);
-    font-size: 0.9rem;
-    font-weight: 300;
-    line-height: 1.6;
+    margin: 0.35rem 0 0;
+    color: var(--ml-ink-soft);
+    font-size: 0.94rem;
+    line-height: 1.55;
   }
 
   .hiw-columns {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(2rem, 4vw, 3.5rem);
-    align-items: start;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
   }
 
   .hiw-list {
-    display: grid;
-    gap: 0.7rem;
-    margin: 1.1rem 0 0;
+    margin: 1rem 0 0;
     padding: 0;
     list-style: none;
+    display: grid;
+    gap: 0.7rem;
   }
 
   .hiw-list li {
-    position: relative;
-    padding-left: 1.1rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--ml-system);
     color: var(--ml-ink-soft);
-    font-size: 0.93rem;
-    font-weight: 300;
-    line-height: 1.6;
-  }
-
-  .hiw-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.65em;
-    width: 0.38rem;
-    height: 1px;
-    background: var(--ml-line-strong, rgba(48, 47, 43, 0.24));
+    font-size: 0.94rem;
+    line-height: 1.5;
   }
 
   .hiw-list--muted li {
@@ -261,16 +316,6 @@ import { pageTitle, howIWork, whatYouGet, humanControl, notOffered } from '../co
   @media (max-width: 980px) {
     .hiw-choose,
     .hiw-columns {
-      grid-template-columns: 1fr;
-    }
-
-    .hiw-path {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 620px) {
-    .hiw-path {
       grid-template-columns: 1fr;
     }
   }

@@ -1,7 +1,14 @@
 ---
 import Layout from '../components/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import { site, contact, enquiryMailto, offerLadder } from '../config/site';
+import {
+  site,
+  contact,
+  enquiryMailto,
+  discoveryCall,
+  discoveryMailto,
+  offerLadder,
+} from '../config/site';
 
 const review = offerLadder.groups[0].tiers[0];
 
@@ -22,7 +29,7 @@ const prompts = [
 
 <Layout
   title={`Contact · ${site.brand}`}
-  description="Request a Workflow Review from £350. One working session on a single workflow, with a short written recommendation."
+  description="Book a free discovery call, or request a Workflow Review from £350. One working session on a single workflow, with a short written recommendation."
 >
   <div class="inner-v2 contact-page">
     <PageHeader label={contact.kicker} title={contact.title} subtitle={contact.intro} />
@@ -84,6 +91,28 @@ const prompts = [
         </aside>
       </div>
     </section>
+
+    <section id="discovery" class="contact-fit">
+      <div class="home-v2-shell contact-fit__inner">
+        <div>
+          <p class="home-v2-kicker">Free first step</p>
+          <h2>{discoveryCall.title}</h2>
+          <p>{discoveryCall.intro}</p>
+          <ul>
+            {discoveryCall.includes.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div class="contact-fit__action">
+          <a class="contact-page__button contact-page__button--secondary" href={discoveryMailto}>
+            {discoveryCall.label} <span aria-hidden="true">↗</span>
+          </a>
+          <p>
+            {discoveryCall.duration}. No obligation. If it looks worth doing, the next step is a Workflow Review
+            ({contact.price}).
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </Layout>
 
@@ -115,225 +144,215 @@ const prompts = [
   .contact-page__price strong {
     color: var(--ml-ink);
     font-size: clamp(1.6rem, 2.6vw, 2.2rem);
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: -0.04em;
   }
 
   .contact-page__button {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    min-height: 3.6rem;
-    margin-top: 1.75rem;
-    padding: 0.95rem 1.5rem;
+    gap: 0.55rem;
+    min-height: 3.3rem;
+    margin-top: 1.5rem;
+    padding: 0.85rem 1.3rem;
     border-radius: 0.35rem;
-    color: var(--ml-paper);
+    color: #fff;
     background: var(--ml-ink);
-    font-size: 1rem;
-    font-weight: 500;
+    border: 1px solid var(--ml-ink);
+    font-size: 0.96rem;
+    font-weight: 600;
     text-decoration: none;
-    box-shadow: 0 8px 22px rgba(31, 31, 28, 0.12);
-    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .contact-page__button:hover {
-    transform: translateY(-2px);
+    background: #1a1f26;
   }
 
-  .contact-page__button span {
-    transition: transform 180ms ease;
+  .contact-page__button--secondary {
+    color: var(--ml-ink);
+    background: var(--ml-paper-raised);
+    border-color: var(--ml-line-strong);
   }
 
-  .contact-page__button:hover span {
-    transform: translate(2px, -2px);
+  .contact-page__button--secondary:hover {
+    background: #fff;
   }
 
-  .contact-page__helper {
-    max-width: 38rem;
-    margin: 1.5rem 0 0;
+  .contact-page__helper,
+  .contact-page__fallback,
+  .contact-page__credit {
+    margin: 1rem 0 0;
     color: var(--ml-muted);
-    font-size: 0.94rem;
-    font-weight: 300;
-    line-height: 1.7;
+    font-size: 0.92rem;
+    line-height: 1.6;
   }
 
   .contact-page__prompts {
-    display: grid;
-    gap: 0.55rem;
-    max-width: 38rem;
-    margin: 1.1rem 0 0;
+    margin: 1.25rem 0 0;
     padding: 0;
     list-style: none;
+    display: grid;
+    gap: 0.55rem;
   }
 
   .contact-page__prompts li {
-    position: relative;
-    padding-left: 1.1rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--ml-system);
     color: var(--ml-ink-soft);
-    font-size: 0.93rem;
-    font-weight: 300;
-    line-height: 1.55;
+    font-size: 0.94rem;
   }
 
-  .contact-page__prompts li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.65em;
-    width: 0.38rem;
-    height: 1px;
-    background: var(--ml-line-strong, rgba(48, 47, 43, 0.24));
-  }
-
-  .contact-page__fallback {
-    max-width: 38rem;
-    margin: 1.75rem 0 0;
-    color: var(--ml-muted);
-    font-size: 0.86rem;
-    font-weight: 300;
-    line-height: 1.7;
-  }
-
-  .contact-page__fallback a {
-    color: var(--ml-ink);
-    text-decoration: underline;
-    text-underline-offset: 0.18em;
-  }
-
-  .contact-page__fallback strong {
-    color: var(--ml-ink-soft);
+  .contact-page__fallback a,
+  .contact-page__link {
+    color: var(--ml-system);
     font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
   }
 
   .contact-page__aside {
     display: grid;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   .contact-page__panel {
-    padding: clamp(1.5rem, 3vw, 2.25rem);
-    background: var(--ml-paper-raised);
+    padding: 1.35rem;
     border: 1px solid var(--ml-line);
-    border-radius: 0.35rem;
+    border-radius: 0.5rem;
+    background: var(--ml-paper-raised);
   }
 
   .contact-page__panel--quiet {
-    background: transparent;
+    background: var(--ml-paper);
   }
 
   .contact-page__list {
-    display: grid;
-    gap: 0.5rem;
-    margin: 1.1rem 0 0;
+    margin: 0.9rem 0 0;
     padding: 0;
     list-style: none;
+    display: grid;
+    gap: 0.55rem;
   }
 
   .contact-page__list li {
-    position: relative;
-    padding-left: 1.1rem;
     color: var(--ml-ink-soft);
-    font-size: 0.9rem;
-    font-weight: 300;
-    line-height: 1.55;
-  }
-
-  .contact-page__list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.65em;
-    width: 0.38rem;
-    height: 1px;
-    background: var(--ml-line-strong, rgba(48, 47, 43, 0.24));
-  }
-
-  .contact-page__credit {
-    margin: 1.25rem 0 0;
-    padding-top: 1.1rem;
-    border-top: 1px solid var(--ml-line);
-    color: var(--ml-muted);
-    font-size: 0.86rem;
-    font-weight: 300;
-    line-height: 1.65;
+    font-size: 0.92rem;
+    line-height: 1.45;
   }
 
   .contact-page__link {
     display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
     margin-top: 1rem;
-    color: var(--ml-ink);
-    font-size: 0.88rem;
-    font-weight: 500;
     text-decoration: none;
   }
 
-  .contact-page__link span {
-    display: inline-block;
-    transition: transform 180ms ease;
-  }
-
-  .contact-page__link:hover span {
-    transform: translateX(3px);
+  .contact-page__link:hover {
+    text-decoration: underline;
   }
 
   .contact-page__alts {
+    margin-top: 0.9rem;
     display: grid;
-    margin-top: 1rem;
+    gap: 0.85rem;
   }
 
   .contact-page__alts a {
     display: grid;
-    gap: 0.2rem;
-    padding-block: 0.9rem;
-    border-bottom: 1px solid var(--ml-line);
+    gap: 0.15rem;
     text-decoration: none;
-  }
-
-  .contact-page__alts a:last-of-type {
-    border-bottom: none;
+    color: inherit;
   }
 
   .contact-page__alts small {
     color: var(--ml-muted);
-    font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, monospace);
-    font-size: 0.6rem;
-    letter-spacing: 0.08em;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
   .contact-page__alts strong {
-    color: var(--ml-ink-soft);
-    font-size: 0.94rem;
-    font-weight: 400;
-  }
-
-  .contact-page__alts a:hover strong {
     color: var(--ml-ink);
+    font-size: 0.95rem;
+    font-weight: 500;
   }
 
   .contact-page__availability {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
-    margin: 1.35rem 0 0;
-    color: var(--ml-muted);
-    font-size: 0.86rem;
-    font-weight: 300;
+    gap: 0.45rem;
+    margin: 1.1rem 0 0;
+    color: var(--ml-ink-soft);
+    font-size: 0.88rem;
   }
 
   .contact-page__availability i {
-    flex-shrink: 0;
-    width: 0.42rem;
-    height: 0.42rem;
-    border-radius: 999px;
-    background: #638067;
-    box-shadow: 0 0 0 3px rgba(99, 128, 103, 0.1);
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--ml-success, #1f6b4a);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ml-success, #1f6b4a) 16%, transparent);
+  }
+
+  .contact-fit {
+    padding-block: clamp(3.5rem, 7vw, 5.5rem);
+    border-top: 1px solid var(--ml-line);
+    background: var(--ml-paper-raised);
+  }
+
+  .contact-fit__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: end;
+  }
+
+  .contact-fit h2 {
+    margin: 0.75rem 0 0;
+    max-width: 18ch;
+    color: var(--ml-ink);
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+
+  .contact-fit p {
+    max-width: 36rem;
+    margin: 0.85rem 0 0;
+    color: var(--ml-ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  .contact-fit ul {
+    margin: 1.1rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .contact-fit li {
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--ml-system);
+    color: var(--ml-ink-soft);
+    font-size: 0.92rem;
+  }
+
+  .contact-fit__action .contact-page__button {
+    margin-top: 0;
+  }
+
+  .contact-fit__action p {
+    margin-top: 0.9rem;
+    font-size: 0.9rem;
+    color: var(--ml-muted);
   }
 
   @media (max-width: 980px) {
-    .contact-page__layout {
+    .contact-page__layout,
+    .contact-fit__inner {
       grid-template-columns: 1fr;
     }
   }
