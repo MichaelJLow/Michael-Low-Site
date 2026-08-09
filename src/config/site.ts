@@ -751,14 +751,14 @@ export const featuredProjectSlugs = [
 
 export const nav = [
   { label: 'What We Build', href: '/#what-we-build' },
-  { label: 'Systems', href: '/#systems' },
+  { label: 'How It Works', href: '/#systems' },
   { label: 'Work Together', href: '/#how-we-work' },
   { label: 'Contact', href: '/#contact' },
 ] as const;
 
 export const footerNav = [
   { label: 'What We Build', href: '/#what-we-build' },
-  { label: 'Systems', href: '/#systems' },
+  { label: 'How It Works', href: '/#systems' },
   { label: 'Work Together', href: '/#how-we-work' },
   { label: 'Insights', href: '/insights' },
   { label: 'Contact', href: '/#contact' },
