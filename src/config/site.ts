@@ -23,7 +23,7 @@ export const site = {
   shortBio:
     'Controlled AI systems for the way your business actually works.',
   tagline: 'The operating layer between your team and your tools.',
-  url: 'https://michaeljlow.com',
+  url: 'https://www.workwithlayer.com',
   email: 'mike@michaeljlow.com',
   github: 'https://github.com/MichaelJLow',
   linkedin: 'https://www.linkedin.com/in/michael-j-low/',

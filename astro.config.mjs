@@ -8,7 +8,7 @@ const excludedFromSitemap = (page) =>
   page.includes('/404') || page.includes('-lab') || page.includes('/work/');
 
 export default defineConfig({
-  site: 'https://michaeljlow.com',
+  site: 'https://www.workwithlayer.com',
   redirects: {
     '/work': '/how-i-work',
     '/systems/invoiceflow-ap': '/insights/invoice-and-document-processing',
