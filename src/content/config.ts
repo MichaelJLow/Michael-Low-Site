@@ -58,6 +58,8 @@ const projectSchema = z.object({
   related: z.array(z.string()).max(2).optional(),
   video: z.string().optional(),
   draft: z.boolean().default(false),
+  /** Keep personal/trading case studies out of search while still public on the site. */
+  noindex: z.boolean().default(false),
 });
 
 const insightSchema = z.object({
@@ -72,10 +74,12 @@ const insightSchema = z.object({
   coverAlt: z.string(),
   bodyImage: z.string().optional(),
   bodyImageAlt: z.string().optional(),
+  bodyImageCaption: z.string().optional(),
+  railSummary: z.string().optional(),
   closing: z.object({
     title: z.string(),
     body: z.string(),
-    label: z.string().default('Book a no-cost workflow review'),
+    label: z.string().default('Book a free discovery call'),
     href: z.string().default('/#contact'),
   }),
   featured: z.boolean().default(false),

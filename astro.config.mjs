@@ -3,9 +3,12 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-/** Design sandboxes and utility routes stay out of search results. */
+/** Design sandboxes and soft-redirect URLs stay out of the sitemap. */
 const excludedFromSitemap = (page) =>
-  page.includes('/404') || page.includes('-lab') || page.includes('/work/');
+  page.includes('/404') ||
+  page.includes('-lab') ||
+  page.includes('/work/') ||
+  page.includes('/systems/');
 
 export default defineConfig({
   site: 'https://www.workwithlayer.com',

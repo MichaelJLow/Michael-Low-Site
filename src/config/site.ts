@@ -24,7 +24,8 @@ export const site = {
     'Controlled AI systems for the way your business actually works.',
   tagline: 'The operating layer between your team and your tools.',
   url: 'https://www.workwithlayer.com',
-  email: 'mike@michaeljlow.com',
+  email: 'contact@workwithlayer.com',
+  founder: 'Michael J. Low',
   github: 'https://github.com/MichaelJLow',
   linkedin: 'https://www.linkedin.com/in/michael-j-low/',
   availability: 'Available for selected workflow projects and discovery calls.',
@@ -44,10 +45,10 @@ export const pageTitle = (label?: string) => (label ? `${label} · ${site.brand}
 
 /** Homepage and nav primary CTA: free discovery call. */
 export const primaryCta = {
-  label: 'Book a workflow review',
-  shortLabel: 'Book a workflow review',
+  label: 'Book a free discovery call',
+  shortLabel: 'Free discovery call',
   href: '/#contact',
-  note: 'No-cost initial conversation. No obligation.',
+  note: 'Free discovery call. No obligation.',
 } as const;
 
 /** Paid entry after discovery. Used on How I work, Contact, and case studies. */
@@ -741,26 +742,21 @@ export const howIWork = {
 export const homeFeaturedProjectSlugs = ['opsdesk-ai'] as const;
 
 /** Case Studies index and case-study routing. */
-export const featuredProjectSlugs = [
-  'opsdesk-ai',
-  'ai-daily-pulse',
-  'macro-signal-room',
-  'sentinel-mental-game-agent',
-  'libertrade-journal-analytics',
-] as const;
+export const featuredProjectSlugs = ['opsdesk-ai'] as const;
 
 export const nav = [
-  { label: 'What We Build', href: '/#what-we-build' },
-  { label: 'How It Works', href: '/#systems' },
-  { label: 'Work Together', href: '/#how-we-work' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Services', href: '/#what-we-build' },
+  { label: 'Case Studies', href: '/projects' },
+  { label: 'Insights', href: '/insights' },
+  { label: 'About', href: '/about' },
 ] as const;
 
 export const footerNav = [
-  { label: 'What We Build', href: '/#what-we-build' },
-  { label: 'How It Works', href: '/#systems' },
-  { label: 'Work Together', href: '/#how-we-work' },
+  { label: 'Services', href: '/#what-we-build' },
+  { label: 'How it works', href: '/how-i-work' },
+  { label: 'Case Studies', href: '/projects' },
   { label: 'Insights', href: '/insights' },
+  { label: 'About', href: '/about' },
   { label: 'Contact', href: '/#contact' },
   { label: 'Privacy', href: '/privacy' },
 ] as const;

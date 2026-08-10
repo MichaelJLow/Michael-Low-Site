@@ -6,13 +6,18 @@ import { site, about, pageTitle } from '../config/site';
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: site.name,
+  name: site.founder,
   jobTitle: 'Applied AI systems designer and builder',
   url: `${site.url}/about`,
   sameAs: [site.github, site.linkedin],
   description: site.shortBio,
   image: new URL(site.headshot, site.url).href,
   email: `mailto:${site.email}`,
+  worksFor: {
+    '@type': 'Organization',
+    name: site.brand,
+    url: site.url,
+  },
 };
 ---
 
@@ -28,7 +33,7 @@ const personJsonLd = {
           <div class="about-v2__frame">
             <img
               src="/images/headshot-studio-tight.png?v=12"
-              alt={`${site.name} portrait`}
+              alt={`${site.founder} portrait`}
               width="819"
               height="1024"
               loading="eager"

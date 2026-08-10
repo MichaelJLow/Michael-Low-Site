@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../components/Layout.astro';
 import InsightArticle from '../../components/insights/InsightArticle.astro';
-import { pageTitle } from '../../config/site';
+import { pageTitle, site } from '../../config/site';
 
 export async function getStaticPaths() {
   const insights = await getCollection('insights', ({ data }) => !data.draft);
@@ -17,12 +17,47 @@ const { insight } = Astro.props;
 const { Content } = await render(insight);
 const wordCount = insight.body.trim().split(/\s+/).length;
 const readingMinutes = Math.max(1, Math.ceil(wordCount / 220));
+const publishedTime = insight.data.publishedAt.toISOString();
+const modifiedTime = (insight.data.updatedAt ?? insight.data.publishedAt).toISOString();
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: insight.data.title,
+  description: insight.data.description,
+  image: [new URL(insight.data.coverImage, site.url).href],
+  datePublished: publishedTime,
+  dateModified: modifiedTime,
+  author: {
+    '@type': 'Person',
+    name: site.founder,
+    url: `${site.url}/about`,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: site.brand,
+    url: site.url,
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/images/og-default.jpg', site.url).href,
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': new URL(`/insights/${insight.slug}`, site.url).href,
+  },
+};
 ---
 
 <Layout
   title={pageTitle(insight.data.title)}
   description={insight.data.description}
   ogImage={insight.data.coverImage}
+  ogImageAlt={insight.data.coverAlt}
+  ogType="article"
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+  jsonLd={articleJsonLd}
 >
   <InsightArticle insight={insight} readingMinutes={readingMinutes}>
     <Content />

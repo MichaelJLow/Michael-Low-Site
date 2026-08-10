@@ -1,5 +1,45 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "astro"
+  "framework": "astro",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "michaeljlow.com" }],
+      "destination": "https://www.workwithlayer.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.michaeljlow.com" }],
+      "destination": "https://www.workwithlayer.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "workwithlayer.com" }],
+      "destination": "https://www.workwithlayer.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/work",
+      "destination": "/how-i-work",
+      "permanent": true
+    },
+    {
+      "source": "/work/",
+      "destination": "/how-i-work",
+      "permanent": true
+    },
+    {
+      "source": "/systems/invoiceflow-ap",
+      "destination": "/insights/invoice-and-document-processing",
+      "permanent": true
+    },
+    {
+      "source": "/systems/invoiceflow-ap/",
+      "destination": "/insights/invoice-and-document-processing",
+      "permanent": true
+    }
+  ]
 }

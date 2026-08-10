@@ -38,8 +38,8 @@ const steps = [
     number: '01',
     title: 'Understand the workflow',
     description: 'Map the existing process, tools, people, decisions and operational pain points.',
-    service: 'Workflow review',
-    output: 'A clear view of where a system could create value.',
+    service: 'Discovery call',
+    output: 'A clear view of fit, and whether a paid Review is the right next step.',
   },
   {
     number: '02',
@@ -140,15 +140,15 @@ const faqs = [
   {
     question: 'How does a project begin?',
     answer: [
-      'Every project begins with a no-cost initial workflow review.',
-      'We look at how the process works today, which tools and people are involved, where work is slowing down and whether a custom system would create meaningful value.',
+      'Every project begins with a free discovery call to assess fit and decide whether a paid Workflow Review is worth it.',
+      'If the workflow looks worth fixing, the usual next step is a Workflow Review, then an Audit or build when the scope is clear.',
     ],
   },
   {
     question: 'How much does a system cost?',
     answer: [
-      'Each project is scoped around the workflow, integrations, complexity and level of oversight required.',
-      'After the initial workflow review, Layer provides a clear recommendation, proposed scope and pricing before any work begins.',
+      'Discovery starts with a free call. A paid Workflow Review starts from £350, and a Workflow Audit from £950.',
+      'Implementation is scoped after Review or Audit, with Starter Workflows from £750. You get a clear recommendation and price before any build begins.',
     ],
   },
   {
@@ -160,30 +160,59 @@ const faqs = [
   },
 ];
 
-const jsonLd = {
+const serviceJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: site.brand,
   description: site.description,
   url: site.url,
   email: site.email,
+  image: new URL('/images/og-default.jpg', site.url).href,
   serviceType: 'Applied AI systems consultancy',
   areaServed: 'Worldwide',
+  founder: {
+    '@type': 'Person',
+    name: site.founder,
+    url: `${site.url}/about`,
+    sameAs: [site.github, site.linkedin],
+  },
+};
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer.join(' '),
+    },
+  })),
+  url: `${site.url}/#faq`,
 };
 ---
 
-<Layout title={site.title} description={site.description} jsonLd={jsonLd}>
+<Layout title={site.title} description={site.description} jsonLd={[serviceJsonLd, faqJsonLd]}>
   <div class="layer-home">
     <section class="layer-hero" aria-labelledby="hero-title">
       <div class="layer-hero__atmosphere" aria-hidden="true">
-        <img
-          src="/images/layer-hero-floating-network-cleaned.png"
-          alt=""
-          width="1024"
-          height="576"
-          loading="eager"
-          decoding="async"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcset="/images/layer-hero-floating-network-800.webp 800w, /images/layer-hero-floating-network-1280.webp 1280w"
+            sizes="100vw"
+          />
+          <img
+            src="/images/layer-hero-floating-network-1280.jpg"
+            alt=""
+            width="1280"
+            height="853"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
       </div>
       <div class="layer-shell layer-hero__inner">
         <div class="layer-hero__copy" data-reveal data-hero-reveal>
@@ -192,7 +221,7 @@ const jsonLd = {
             <span class="layer-wordmark-inline" aria-label="Layer.">layer<span aria-hidden="true">.</span></span>
             {' '}builds<br />
             the systems<br />
-            that connects<br />
+            that connect<br />
             your team and<br />
             your tools.
           </h1>
@@ -202,11 +231,11 @@ const jsonLd = {
           </p>
           <div class="layer-actions">
             <a class="layer-button layer-button--primary" href="#contact">
-              Book a workflow review <span aria-hidden="true">↗</span>
+              Book a free discovery call <span aria-hidden="true">↗</span>
             </a>
             <a class="layer-link" href="#what-we-build">Explore what Layer builds <span aria-hidden="true">↓</span></a>
           </div>
-          <p class="layer-hero__note">No-cost initial workflow review</p>
+          <p class="layer-hero__note">Free discovery call · about 15 minutes</p>
         </div>
       </div>
       <div class="layer-shell layer-hero__legend" aria-hidden="true">
@@ -379,22 +408,23 @@ const jsonLd = {
         <aside class="layer-review" data-reveal>
           <div>
             <p class="layer-kicker">Your first step</p>
-            <h3>Start with a workflow review</h3>
+            <h3>Start with a free discovery call</h3>
           </div>
           <div>
             <p>
-              We begin with a focused conversation to understand where work is slowing down, what your team is handling
-              manually and whether a custom system would create meaningful value.
+              A short call to understand where work is slowing down, what your team is handling manually, and whether a
+              custom system would create meaningful value. If it looks worth fixing, the usual next step is a paid
+              Workflow Review.
             </p>
             <a class="layer-button layer-button--primary" href="#contact">
-              Book a no-cost workflow review <span aria-hidden="true">↗</span>
+              Book a free discovery call <span aria-hidden="true">↗</span>
             </a>
           </div>
         </aside>
       </div>
     </section>
 
-    <section class="layer-section layer-faq" aria-labelledby="faq-title">
+    <section id="faq" class="layer-section layer-faq" aria-labelledby="faq-title">
       <div class="layer-shell layer-faq__layout">
         <header class="layer-section-head" data-reveal>
           <p class="layer-kicker">Questions, answered</p>
@@ -427,7 +457,7 @@ const jsonLd = {
             Tell us about the process, the tools involved and where the manual work is happening. We’ll help you
             understand what a better system could look like.
           </p>
-          <p class="layer-contact__note">No-cost initial conversation. No obligation.</p>
+          <p class="layer-contact__note">Free discovery call. No obligation. Paid Review from £350 if it is a fit.</p>
         </div>
         <form class="layer-form" data-review-form data-email={site.email} data-reveal>
           <div class="layer-form__row">
@@ -453,7 +483,7 @@ const jsonLd = {
             <textarea name="tools" rows="3" required placeholder="e.g. Gmail, HubSpot, Sheets, Slack"></textarea>
           </label>
           <button class="layer-button layer-button--light" type="submit">
-            Request a workflow review <span aria-hidden="true">↗</span>
+            Request a discovery call <span aria-hidden="true">↗</span>
           </button>
           <p class="layer-form__status" data-form-status aria-live="polite"></p>
         </form>
@@ -498,7 +528,7 @@ const jsonLd = {
       event.preventDefault();
       const data = new FormData(reviewForm);
       const destination = reviewForm.dataset.email;
-      const subject = `Workflow review request from ${data.get('company')}`;
+      const subject = `Discovery call request from ${data.get('company')}`;
       const body = [
         `Name: ${data.get('name')}`,
         `Work email: ${data.get('email')}`,
@@ -652,10 +682,14 @@ const jsonLd = {
     background: #e8e1d5;
   }
 
+  .layer-hero__atmosphere picture,
   .layer-hero__atmosphere img {
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  .layer-hero__atmosphere img {
     object-fit: cover;
     object-position: center;
   }

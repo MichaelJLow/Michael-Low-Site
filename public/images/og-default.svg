@@ -1,6 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#0f1115"/>
-  <text x="80" y="280" fill="#e8e6e3" font-family="Georgia, serif" font-size="64">Michael Low</text>
-  <text x="80" y="360" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="32">AI Workflow Builder &amp; Systems Operator</text>
-  <text x="80" y="420" fill="#d4a853" font-family="Georgia, serif" font-size="28" font-style="italic">Messy input in. Clean operating system out.</text>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10233e"/>
+      <stop offset="100%" stop-color="#1d3557"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <text x="80" y="300" fill="#f6f4ef" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="96" font-weight="450" letter-spacing="-4">layer.</text>
+  <text x="80" y="370" fill="#c5ccd6" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="28">Applied AI Systems Consultancy</text>
 </svg>

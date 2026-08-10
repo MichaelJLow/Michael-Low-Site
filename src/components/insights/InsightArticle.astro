@@ -16,9 +16,15 @@ const published = data.publishedAt.toLocaleDateString('en-GB', {
   month: 'long',
   year: 'numeric',
 });
+const railSummary = data.railSummary || data.description;
+const bodyCaption =
+  data.bodyImageCaption ||
+  (data.bodyImageAlt
+    ? `${data.bodyImageAlt} Select to view at full size.`
+    : 'Example workflow screenshot. Select to view at full size.');
 ---
 
-<main class="insight-article">
+<div class="insight-article">
   <header class="insight-hero">
     <div class="insight-shell">
       <div class="insight-hero__visual" style={`background-image: url('${data.coverImage}')`}>
@@ -43,7 +49,7 @@ const published = data.publishedAt.toLocaleDateString('en-GB', {
     <div class="insight-shell insight-body__grid">
       <aside class="insight-rail" aria-label="Article information">
         <p>In this article</p>
-        <span>A practical look at how the workflow handles intake, checks, exceptions, approvals and accounting handoff.</span>
+        <span>{railSummary}</span>
         <a href="/#contact">Discuss this workflow <b aria-hidden="true">→</b></a>
       </aside>
 
@@ -53,7 +59,7 @@ const published = data.publishedAt.toLocaleDateString('en-GB', {
             <a href={data.bodyImage} target="_blank" rel="noopener noreferrer" aria-label="Open workflow screenshot at full size">
               <img src={data.bodyImage} alt={data.bodyImageAlt || ''} width="1024" height="800" loading="lazy" decoding="async" />
             </a>
-            <figcaption>Example workflow using synthetic invoice data. Select to view at full size.</figcaption>
+            <figcaption>{bodyCaption}</figcaption>
           </figure>
         )}
         <slot />
@@ -76,7 +82,7 @@ const published = data.publishedAt.toLocaleDateString('en-GB', {
       </div>
     </div>
   </section>
-</main>
+</div>
 
 <style>
   .insight-article {
