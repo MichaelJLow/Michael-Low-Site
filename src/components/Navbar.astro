@@ -22,13 +22,16 @@ const mainLinks = nav;
     </div>
 
     <div class="site-nav__actions">
-      <a class="site-nav__cta" href={primaryCta.href}>{primaryCta.shortLabel}</a>
+      <a class="site-nav__cta" href={primaryCta.href}>
+        {primaryCta.label} <span aria-hidden="true">↗</span>
+      </a>
       <details class="site-nav__menu">
         <summary>Menu</summary>
         <div>
           {nav.map((item) => (
             <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
           ))}
+          <a class="site-nav__menu-cta" href={primaryCta.href}>{primaryCta.label}</a>
         </div>
       </details>
     </div>
@@ -118,6 +121,7 @@ const mainLinks = nav;
   .site-nav__cta {
     display: inline-flex;
     align-items: center;
+    gap: 0.55rem;
     padding: 0.62rem 1.05rem;
     border-radius: 0.3rem;
     color: #fff;
@@ -164,6 +168,24 @@ const mainLinks = nav;
 
   .site-nav__menu a {
     padding: 0.7rem 0.8rem;
+  }
+
+  .site-nav__menu-cta {
+    margin-top: 0.35rem;
+    color: #fff !important;
+    background: #1d3557;
+    font-weight: 500;
+  }
+
+  @media (max-width: 1100px) {
+    .site-nav__links {
+      gap: 1.35rem;
+    }
+
+    .site-nav__cta {
+      font-size: 0.8rem;
+      padding: 0.58rem 0.9rem;
+    }
   }
 
   @media (max-width: 980px) {

@@ -732,15 +732,16 @@ export const homeFeaturedProjectSlugs = ['opsdesk-ai'] as const;
 export const featuredProjectSlugs = ['opsdesk-ai'] as const;
 
 export const nav = [
-  { label: 'Services', href: '/#what-we-build' },
-  { label: 'Case Studies', href: '/projects' },
-  { label: 'Insights', href: '/insights' },
-  { label: 'About', href: '/about' },
+  { label: 'What We Build', href: '/#what-we-build' },
+  { label: 'How It Works', href: '/#systems' },
+  { label: 'Work Together', href: '/#how-we-work' },
+  { label: 'Contact', href: '/#contact' },
 ] as const;
 
 export const footerNav = [
-  { label: 'Services', href: '/#what-we-build' },
-  { label: 'How it works', href: '/how-i-work' },
+  { label: 'What We Build', href: '/#what-we-build' },
+  { label: 'How It Works', href: '/how-i-work' },
+  { label: 'Work Together', href: '/#how-we-work' },
   { label: 'Case Studies', href: '/projects' },
   { label: 'Insights', href: '/insights' },
   { label: 'About', href: '/about' },

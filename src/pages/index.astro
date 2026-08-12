@@ -1633,80 +1633,6 @@ const faqJsonLd = {
     text-transform: uppercase;
   }
 
-  .layer-form {
-    display: grid;
-    gap: 1.25rem;
-    padding: clamp(1.5rem, 3vw, 2.4rem);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(10, 25, 43, 0.28);
-  }
-
-  .layer-form__row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .layer-form label {
-    display: grid;
-    gap: 0.55rem;
-  }
-
-  .layer-form label > span {
-    color: rgba(255, 255, 255, 0.78);
-    font-size: 0.78rem;
-  }
-
-  .layer-form label em {
-    font-style: normal;
-    opacity: 0.62;
-  }
-
-  .layer-form input,
-  .layer-form textarea {
-    width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 0;
-    outline: none;
-    color: #fff;
-    background: rgba(255, 255, 255, 0.06);
-    font: inherit;
-    font-size: 0.92rem;
-    padding: 0.65rem 0.8rem;
-    transition: border-color 180ms ease, background 180ms ease;
-  }
-
-  .layer-form input {
-    min-height: 2.5rem;
-  }
-
-  .layer-form input::placeholder,
-  .layer-form textarea::placeholder {
-    color: rgba(255, 255, 255, 0.38);
-  }
-
-  .layer-form textarea {
-    resize: vertical;
-  }
-
-  .layer-form input:focus,
-  .layer-form textarea:focus {
-    border-color: rgba(255, 255, 255, 0.7);
-    background: rgba(255, 255, 255, 0.09);
-  }
-
-  .layer-form .layer-button {
-    justify-self: start;
-    margin-top: 0.4rem;
-  }
-
-  .layer-form__status {
-    min-height: 1.2em;
-    margin: 0;
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 0.78rem;
-  }
-
   [data-reveal] {
     opacity: 0;
     transform: translateY(18px);
@@ -1869,17 +1795,8 @@ const faqJsonLd = {
     .layer-pillar,
     .layer-step-grid li,
     .layer-system-card__copy,
-    .layer-review,
-    .layer-form {
+    .layer-review {
       padding: 1.25rem;
-    }
-
-    .layer-form__row {
-      grid-template-columns: 1fr;
-    }
-
-    .layer-form .layer-button {
-      justify-self: stretch;
     }
   }
 

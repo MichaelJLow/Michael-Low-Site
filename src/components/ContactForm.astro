@@ -5,7 +5,6 @@ interface Props {
 
 const { variant = 'home' } = Astro.props;
 const formClass = variant === 'home' ? 'layer-form' : 'contact-form';
-const buttonClass = variant === 'home' ? 'layer-button layer-button--light' : 'contact-page__button';
 ---
 
 <form class={formClass} data-review-form novalidate>
@@ -32,94 +31,11 @@ const buttonClass = variant === 'home' ? 'layer-button layer-button--light' : 'c
       required
       placeholder="The process, the tools, and what the team is still doing by hand."></textarea>
   </label>
-  <button class={buttonClass} type="submit">
+  <button class={`${formClass}__submit`} type="submit">
     Request a no-cost review <span aria-hidden="true">↗</span>
   </button>
   <p class={`${formClass}__status`} data-form-status aria-live="polite"></p>
 </form>
-
-<style>
-  .contact-honeypot {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-  }
-
-  .contact-form {
-    display: grid;
-    gap: 1.15rem;
-  }
-
-  .contact-form__row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .contact-form label {
-    display: grid;
-    gap: 0.5rem;
-  }
-
-  .contact-form label > span,
-  .layer-form label em,
-  .contact-form label em {
-    font-style: normal;
-  }
-
-  .contact-form label em,
-  .layer-form label em {
-    opacity: 0.62;
-  }
-
-  .contact-form label > span {
-    color: var(--ml-ink-soft, #3a4250);
-    font-size: 0.78rem;
-  }
-
-  .contact-form input,
-  .contact-form textarea {
-    width: 100%;
-    border: 1px solid var(--ml-line-strong, rgba(18, 21, 26, 0.16));
-    border-radius: 0.2rem;
-    outline: none;
-    color: var(--ml-ink, #12151a);
-    background: #fff;
-    font: inherit;
-    font-size: 0.95rem;
-    padding: 0.7rem 0.85rem;
-  }
-
-  .contact-form input {
-    min-height: 2.7rem;
-  }
-
-  .contact-form textarea {
-    resize: vertical;
-    min-height: 7.5rem;
-  }
-
-  .contact-form input:focus,
-  .contact-form textarea:focus {
-    border-color: var(--ml-ink, #12151a);
-  }
-
-  .contact-form__status {
-    min-height: 1.2em;
-    margin: 0;
-    color: var(--ml-muted, #5c6570);
-    font-size: 0.88rem;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 560px) {
-    .contact-form__row {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
 
 <script>
   const forms = document.querySelectorAll<HTMLFormElement>('[data-review-form]');
