@@ -59,7 +59,7 @@ export const reviewCta = {
 
 export const secondaryCta = {
   label: 'See what Layer builds',
-  href: '/#what-we-build',
+  href: '/#systems',
 } as const;
 
 export const howIWorkCta = {
@@ -732,14 +732,14 @@ export const homeFeaturedProjectSlugs = ['opsdesk-ai'] as const;
 export const featuredProjectSlugs = ['opsdesk-ai'] as const;
 
 export const nav = [
-  { label: 'What We Build', href: '/#what-we-build' },
-  { label: 'How It Works', href: '/#systems' },
+  { label: 'What We Build', href: '/#systems' },
+  { label: 'How It Works', href: '/#what-we-build' },
   { label: 'Work Together', href: '/#how-we-work' },
   { label: 'Contact', href: '/#contact' },
 ] as const;
 
 export const footerNav = [
-  { label: 'What We Build', href: '/#what-we-build' },
+  { label: 'What We Build', href: '/#systems' },
   { label: 'How It Works', href: '/how-i-work' },
   { label: 'Work Together', href: '/#how-we-work' },
   { label: 'Case Studies', href: '/projects' },
