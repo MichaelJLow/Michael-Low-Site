@@ -1,5 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
+import ContactForm from '../components/ContactForm.astro';
 import { site } from '../config/site';
 
 const problems = [
@@ -37,29 +38,29 @@ const steps = [
   {
     number: '01',
     title: 'Understand the workflow',
-    description: 'Map the existing process, tools, people, decisions and operational pain points.',
-    service: 'Discovery call',
-    output: 'A clear view of fit, and whether a paid Review is the right next step.',
+    description: 'Map one important process as it actually runs: tools, people, decisions and where work gets stuck.',
+    service: 'No-cost workflow review',
+    output: 'A clear recommendation: build, investigate further, or leave it.',
   },
   {
     number: '02',
-    title: 'Design the operating layer',
-    description: 'Design the operating layer and build one important workflow so the team can test it in practice.',
-    service: 'Starter workflow',
+    title: 'Build the first workflow',
+    description: 'If the path is clear, design and build one important workflow so the team can test it in practice.',
+    service: 'Scoped implementation',
     output: 'One useful workflow running with the right controls and integrations.',
   },
   {
     number: '03',
-    title: 'Build the integrated system',
+    title: 'Connect more of the work',
     description: 'Extend the first workflow into a connected system across more tools, processes and teams.',
-    service: 'Integrated AI system',
+    service: 'Connected operating layer',
     output: 'A dependable operating layer supporting multiple workflows.',
   },
   {
     number: '04',
-    title: 'Launch, support and improve',
+    title: 'Keep it useful',
     description: 'Monitor performance, handle exceptions, improve workflows and support the team as the business changes.',
-    service: 'Ongoing system support',
+    service: 'Support and improvement',
     output: 'A system that stays useful, reliable and improving.',
   },
 ];
@@ -70,11 +71,11 @@ const systems = [
     title: 'Request-to-resolution systems',
     description:
       'Capture incoming requests, extract the relevant information, assign responsibility, manage approvals and track progress through to completion.',
-    exampleLabel: 'Example workflow case study',
+    exampleLabel: 'Example system',
     image: '/images/projects/opsdesk/opsdesk-dashboard-homepage.png',
     imageAlt: 'OpsDesk request queue with chargeable work awaiting approval',
-    href: '/projects/opsdesk-ai',
-    cta: 'View case study',
+    href: '/insights/opsdesk-shared-inbox-control',
+    cta: 'See how it works',
     integrations: [
       { label: 'Intake', name: 'Gmail', icon: '/images/integrations/gmail.png' },
       { label: 'Alerts', name: 'Slack', icon: '/images/integrations/slack.png' },
@@ -101,17 +102,37 @@ const systems = [
   },
   {
     tone: 'mist',
-    title: 'Internal knowledge and search',
+    title: 'Marketing operations',
     description:
-      'Make policies, documents, project information and organisational knowledge easier for teams to find and use.',
+      'Move campaign and content work from brief to draft, approval and publishing without chasing across chats, documents and inboxes.',
     exampleLabel: 'Example system',
+    image: '/images/systems/marketing-ops/control-centre.png',
+    imageAlt: 'Marketing operations workspace showing campaign briefs, draft copy and approval status',
+    imageFit: 'contain',
+    href: '/insights/marketing-operations-workflow',
+    cta: 'See how it works',
+    integrations: [
+      { label: 'Briefs', name: 'Email', icon: '/images/integrations/email.png' },
+      { label: 'Context', name: 'HubSpot', icon: '/images/integrations/hubspot.png' },
+      { label: 'Alerts', name: 'Slack', icon: '/images/integrations/slack.png' },
+    ],
   },
   {
     tone: 'rose',
     title: 'Lead qualification and follow-up',
     description:
-      'Capture enquiries, enrich information, assess fit, draft responses and coordinate consistent follow-up.',
+      'Capture enquiries, assess fit, draft responses and keep follow-up consistent, with a person still deciding what gets sent.',
     exampleLabel: 'Example system',
+    image: '/images/systems/sales-ops/control-centre.png',
+    imageAlt: 'Enquiry workspace showing incoming leads, fit assessment and a draft reply',
+    imageFit: 'contain',
+    href: '/insights/lead-qualification-and-follow-up',
+    cta: 'See how it works',
+    integrations: [
+      { label: 'Intake', name: 'Gmail', icon: '/images/integrations/gmail.png' },
+      { label: 'CRM', name: 'HubSpot', icon: '/images/integrations/hubspot.png' },
+      { label: 'Alerts', name: 'Slack', icon: '/images/integrations/slack.png' },
+    ],
   },
 ];
 
@@ -140,15 +161,8 @@ const faqs = [
   {
     question: 'How does a project begin?',
     answer: [
-      'Every project begins with a free discovery call to assess fit and decide whether a paid Workflow Review is worth it.',
-      'If the workflow looks worth fixing, the usual next step is a Workflow Review, then an Audit or build when the scope is clear.',
-    ],
-  },
-  {
-    question: 'How much does a system cost?',
-    answer: [
-      'Discovery starts with a free call. A paid Workflow Review starts from £350, and a Workflow Audit from £950.',
-      'Implementation is scoped after Review or Audit, with Starter Workflows from £750. You get a clear recommendation and price before any build begins.',
+      'Every project begins with a no-cost workflow review of one real process.',
+      'If it is worth fixing and can be scoped, the next step is a first implementation. If more investigation is needed first, that is a technical discovery. If there is not a worthwhile problem, we will say so.',
     ],
   },
   {
@@ -226,16 +240,16 @@ const faqJsonLd = {
             your tools.
           </h1>
           <p class="layer-hero__intro">
-            We help growing businesses identify where AI can create real value, then design and build the systems,
-            workflows and automations that put it to work.
+            We help growing businesses see where work is getting stuck between people and tools, then design and build
+            the systems that move it forward.
           </p>
           <div class="layer-actions">
             <a class="layer-button layer-button--primary" href="#contact">
-              Book a free discovery call <span aria-hidden="true">↗</span>
+              Book a no-cost workflow review <span aria-hidden="true">↗</span>
             </a>
             <a class="layer-link" href="#what-we-build">Explore what Layer builds <span aria-hidden="true">↓</span></a>
           </div>
-          <p class="layer-hero__note">Free discovery call · about 15 minutes</p>
+          <p class="layer-hero__note">No-cost workflow review · no obligation</p>
         </div>
       </div>
       <div class="layer-shell layer-hero__legend" aria-hidden="true">
@@ -408,16 +422,17 @@ const faqJsonLd = {
         <aside class="layer-review" data-reveal>
           <div>
             <p class="layer-kicker">Your first step</p>
-            <h3>Start with a free discovery call</h3>
+            <h3>Start with a no-cost workflow review</h3>
           </div>
           <div>
             <p>
-              A short call to understand where work is slowing down, what your team is handling manually, and whether a
-              custom system would create meaningful value. If it looks worth fixing, the usual next step is a paid
-              Workflow Review.
+              A focused conversation about one process: how it actually runs, where time is being lost, and whether
+              there is a worthwhile next step. If the path is clear, that is a scoped implementation. If more
+              investigation is needed first, that is a technical discovery. If there is not a worthwhile problem,
+              we will say so.
             </p>
             <a class="layer-button layer-button--primary" href="#contact">
-              Book a free discovery call <span aria-hidden="true">↗</span>
+              Book a no-cost workflow review <span aria-hidden="true">↗</span>
             </a>
           </div>
         </aside>
@@ -457,36 +472,11 @@ const faqJsonLd = {
             Tell us about the process, the tools involved and where the manual work is happening. We’ll help you
             understand what a better system could look like.
           </p>
-          <p class="layer-contact__note">Free discovery call. No obligation. Paid Review from £350 if it is a fit.</p>
+          <p class="layer-contact__note">No-cost workflow review. No obligation.</p>
         </div>
-        <form class="layer-form" data-review-form data-email={site.email} data-reveal>
-          <div class="layer-form__row">
-            <label>
-              <span>Name</span>
-              <input name="name" type="text" autocomplete="name" required />
-            </label>
-            <label>
-              <span>Work email</span>
-              <input name="email" type="email" autocomplete="email" required />
-            </label>
-          </div>
-          <label>
-            <span>Company</span>
-            <input name="company" type="text" autocomplete="organization" required />
-          </label>
-          <label>
-            <span>What workflow or process would you like to improve?</span>
-            <textarea name="workflow" rows="4" required></textarea>
-          </label>
-          <label>
-            <span>What tools or software do you currently use?</span>
-            <textarea name="tools" rows="3" required placeholder="e.g. Gmail, HubSpot, Sheets, Slack"></textarea>
-          </label>
-          <button class="layer-button layer-button--light" type="submit">
-            Request a discovery call <span aria-hidden="true">↗</span>
-          </button>
-          <p class="layer-form__status" data-form-status aria-live="polite"></p>
-        </form>
+        <div data-reveal>
+          <ContactForm variant="home" />
+        </div>
       </div>
     </section>
   </div>
@@ -521,28 +511,6 @@ const faqJsonLd = {
           if (other !== detail) other.open = false;
         });
       });
-    });
-
-    const reviewForm = document.querySelector<HTMLFormElement>('[data-review-form]');
-    reviewForm?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const data = new FormData(reviewForm);
-      const destination = reviewForm.dataset.email;
-      const subject = `Discovery call request from ${data.get('company')}`;
-      const body = [
-        `Name: ${data.get('name')}`,
-        `Work email: ${data.get('email')}`,
-        `Company: ${data.get('company')}`,
-        '',
-        'Workflow or process to improve:',
-        String(data.get('workflow')),
-        '',
-        'Tools or software currently used:',
-        String(data.get('tools')),
-      ].join('\n');
-      const status = reviewForm.querySelector<HTMLElement>('[data-form-status]');
-      if (status) status.textContent = 'Opening your email app to send the request…';
-      window.location.href = `mailto:${destination}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   </script>
 </Layout>
@@ -1687,6 +1655,11 @@ const faqJsonLd = {
   .layer-form label > span {
     color: rgba(255, 255, 255, 0.78);
     font-size: 0.78rem;
+  }
+
+  .layer-form label em {
+    font-style: normal;
+    opacity: 0.62;
   }
 
   .layer-form input,

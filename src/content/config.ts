@@ -79,7 +79,7 @@ const insightSchema = z.object({
   closing: z.object({
     title: z.string(),
     body: z.string(),
-    label: z.string().default('Book a free discovery call'),
+    label: z.string().default('Book a no-cost workflow review'),
     href: z.string().default('/#contact'),
   }),
   featured: z.boolean().default(false),

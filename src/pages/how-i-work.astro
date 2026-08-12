@@ -1,7 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import OfferLadder from '../components/OfferLadder.astro';
 import CtaBand from '../components/CtaBand.astro';
 import {
   pageTitle,
@@ -10,19 +9,15 @@ import {
   humanControl,
   notOffered,
   discoveryCall,
-  reviewCta,
-  offerLadder,
 } from '../config/site';
-
-const review = offerLadder.groups[0].tiers[0];
 ---
 
 <Layout
-  title={pageTitle('How I work')}
-  description="Discovery and implementation for AI workflow projects. Workflow Review from £350, Workflow Audit from £950, builds from £750."
+  title={pageTitle('How we work')}
+  description="Start with a no-cost workflow review. If the process is worth fixing, the next step is a scoped implementation, or technical discovery when more investigation is needed first."
 >
   <div class="inner-v2 hiw">
-    <PageHeader label="How I work" title="Start small. Scope properly. Then build." subtitle={howIWork.intro} />
+    <PageHeader label="How we work" title="Find the problem first. Then decide whether to build." subtitle={howIWork.intro} />
 
     <section class="hiw-band hiw-band--top">
       <div class="home-v2-shell hiw-choose">
@@ -50,32 +45,7 @@ const review = offerLadder.groups[0].tiers[0];
               </div>
             ))}
           </dl>
-          <p class="hiw-note">
-            {howIWork.fitCheckNote}
-            {' '}
-            <a href={discoveryCall.href}>{discoveryCall.shortLabel} <span aria-hidden="true">→</span></a>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="inner-v2-section" aria-labelledby="offers-title">
-      <div class="home-v2-shell">
-        <header class="hiw-offers-head">
-          <p class="home-v2-kicker">Packages</p>
-          <h2 id="offers-title">What you can buy, and what each one is for.</h2>
-          <p class="hiw-lede">
-            Each package has a job, who it suits, what is included, and a clear next step.
-            Starting prices below. Final quote confirmed after discovery.
-          </p>
-        </header>
-        <OfferLadder variant="full" />
-        <div class="hiw-next">
-          <p class="home-v2-kicker">{howIWork.nextStepLabel}</p>
-          <p>
-            Ready to start? <a href={reviewCta.href}>{reviewCta.label}</a>
-            {' '}({review.price}). Still unsure? <a href={discoveryCall.href}>{discoveryCall.shortLabel}</a>.
-          </p>
+          <p class="hiw-note">{howIWork.fitCheckNote}</p>
         </div>
       </div>
     </section>
@@ -83,7 +53,7 @@ const review = offerLadder.groups[0].tiers[0];
     <section class="inner-v2-section hiw-path-section">
       <div class="home-v2-shell">
         <p class="home-v2-kicker">The path</p>
-        <h2 class="hiw-h2">Discovery scopes the work. The build is priced from that scope.</h2>
+        <h2 class="hiw-h2">Review first. Build only when the next step is clear.</h2>
         <ol class="hiw-path">
           {howIWork.path.map((item, index) => (
             <li>
@@ -113,7 +83,7 @@ const review = offerLadder.groups[0].tiers[0];
           </ul>
         </div>
         <div>
-          <p class="home-v2-kicker">What I do not do</p>
+          <p class="home-v2-kicker">What Layer does not do</p>
           <ul class="hiw-list hiw-list--muted">
             {notOffered.map((item) => <li>{item}</li>)}
           </ul>
@@ -123,8 +93,8 @@ const review = offerLadder.groups[0].tiers[0];
 
     <CtaBand
       kicker="Next step"
-      title="Not sure which one you need?"
-      body="Book a free discovery call first. If the workflow looks worth fixing, the usual next step is a Workflow Review. If it needs deeper scoping, I will say so and credit the Review against an Audit within 30 days."
+      title="Start with one workflow"
+      body={`${discoveryCall.intro} ${discoveryCall.duration}.`}
       showFitCheck
     />
   </div>
@@ -141,12 +111,6 @@ const review = offerLadder.groups[0].tiers[0];
     border-top: 0;
   }
 
-  .hiw-offers-head {
-    max-width: 40rem;
-    margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
-  }
-
-  .hiw-offers-head h2,
   .hiw-h2 {
     max-width: 22ch;
     margin: 0.9rem 0 0;
@@ -220,33 +184,6 @@ const review = offerLadder.groups[0].tiers[0];
     line-height: 1.55;
   }
 
-  .hiw-note a {
-    color: var(--ml-system);
-    font-weight: 500;
-    text-decoration: underline;
-    text-underline-offset: 0.15em;
-  }
-
-  .hiw-next {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--ml-line);
-  }
-
-  .hiw-next p:last-child {
-    margin: 0.6rem 0 0;
-    color: var(--ml-ink-soft);
-    font-size: 0.98rem;
-    line-height: 1.6;
-  }
-
-  .hiw-next a {
-    color: var(--ml-system);
-    font-weight: 500;
-    text-decoration: underline;
-    text-underline-offset: 0.15em;
-  }
-
   .hiw-path-section {
     background: var(--ml-paper);
   }
@@ -317,6 +254,11 @@ const review = offerLadder.groups[0].tiers[0];
     .hiw-choose,
     .hiw-columns {
       grid-template-columns: 1fr;
+    }
+
+    .hiw-signals dd {
+      white-space: normal;
+      text-align: right;
     }
   }
 </style>

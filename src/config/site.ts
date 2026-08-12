@@ -28,7 +28,7 @@ export const site = {
   founder: 'Michael J. Low',
   github: 'https://github.com/MichaelJLow',
   linkedin: 'https://www.linkedin.com/in/michael-j-low/',
-  availability: 'Available for selected workflow projects and discovery calls.',
+  availability: 'Available for selected workflow reviews and implementation projects.',
   availabilityShort: 'Available for selected projects',
   location: 'Based in São Paulo, working with clients remotely',
   headshot: '/images/headshot-portfolio-tight.png',
@@ -43,19 +43,18 @@ export const pageTitle = (label?: string) => (label ? `${label} · ${site.brand}
  * Primary commercial CTA
  * ------------------------------------------------------------------ */
 
-/** Homepage and nav primary CTA: free discovery call. */
+/** Homepage and nav primary CTA: no-cost workflow review. */
 export const primaryCta = {
-  label: 'Book a free discovery call',
-  shortLabel: 'Free discovery call',
+  label: 'Book a no-cost workflow review',
+  shortLabel: 'No-cost review',
   href: '/#contact',
-  note: 'Free discovery call. No obligation.',
+  note: 'No-cost workflow review. No obligation.',
 } as const;
 
-/** Paid entry after discovery. Used on How I work, Contact, and case studies. */
+/** Same offer as primaryCta. Kept so older pages keep compiling. */
 export const reviewCta = {
-  label: 'Start with a Workflow Review',
-  href: '/contact',
-  price: 'from £350',
+  label: 'Book a no-cost workflow review',
+  href: '/#contact',
 } as const;
 
 export const secondaryCta = {
@@ -69,33 +68,31 @@ export const howIWorkCta = {
 } as const;
 
 /**
- * Free discovery call (homepage primary CTA).
- * Qualifies fit and next step. Not a free strategy or build session.
+ * No-cost workflow review (homepage primary CTA).
+ * Maps one real process and recommends the next step. Not a build.
  */
 export const discoveryCall = {
-  label: 'Book a Free Discovery Call',
-  shortLabel: 'Free discovery call',
-  href: '/contact#discovery',
-  duration: 'about 15 minutes',
-  title: 'Book a free discovery call',
+  label: 'Book a no-cost workflow review',
+  shortLabel: 'No-cost review',
+  href: '/#contact',
+  duration: 'usually about 45 minutes',
+  title: 'Book a no-cost workflow review',
   intro:
-    'A short call to discuss bottlenecks, assess whether automation is a fit, and outline a sensible next step. We will not design or build the fix on the call. If it looks worth doing, the usual next step is a Workflow Review.',
+    'A focused conversation about one important process: how it actually runs, where time is being lost, and whether there is a worthwhile next step. If there is not, we will say so.',
   includes: [
-    'The workflow that is costing you the most',
-    'Tools you already use and where handoffs break',
-    'Honest go or no-go, and whether a Workflow Review is the right next step',
+    'How one important workflow actually runs today',
+    'Where manual work, handoffs and delays are costing time',
+    'A recommended starting point, or an honest recommendation to leave it',
   ],
-  subject: 'Free discovery call',
+  subject: 'No-cost workflow review',
   bodyLines: [
     'Hello Michael,',
     '',
-    'I would like to book a free discovery call.',
+    'I would like to book a no-cost workflow review.',
     '',
     'Business and what we do:',
     'The workflow that is causing problems:',
     'Tools we currently use:',
-    'Roughly how often it happens (per day or week):',
-    'Times that usually work for a short call:',
     '',
     'Thanks,',
   ],
@@ -266,8 +263,8 @@ export const homeHero = {
   headline: 'Save time, respond faster, and grow with smarter business automation.',
   support:
     'Custom AI and workflow automation for service businesses. Practical solutions built around the tools you already use.',
-  riskLine: 'Practical solutions built around the tools you already use. No obligation discovery call.',
-  priceLine: 'Free discovery call · about 15 minutes',
+  riskLine: 'Practical solutions built around the tools you already use. No obligation workflow review.',
+  priceLine: 'No-cost workflow review · no obligation',
 } as const;
 
 export const homeProblems = [
@@ -283,7 +280,7 @@ export const homeServicesSection = {
   intro:
     'Each engagement starts from a real operational bottleneck, not a technology wishlist. Here is how automation usually helps service businesses.',
   closing:
-    'Not sure what to automate? We will identify the highest-impact opportunity during your discovery call.',
+    'Not sure what to automate? We will identify the highest-impact opportunity during your workflow review.',
 } as const;
 
 export const homeServices = [
@@ -465,12 +462,7 @@ export const homeFaq = [
   {
     question: 'How long does a project take?',
     answer:
-      'A free discovery call is about 15 minutes. A Workflow Review is one working session plus a written summary within a couple of days. Simple automations often take days; connected or controlled systems take one to a few weeks after scope is agreed.',
-  },
-  {
-    question: 'How much does it cost?',
-    answer:
-      'Discovery starts with a free call. A paid Workflow Review starts from £350. Implementation starts from £750 for a simple workflow, with larger connected or controlled builds scoped after discovery. Final quotes follow Review or Audit.',
+      'The no-cost workflow review is usually about 45 minutes, plus a short written recommendation. Implementation time depends on the workflow. Where possible, Layer starts with one focused first version, then expands once it is in use.',
   },
   {
     question: 'Is our data secure, and what happens after launch?',
@@ -481,8 +473,8 @@ export const homeFaq = [
 
 export const homeFinalCta = {
   kicker: 'Next step',
-  title: 'Find where automation saves the most time or recovers the most opportunity.',
-  body: 'On the free discovery call we discuss bottlenecks, assess fit, and recommend a sensible next step. No obligation.',
+  title: 'Find where work is getting stuck, and whether it is worth fixing.',
+  body: 'The no-cost workflow review maps one process and recommends the highest-value next step, or says so if there is not one. No obligation.',
 } as const;
 
 /** Kept for How I work / legacy pages that still reference these names. */
@@ -499,10 +491,10 @@ export const homeWaysIHelp = homeServices.map((item) => ({
 }));
 
 export const homeOfferSection = {
-  kicker: 'Working with me',
-  title: 'Start with discovery, then build what is worth fixing.',
+  kicker: 'Working with Layer',
+  title: 'Start with a no-cost review, then build what is worth fixing.',
   intro:
-    'Most work starts with a free discovery call, then a short paid Review when the workflow looks worth scoping properly.',
+    'Most work starts with a no-cost workflow review. If the process is worth fixing, the next step is a scoped implementation, or a technical discovery when more investigation is needed first.',
 } as const;
 
 export const homeProofSection = {
@@ -545,27 +537,23 @@ export const homeFounderLine = {
 const enquiryBodyLines = [
   'Hello Michael,',
   '',
-  'I would like to start with a Workflow Review.',
+  'I would like to book a no-cost workflow review.',
   '',
   'Business and what we do:',
   'The workflow that is causing problems:',
   'Tools we currently use:',
-  'Roughly how often it happens (per day or week):',
-  'How did you find me:',
   '',
   'Thanks,',
 ];
 
 export const contact = {
   kicker: 'Contact',
-  title: 'Start with a free discovery call, or a Workflow Review.',
-  price: 'from £350',
+  title: 'Start with a no-cost workflow review.',
   intro:
-    'Prefer a short first conversation? Book a free discovery call. Ready for a working session on one workflow? A Workflow Review is one 90 minute session plus a short written summary with an honest recommendation.',
-  subject: 'Workflow Review enquiry',
+    'Tell us about one process that is costing time. We will map how it actually runs, find where effort is being lost, and recommend the highest-value next step, or say so if there is not a worthwhile problem.',
+  subject: 'No-cost workflow review',
   bodyLines: enquiryBodyLines,
-  helper:
-    'The prompts below are prefilled in the email. Answer what you can. If it is easier to describe in your own words, do that instead.',
+  helper: 'Answer what you can. A short note about the process is enough to start.',
 } as const;
 
 export const enquiryMailto = `mailto:${site.email}?subject=${encodeURIComponent(
@@ -701,37 +689,36 @@ export const capabilities = {
 
 export const howIWork = {
   intro:
-    'Two ways to start, three ways to build. Discovery scopes the work. Implementation price depends on that scope.',
+    'Every engagement starts with a no-cost review of one real workflow. Further work only begins if that review finds something worth fixing.',
   fitCheckNote:
-    'Not sure yet? Book a free discovery call first. It only decides whether a paid Review is worth it.',
+    'The review is not a build. It is enough to decide whether implementation, further discovery, or no work is the right next step.',
   chooseDiscovery: {
-    title: 'Review or Audit?',
-    intro: 'The difference is depth and deliverable, not the size of your company.',
+    title: 'After the no-cost review',
+    intro: 'Which route we recommend depends on how clearly the workflow can be scoped.',
     rows: [
-      { signal: 'One person can explain the whole process, one main tool chain', steer: 'Review' },
-      { signal: 'Several people or teams hand work off, two or more systems', steer: 'Audit' },
-      { signal: 'Mistakes have real cost in money, compliance or lost customers', steer: 'Audit' },
-      { signal: 'Budget is tight and you are not sure automation is worth it', steer: 'Review' },
-      { signal: 'You have already decided to build and need a proper quote', steer: 'Audit' },
+      { signal: 'The process is bounded, the systems are understood, and the work can be estimated', steer: 'Scoped implementation' },
+      { signal: 'Integrations, data, security or exceptions still need investigation before a responsible build', steer: 'Technical discovery' },
+      { signal: 'The process should be simplified before any system is built', steer: 'Change the process first' },
+      { signal: 'There is no worthwhile problem, or the timing is wrong', steer: 'No build' },
     ],
     close:
-      'If a Review uncovers complexity that needs proper scoping, I will recommend an Audit rather than quote a build I cannot stand behind.',
+      'Technical discovery is not automatic. It is only recommended when the no-cost review is not enough to scope an implementation responsibly.',
   },
   chooseBuild: {
-    title: 'Which build fits?',
+    title: 'What can follow',
     rows: [
-      { need: 'X should talk to Y, simple and predictable', offer: 'Starter Workflow' },
-      { need: 'Several steps and tools working together', offer: 'Connected Workflows' },
-      { need: 'Ambiguity, approvals, auditability, a controlled rollout', offer: 'Controlled Pilot' },
+      { need: 'Build the recommended first workflow, with controls and a handover', offer: 'Scoped implementation' },
+      { need: 'Investigate access, APIs, data, risk or architecture before a build', offer: 'Technical discovery' },
+      { need: 'Extend a working first workflow across more tools and teams', offer: 'Connected system' },
     ],
   },
   path: [
-    { step: 'Review or Audit', detail: 'Discovery establishes whether to build, and what the build is.' },
-    { step: 'Scope and quote', detail: 'A named workflow with acceptance criteria and a fixed price.' },
-    { step: 'Build and demonstrate', detail: 'You see it working against real cases before acceptance.' },
-    { step: 'Handover and stabilise', detail: 'Documentation, training, and a defect fix period.' },
+    { step: 'No-cost workflow review', detail: 'Map one process as it actually runs, find the friction, and recommend one starting point.' },
+    { step: 'Agreed next step', detail: 'A scoped implementation if the path is clear, or technical discovery if it is not.' },
+    { step: 'Build and demonstrate', detail: 'You see the workflow working against real cases before acceptance.' },
+    { step: 'Handover and improve', detail: 'Documentation, training, and a defect fix period, then support as the work changes.' },
   ],
-  nextStepLabel: 'Next step after choosing',
+  nextStepLabel: 'Next step',
 } as const;
 
 /* ------------------------------------------------------------------ *
@@ -823,7 +810,7 @@ export const hero = {
   statusPill: 'For selected workflow projects' as const,
   statusChips: [
     'For selected workflow projects',
-    'Workflow Reviews from £350',
+    'No-cost workflow review',
     'Intake · automation · approvals',
   ] as const,
   cta: primaryCta,
