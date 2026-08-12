@@ -38,7 +38,45 @@ const formClass = variant === 'home' ? 'layer-form' : 'contact-form';
 </form>
 
 <script>
+  const CONTACT_EMAIL = 'contact@workwithlayer.com';
   const forms = document.querySelectorAll<HTMLFormElement>('[data-review-form]');
+
+  function markSent(form: HTMLFormElement, status: HTMLElement | null) {
+    form.reset();
+    if (status) {
+      status.textContent = 'Thanks. We will reply within one working day to arrange the conversation.';
+    }
+  }
+
+  async function sendViaApi(payload: Record<string, string>) {
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return response.json().catch(() => ({ ok: false, fallback: true }));
+  }
+
+  async function sendViaFormSubmit(payload: Record<string, string>) {
+    const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(CONTACT_EMAIL)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        name: payload.name,
+        email: payload.email,
+        company: payload.company,
+        message: payload.message,
+        _subject: `Workflow review request from ${payload.company || payload.name}`,
+        _template: 'table',
+        _captcha: 'false',
+        _replyto: payload.email,
+      }),
+    });
+    const result = await response.json().catch(() => ({ success: 'false' }));
+    if (!response.ok || result.success === false || result.success === 'false') {
+      throw new Error(result.message || `Something went wrong sending the request. Email ${CONTACT_EMAIL} and it will reach us directly.`);
+    }
+  }
 
   forms.forEach((form) => {
     form.addEventListener('submit', async (event) => {
@@ -59,30 +97,29 @@ const formClass = variant === 'home' ? 'layer-form' : 'contact-form';
         return;
       }
 
+      if (payload.website) {
+        markSent(form, status);
+        return;
+      }
+
       if (button) button.disabled = true;
       if (status) status.textContent = 'Sending…';
 
       try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        const result = await response.json().catch(() => ({ ok: false }));
-        if (!response.ok || !result.ok) {
-          throw new Error(result.error || 'Could not send the request.');
+        const result = await sendViaApi(payload);
+        if (result.ok) {
+          markSent(form, status);
+          return;
         }
 
-        form.reset();
-        if (status) {
-          status.textContent = 'Thanks. We will reply within one working day to arrange the conversation.';
-        }
+        await sendViaFormSubmit(payload);
+        markSent(form, status);
       } catch (error) {
         if (status) {
           status.textContent =
             error instanceof Error
               ? error.message
-              : 'Something went wrong. Email contact@workwithlayer.com and it will reach us directly.';
+              : `Something went wrong. Email ${CONTACT_EMAIL} and it will reach us directly.`;
         }
       } finally {
         if (button) button.disabled = false;
