@@ -74,6 +74,7 @@ const steps = [
 const systems = [
   {
     tone: 'ember',
+    icon: 'inbox',
     title: 'Shared Inbox Routing & Approval',
     description:
       'Requests arriving by email are classified, matched with the right context and routed according to urgency and your business rules. Routine work keeps moving, while exceptions and sensitive actions are held for the right person to approve.',
@@ -84,6 +85,7 @@ const systems = [
   },
   {
     tone: 'mist',
+    icon: 'sales',
     title: 'Sales opportunity intelligence',
     description:
       'New prospects are continuously researched, enriched and assessed against your ideal customer profile. The best opportunities flow into the CRM with useful context and tailored outreach ready for review.',
@@ -95,6 +97,7 @@ const systems = [
   },
   {
     tone: 'rose',
+    icon: 'marketing',
     title: 'Marketing content engine',
     description:
       'Calls, meetings and internal knowledge are continuously turned into content ideas and first drafts. Relevant material is organised, shaped for the right channels and moved towards publication, with your team reviewing what goes live.',
@@ -106,6 +109,7 @@ const systems = [
   },
   {
     tone: 'violet',
+    icon: 'invoice',
     title: 'Invoice processing automation',
     description:
       'Invoices that arrive by email are extracted, checked against your rules and prepared as a draft bill in Xero or the accounting software the business already uses. Payment stays held until finance approves them.',
@@ -279,6 +283,35 @@ const faqJsonLd = {
           {systems.map((system) => (
             <article class={`layer-system-card layer-system-card--${system.tone}`} data-reveal>
               <div class="layer-system-card__copy">
+                <span class="layer-system-card__icon" aria-hidden="true">
+                  {system.icon === 'inbox' && (
+                    <svg viewBox="0 0 32 32" fill="none">
+                      <path d="M16 6.8v11.2" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" />
+                      <path d="M11.8 14.2 16 18.2 20.2 14.2" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M6.5 15.2h4.4l2 3.6h6.2l2-3.6h4.4V24.2H6.5V15.2Z" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round" />
+                    </svg>
+                  )}
+                  {system.icon === 'sales' && (
+                    <svg viewBox="0 0 32 32" fill="none">
+                      <circle cx="16" cy="16" r="8.4" stroke="currentColor" stroke-width="1.45" />
+                      <circle cx="16" cy="16" r="3.6" stroke="currentColor" stroke-width="1.45" />
+                      <path d="M16 5.6v2.8M16 23.6v2.8M5.6 16h2.8M23.6 16h2.8" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" />
+                    </svg>
+                  )}
+                  {system.icon === 'marketing' && (
+                    <svg viewBox="0 0 32 32" fill="none">
+                      <rect x="8.5" y="6.8" width="15" height="18.4" rx="1.8" stroke="currentColor" stroke-width="1.45" />
+                      <path d="M12.2 12.2h7.6M12.2 16h7.6M12.2 19.8h5" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" />
+                    </svg>
+                  )}
+                  {system.icon === 'invoice' && (
+                    <svg viewBox="0 0 32 32" fill="none">
+                      <path d="M9.2 6.8h10.2L22.8 10.2V25.2H9.2V6.8Z" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round" />
+                      <path d="M19.4 6.8v3.6h3.4" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round" />
+                      <path d="M12.4 14.6h7.2M12.4 18.2h7.2M12.4 21.8h4.2" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" />
+                    </svg>
+                  )}
+                </span>
                 <h3>{system.title}</h3>
                 <p>{system.description}</p>
                 {system.href ? (
@@ -1250,37 +1283,62 @@ const faqJsonLd = {
     min-height: 34rem;
     margin-bottom: 1rem;
     overflow: hidden;
-    border: 1px solid rgba(29, 53, 87, 0.13);
-    border-radius: 0.55rem;
-    background: rgba(250, 249, 246, 0.88);
-    box-shadow: 0 18px 48px rgba(40, 48, 61, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 1.35rem;
+    background: rgba(248, 246, 241, 0.88);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.62),
+      0 18px 40px rgba(8, 16, 28, 0.12);
+    backdrop-filter: blur(14px) saturate(108%);
     transition: transform 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
   }
 
   .layer-system-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(29, 53, 87, 0.22);
-    box-shadow: 0 24px 56px rgba(40, 48, 61, 0.12);
+    border-color: rgba(255, 255, 255, 0.32);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.42),
+      0 24px 48px rgba(8, 16, 28, 0.2);
   }
 
   .layer-system-card__copy {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    padding: clamp(1.25rem, 2.4vw, 1.75rem);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1rem;
+    row-gap: 0.7rem;
+    align-items: start;
+    padding: 1.65rem 1.55rem 1.15rem;
     background: transparent;
   }
 
-  .layer-system-card__copy > .layer-system-card__link,
-  .layer-system-card__copy > .layer-system-card__soon {
-    margin-top: auto;
+  .layer-system-card__icon {
+    display: grid;
+    place-items: center;
+    width: 2.55rem;
+    height: 2.55rem;
+    border: 1px solid rgba(29, 53, 87, 0.12);
+    border-radius: 0.55rem;
+    color: var(--layer-navy);
+    background: rgba(29, 53, 87, 0.05);
+  }
+
+  .layer-system-card__icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .layer-system-card h3,
+  .layer-system-card__copy > p,
+  .layer-system-card__link,
+  .layer-system-card__soon {
+    grid-column: 2;
   }
 
   .layer-system-card h3 {
-    margin: 0;
+    margin: 0.15rem 0 0;
     max-width: 28ch;
     color: var(--layer-ink);
-    font-size: clamp(1.55rem, 2.4vw, 2.1rem);
+    font-size: clamp(1.45rem, 2.1vw, 1.85rem);
     font-weight: 500;
     letter-spacing: -0.045em;
     line-height: 1.08;
@@ -1289,9 +1347,9 @@ const faqJsonLd = {
   .layer-system-card__copy > p {
     margin: 0;
     max-width: 36rem;
-    color: var(--layer-muted);
+    color: #1a2433;
     font-size: 0.9rem;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.6;
   }
 
@@ -1299,7 +1357,7 @@ const faqJsonLd = {
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
-    margin-top: 0.35rem;
+    margin-top: 0.15rem;
     color: var(--layer-navy);
     font-size: 0.84rem;
     font-weight: 500;
@@ -1310,7 +1368,7 @@ const faqJsonLd = {
   }
 
   .layer-system-card__soon {
-    margin-top: 0.35rem;
+    margin-top: 0.15rem;
     color: var(--layer-muted);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.62rem;
@@ -1322,69 +1380,31 @@ const faqJsonLd = {
     position: relative;
     isolation: isolate;
     display: grid;
-    place-items: end center;
-    min-height: 18rem;
-    padding: 1.35rem 1.15rem 1.15rem;
+    place-items: center;
+    min-height: 20rem;
+    padding: 0.25rem 1.35rem 1.45rem;
     overflow: hidden;
   }
 
   .layer-system-card__wash {
-    position: absolute;
-    inset: -20%;
-    z-index: -1;
-    filter: blur(28px);
-    transition: transform 700ms ease;
-  }
-
-  .layer-system-card:hover .layer-system-card__wash {
-    transform: scale(1.08) translate3d(1%, -1%, 0);
-  }
-
-  .layer-system-card--ember .layer-system-card__wash {
-    background:
-      radial-gradient(circle at 24% 35%, #d7946f 0%, transparent 35%),
-      radial-gradient(circle at 82% 80%, #6b989b 0%, transparent 42%),
-      #263c53;
-  }
-
-  .layer-system-card--violet .layer-system-card__wash {
-    background:
-      radial-gradient(circle at 76% 20%, #c99786 0%, transparent 36%),
-      radial-gradient(circle at 20% 72%, #59688f 0%, transparent 44%),
-      #493e52;
-  }
-
-  .layer-system-card--mist .layer-system-card__wash {
-    background:
-      radial-gradient(circle at 30% 22%, #a9c1bd 0%, transparent 36%),
-      radial-gradient(circle at 80% 76%, #a06363 0%, transparent 38%),
-      #314657;
-  }
-
-  .layer-system-card--rose .layer-system-card__wash {
-    background:
-      radial-gradient(circle at 24% 78%, #d2977b 0%, transparent 38%),
-      radial-gradient(circle at 78% 22%, #738f9a 0%, transparent 38%),
-      #483d4b;
+    display: none;
   }
 
   .layer-system-card__media {
     position: relative;
     z-index: 1;
-    width: min(100%, 36rem);
+    width: 100%;
   }
 
   .layer-system-card__shot {
     position: relative;
     margin: 0;
-    aspect-ratio: 4 / 3;
     overflow: hidden;
-    border: 1px solid rgba(29, 53, 87, 0.12);
-    border-radius: 0.55rem;
-    background: #fff;
-    box-shadow:
-      0 14px 32px rgba(40, 48, 61, 0.1),
-      0 1px 0 rgba(255, 255, 255, 0.8);
+    aspect-ratio: 16 / 10;
+    border: 0;
+    border-radius: 0.85rem;
+    background: transparent;
+    box-shadow: 0 18px 36px rgba(8, 16, 28, 0.22);
   }
 
   .layer-system-card__shot a {
@@ -1403,7 +1423,7 @@ const faqJsonLd = {
   }
 
   .layer-system-card__shot--contain {
-    background: #f3f4f6;
+    background: transparent;
   }
 
   .layer-system-card__shot--contain img {
@@ -1412,16 +1432,9 @@ const faqJsonLd = {
   }
 
   .layer-system-card__placeholder {
-    position: relative;
-    z-index: 1;
     display: grid;
     place-items: center;
-    width: min(100%, 36rem);
-    aspect-ratio: 16 / 10;
-    margin: 0 auto;
-    border: 1px solid rgba(29, 53, 87, 0.12);
-    border-radius: 0.55rem;
-    background: rgba(255, 255, 255, 0.7);
+    min-height: 12rem;
     color: var(--layer-muted);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.62rem;
