@@ -1,13 +1,14 @@
 ---
-import { site, nav, primaryCta } from '../config/site';
+import { nav, primaryCta } from '../config/site';
 
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
+const isHome = path === '/';
 
 const mainLinks = nav;
 ---
 
-<header class="site-nav" data-site-nav>
+<header class:list={['site-nav', isHome && 'site-nav--home']} data-site-nav>
   <nav class="site-nav__inner" aria-label="Primary navigation">
     <a class="site-nav__brand" href="/">
       <span class="site-nav__wordmark" aria-label="Layer">
@@ -53,6 +54,7 @@ const mainLinks = nav;
     border-bottom: 1px solid var(--nav-line);
     backdrop-filter: blur(18px) saturate(120%);
     font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    transition: background 220ms ease, border-color 220ms ease;
   }
 
   .site-nav__inner {
@@ -208,4 +210,59 @@ const mainLinks = nav;
       display: none;
     }
   }
+
+  .site-nav--home:not(.is-solid) {
+    background: transparent;
+    border-bottom-color: transparent;
+    backdrop-filter: none;
+  }
+
+  .site-nav--home:not(.is-solid) .site-nav__wordmark {
+    color: #fff;
+  }
+
+  .site-nav--home:not(.is-solid) .site-nav__wordmark b {
+    color: #6eb4e8;
+  }
+
+  .site-nav--home:not(.is-solid) .site-nav__links a,
+  .site-nav--home:not(.is-solid) .site-nav__menu summary {
+    color: rgba(244, 245, 247, 0.72);
+  }
+
+  .site-nav--home:not(.is-solid) .site-nav__links a:hover,
+  .site-nav--home:not(.is-solid) .site-nav__menu summary:hover {
+    color: #fff;
+  }
+
+  .site-nav--home:not(.is-solid) .site-nav__links a[aria-current='page'] {
+    color: #fff;
+  }
+
+  .site-nav--home:not(.is-solid) .site-nav__cta {
+    color: #10233e;
+    background: #f8f6f1;
+  }
+
+  .site-nav--home:not(.is-solid) .site-nav__cta:hover {
+    background: #fff;
+    box-shadow: none;
+  }
 </style>
+
+{isHome && (
+  <script>
+    const nav = document.querySelector<HTMLElement>('[data-site-nav]');
+    const hero = document.querySelector('.layer-hero');
+    if (nav && hero) {
+      const sync = () => {
+        const heroBottom = hero.getBoundingClientRect().bottom;
+        const navBottom = nav.getBoundingClientRect().bottom;
+        nav.classList.toggle('is-solid', heroBottom <= navBottom + 12);
+      };
+      sync();
+      window.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+    }
+  </script>
+)}

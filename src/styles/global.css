@@ -167,7 +167,6 @@ html[data-accent='ink'] {
   /* Light rings on dark surfaces so the focus mark stays legible. */
   .cta-band :focus-visible,
   .mock-contact :focus-visible,
-  .site-nav__cta:focus-visible,
   a.mock-button--primary:focus-visible,
   a.home-button--primary:focus-visible,
   .contact-page__button:focus-visible,
