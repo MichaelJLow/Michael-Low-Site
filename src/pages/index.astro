@@ -216,15 +216,13 @@ const faqJsonLd = {
           <p class="layer-eyebrow"><span></span> Applied AI for growing businesses</p>
           <h1 id="hero-title">
             <span class="layer-wordmark-inline" aria-label="Layer.">layer<span aria-hidden="true">.</span></span>
-            {' '}builds<br />
-            the systems<br />
-            that connect<br />
-            your team and<br />
-            your tools.
+            {' '}builds the systems<br />
+            that connect your team<br />
+            and your tools.
           </h1>
           <p class="layer-hero__intro">
-            We help growing businesses see where work is getting stuck between people and tools, then design and build
-            the systems that move it forward.
+            We help growing businesses identify where AI can create real value, then design and build the systems,
+            workflows and automations that put it to work.
           </p>
           <div class="layer-actions">
             <a class="layer-button layer-button--light" href="#contact">
@@ -623,9 +621,9 @@ const faqJsonLd = {
     z-index: 0;
     overflow: hidden;
     background:
-      radial-gradient(ellipse 80% 58% at 8% -8%, rgba(64, 158, 168, 0.42), transparent 58%),
-      radial-gradient(ellipse 92% 78% at 100% 112%, rgba(206, 112, 52, 0.5), transparent 56%),
-      radial-gradient(ellipse 48% 42% at 62% 48%, rgba(16, 28, 42, 0.55), transparent 72%),
+      radial-gradient(ellipse 80% 58% at 8% -8%, rgba(64, 158, 168, 0.5), transparent 58%),
+      radial-gradient(ellipse 92% 78% at 100% 112%, rgba(214, 118, 52, 0.58), transparent 56%),
+      radial-gradient(ellipse 48% 42% at 50% 48%, rgba(16, 28, 42, 0.4), transparent 72%),
       #07090c;
   }
 
@@ -653,11 +651,14 @@ const faqJsonLd = {
   .layer-hero__inner {
     position: relative;
     z-index: 2;
+    width: 100%;
     padding-block: clamp(7.5rem, 14vh, 10rem) clamp(7rem, 12vh, 10rem);
+    text-align: center;
   }
 
   .layer-hero__copy {
-    max-width: 49rem;
+    max-width: 54rem;
+    margin-inline: auto;
   }
 
   .layer-eyebrow {
@@ -668,6 +669,7 @@ const faqJsonLd = {
   }
 
   .layer-hero .layer-eyebrow {
+    justify-content: center;
     color: rgba(244, 245, 247, 0.58);
   }
 
@@ -682,13 +684,14 @@ const faqJsonLd = {
   }
 
   .layer-hero h1 {
-    max-width: 12ch;
-    margin: 1.4rem 0 0;
+    max-width: 16ch;
+    margin: 1.5rem auto 0;
     color: #fff;
-    font-size: clamp(3.25rem, 6.5vw, 7rem);
+    font-size: clamp(3.1rem, 6.2vw, 6.4rem);
     font-weight: 500;
-    letter-spacing: -0.072em;
-    line-height: 0.92;
+    letter-spacing: -0.055em;
+    line-height: 1.02;
+    text-wrap: balance;
   }
 
   .layer-hero h1 .layer-wordmark-inline {
@@ -703,12 +706,12 @@ const faqJsonLd = {
   }
 
   .layer-hero__intro {
-    max-width: 34rem;
-    margin: 2.35rem 0 0;
+    max-width: 38rem;
+    margin: 2rem auto 0;
     color: rgba(244, 245, 247, 0.72);
-    font-size: clamp(1.0625rem, 1.55vw, 1.3rem);
+    font-size: clamp(1.0625rem, 1.55vw, 1.28rem);
     font-weight: 300;
-    line-height: 1.55;
+    line-height: 1.6;
   }
 
   .layer-actions {
@@ -717,6 +720,10 @@ const faqJsonLd = {
     align-items: center;
     gap: 1rem 1.4rem;
     margin-top: 1.45rem;
+  }
+
+  .layer-hero .layer-actions {
+    justify-content: center;
   }
 
   .layer-link {
@@ -755,7 +762,7 @@ const faqJsonLd = {
   }
 
   .layer-hero__note {
-    margin: 0.8rem 0 0;
+    margin: 0.9rem auto 0;
     color: rgba(244, 245, 247, 0.45);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.6rem;
