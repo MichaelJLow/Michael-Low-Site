@@ -618,22 +618,20 @@ const faqJsonLd = {
     z-index: 0;
     overflow: hidden;
     background:
-      radial-gradient(ellipse 78% 62% at 4% -6%, rgba(72, 178, 186, 0.62), transparent 56%),
-      radial-gradient(ellipse 95% 82% at 96% 108%, rgba(224, 122, 48, 0.78), transparent 54%),
-      radial-gradient(ellipse 58% 52% at 78% 72%, rgba(196, 96, 42, 0.42), transparent 68%),
-      radial-gradient(ellipse 42% 38% at 22% 28%, rgba(48, 110, 118, 0.28), transparent 70%),
+      radial-gradient(ellipse 70% 60% at 0% 0%, rgba(72, 178, 186, 0.58), transparent 62%),
+      radial-gradient(ellipse 74% 66% at 100% 100%, rgba(224, 122, 48, 0.7), transparent 60%),
       #05070a;
   }
 
   .layer-hero__atmosphere::before {
     content: '';
     position: absolute;
-    inset: -12%;
+    inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 48% 40% at 12% 12%, rgba(90, 196, 198, 0.32), transparent 68%),
-      radial-gradient(ellipse 62% 54% at 90% 82%, rgba(240, 148, 68, 0.4), transparent 64%);
-    filter: blur(36px);
+      radial-gradient(ellipse 52% 46% at 6% 4%, rgba(90, 196, 198, 0.36), transparent 70%),
+      radial-gradient(ellipse 56% 50% at 94% 96%, rgba(240, 148, 68, 0.4), transparent 68%);
+    filter: blur(48px);
   }
 
   .layer-hero__atmosphere::after {
@@ -646,30 +644,31 @@ const faqJsonLd = {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
   }
 
-  .layer-hero__inner {
+  .layer-shell.layer-hero__inner {
     position: relative;
     z-index: 2;
-    width: 100%;
+    width: min(92rem, calc(100% - 3rem));
     padding-block: clamp(6.5rem, 12vh, 9rem) clamp(6.5rem, 11vh, 9rem);
     text-align: center;
   }
 
   .layer-hero__copy {
-    max-width: 54rem;
+    width: 100%;
     margin-inline: auto;
   }
 
   .layer-hero h1 {
     margin: 0 auto;
     color: #fff;
-    font-size: clamp(2.8rem, 5.4vw, 5.8rem);
+    font-size: clamp(1.45rem, 4.6vw, 4.85rem);
     font-weight: 500;
     letter-spacing: -0.055em;
-    line-height: 1.06;
+    line-height: 1.08;
   }
 
   .layer-hero__line {
     display: block;
+    white-space: nowrap;
   }
 
   .layer-hero h1 .layer-wordmark-inline {
@@ -1608,7 +1607,8 @@ const faqJsonLd = {
       align-items: flex-start;
     }
 
-    .layer-hero__inner {
+    .layer-shell.layer-hero__inner {
+      width: min(100% - 1.5rem, 92rem);
       padding-block: 6.5rem 11rem;
     }
 
@@ -1664,7 +1664,7 @@ const faqJsonLd = {
     }
 
     .layer-hero h1 {
-      font-size: clamp(2.15rem, 8.4vw, 3.4rem);
+      font-size: clamp(1.2rem, 6.4vw, 2.35rem);
     }
 
     .layer-actions {
