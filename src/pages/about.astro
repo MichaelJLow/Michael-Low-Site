@@ -1,7 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
-import CtaBand from '../components/CtaBand.astro';
-import { site, about, pageTitle } from '../config/site';
+import { site, about, pageTitle, primaryCta } from '../config/site';
 
 const personJsonLd = {
   '@context': 'https://schema.org',
@@ -26,27 +25,29 @@ const personJsonLd = {
   description="Michael J. Low designs and builds applied AI systems for businesses whose operations have outgrown the tools holding them together."
   jsonLd={personJsonLd}
 >
-  <div class="inner-v2 about-v2">
-    <section class="about-v2__intro" aria-labelledby="about-title">
-      <div class="home-v2-shell about-v2__intro-grid">
-        <figure class="about-v2__photo">
-          <div class="about-v2__frame">
-            <img
-              src="/images/headshot-studio-tight.png?v=12"
-              alt={`${site.founder} portrait`}
-              width="819"
-              height="1024"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
+  <div class="about-page">
+    <section class="about-intro" aria-labelledby="about-title">
+      <div class="about-shell about-intro__grid">
+        <figure class="about-intro__photo">
+          <img
+            src="/images/headshot-studio-tight.png?v=12"
+            alt={`${site.founder} portrait`}
+            width="819"
+            height="1024"
+            loading="eager"
+            decoding="async"
+          />
         </figure>
-
-        <div class="about-v2__intro-copy">
-          <p class="home-v2-kicker">About</p>
+        <div class="about-intro__copy">
+          <p class="about-kicker">About</p>
           <h1 id="about-title">I make complicated work easier to operate.</h1>
-          <p class="about-v2__lede">{about.intro}</p>
-          <div class="about-v2__meta">
+          <p class="about-intro__lede">{about.intro}</p>
+          <p class="about-intro__lede">
+            Layer is the consultancy I built to do that work: connect the tools, coordinate the process, and keep people
+            in control.
+          </p>
+          <div class="about-intro__meta">
+            <span>Founder, Layer</span>
             <span>{site.location}</span>
             <span>{site.availabilityShort}</span>
           </div>
@@ -54,22 +55,24 @@ const personJsonLd = {
       </div>
     </section>
 
-    <section class="about-v2__story">
-      <div class="home-v2-shell about-v2__story-grid">
-        <div class="about-v2__copy">
-          <p class="home-v2-kicker">The work</p>
+    <section class="about-story">
+      <div class="about-shell about-story__grid">
+        <p class="about-kicker">The work</p>
+        <div class="about-story__copy">
           {about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
         </div>
       </div>
     </section>
 
-    <section class="about-client">
-      <div class="home-v2-shell">
-        <header>
-          <p class="home-v2-kicker">How I work with clients</p>
-          <h2>Four steps, in the same order, every time.</h2>
+    <section class="about-steps" aria-labelledby="about-steps-title">
+      <div class="about-shell">
+        <header class="about-section-head">
+          <div>
+            <p class="about-kicker">How I work with clients</p>
+            <h2 id="about-steps-title">Four steps, in the same order, every time.</h2>
+          </div>
         </header>
-        <ol class="about-client__steps">
+        <ol class="about-step-grid">
           {about.clientWork.map((step, index) => (
             <li>
               <span>0{index + 1}</span>
@@ -81,16 +84,17 @@ const personJsonLd = {
       </div>
     </section>
 
-    <section class="about-v2__principles">
-      <div class="home-v2-shell">
-        <header>
-          <p class="home-v2-kicker">How I show up</p>
-          <h2>Practical by default.</h2>
+    <section class="about-principles" aria-labelledby="about-principles-title">
+      <div class="about-shell">
+        <header class="about-section-head">
+          <div>
+            <p class="about-kicker">How I show up</p>
+            <h2 id="about-principles-title">Practical by default.</h2>
+          </div>
         </header>
-        <div class="about-v2__principle-list">
-          {about.traits.map((trait, index) => (
+        <div class="about-principle-grid">
+          {about.traits.map((trait) => (
             <article>
-              <span>0{index + 1}</span>
               <h3>{trait.label}</h3>
               <p>{trait.detail}</p>
             </article>
@@ -99,83 +103,320 @@ const personJsonLd = {
       </div>
     </section>
 
-    <section class="about-v2__personal">
-      <div class="home-v2-shell">
-        <p class="home-v2-kicker">Beyond the work</p>
+    <section class="about-personal">
+      <div class="about-shell">
+        <p class="about-kicker">Beyond the work</p>
         <p>{about.personal}</p>
       </div>
     </section>
 
-    <CtaBand
-      kicker="Working together"
-      title="Have a workflow that is costing you time?"
-      body="Book a no-cost workflow review. We will map one process, find where time is being lost, and recommend the highest-value next step, or say so if there is not a worthwhile problem."
-    />
+    <section class="about-cta" aria-labelledby="about-cta-title">
+      <div class="about-shell about-cta__grid">
+        <div>
+          <p class="about-kicker">Start a conversation</p>
+          <h2 id="about-cta-title">Have a workflow that is costing you time?</h2>
+        </div>
+        <div>
+          <p>
+            We look at one important process as it actually runs today, identify where time and effort are being lost,
+            and decide whether there is a worthwhile opportunity to improve it. If there is, we will recommend the right
+            next step. If there is not, we will say so.
+          </p>
+          <a class="about-cta__button" href={primaryCta.href}>
+            {primaryCta.label} <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </div>
 </Layout>
 
 <style>
-  .about-client {
-    padding-block: clamp(5rem, 9vw, 8rem);
-    background: var(--ml-paper-raised);
-    border-bottom: 1px solid var(--ml-line);
+  .about-page {
+    --about-ink: #12151a;
+    --about-navy: #1d3557;
+    --about-muted: #5c6570;
+    --about-paper: #f6f4ef;
+    --about-copper: #e0a07a;
+    color: var(--about-ink);
+    background: var(--about-paper);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
   }
 
-  .about-client h2 {
-    max-width: 20ch;
+  .about-page h1,
+  .about-page h2,
+  .about-page h3 {
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  .about-shell {
+    width: min(92rem, calc(100% - 3rem));
+    margin-inline: auto;
+  }
+
+  .about-kicker {
+    margin: 0;
+    color: var(--about-navy);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .about-intro {
+    padding-block: clamp(6.5rem, 11vw, 9.5rem) clamp(4.5rem, 8vw, 7rem);
+    background:
+      radial-gradient(circle at 83% 10%, rgba(203, 137, 112, 0.18), transparent 30%),
+      linear-gradient(145deg, #f7f4ee, #e7ebeb);
+  }
+
+  .about-intro__grid {
+    display: grid;
+    grid-template-columns: minmax(16rem, 0.85fr) minmax(22rem, 1.15fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .about-intro__photo {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 0.55rem;
+    background: #d8d3c8;
+  }
+
+  .about-intro__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .about-intro__copy h1 {
+    max-width: 14ch;
     margin: 0.9rem 0 0;
-    color: var(--ml-ink);
-    font-size: clamp(1.8rem, 3.2vw, 3rem);
+    font-size: clamp(2.4rem, 5vw, 4.6rem);
     font-weight: 400;
-    line-height: 1.05;
-    letter-spacing: -0.05em;
-    text-wrap: balance;
+    letter-spacing: -0.06em;
+    line-height: 0.98;
   }
 
-  .about-client__steps {
+  .about-intro__lede {
+    max-width: 36rem;
+    margin: 1.4rem 0 0;
+    color: var(--about-muted);
+    font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .about-intro__lede + .about-intro__lede {
+    margin-top: 0.85rem;
+  }
+
+  .about-intro__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.4rem;
+    margin: 1.6rem 0 0;
+    color: var(--about-muted);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .about-story {
+    padding-block: clamp(4.5rem, 8vw, 7rem);
+    color: #f4f5f7;
+    background:
+      radial-gradient(ellipse 45% 60% at 6% 7%, rgba(163, 96, 77, 0.4), transparent 64%),
+      radial-gradient(ellipse 55% 72% at 94% 100%, rgba(78, 116, 121, 0.36), transparent 64%),
+      #101b2b;
+  }
+
+  .about-story .about-kicker {
+    color: var(--about-copper);
+  }
+
+  .about-story__grid {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.4fr) minmax(22rem, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .about-story__copy {
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .about-story__copy p {
+    margin: 0;
+    max-width: 42rem;
+    color: rgba(244, 245, 247, 0.78);
+    font-size: 1.02rem;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .about-steps,
+  .about-principles,
+  .about-personal {
+    padding-block: clamp(5rem, 9vw, 8rem);
+  }
+
+  .about-section-head h2 {
+    max-width: 16ch;
+    margin: 0.9rem 0 0;
+    font-size: clamp(2.1rem, 4vw, 3.6rem);
+    font-weight: 400;
+    letter-spacing: -0.055em;
+    line-height: 1.02;
+  }
+
+  .about-step-grid,
+  .about-principle-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(1.25rem, 3vw, 2.5rem);
-    margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+    gap: 1rem;
+    margin: clamp(2.5rem, 5vw, 4rem) 0 0;
     padding: 0;
     list-style: none;
   }
 
-  .about-client__steps li {
-    padding-top: 1.15rem;
-    border-top: 1px solid var(--ml-line-strong, rgba(48, 47, 43, 0.24));
+  .about-step-grid li,
+  .about-principle-grid article {
+    display: flex;
+    flex-direction: column;
+    min-height: 16rem;
+    padding: 1.4rem;
+    border: 1px solid rgba(29, 53, 87, 0.13);
+    border-radius: 0.55rem;
+    background: rgba(250, 249, 246, 0.72);
   }
 
-  .about-client__steps span {
-    color: var(--ml-clay, #3d5a4c);
-    font-family: var(--font-mono, 'IBM Plex Mono', ui-monospace, monospace);
-    font-size: 0.65rem;
+  .about-step-grid span {
+    color: var(--about-navy);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
   }
 
-  .about-client__steps h3 {
-    margin: 0.8rem 0 0;
-    color: var(--ml-ink);
-    font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+  .about-step-grid h3,
+  .about-principle-grid h3 {
+    margin: 1.1rem 0 0;
+    font-size: clamp(1.2rem, 1.8vw, 1.55rem);
     font-weight: 500;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.035em;
   }
 
-  .about-client__steps p {
-    margin: 0.55rem 0 0;
-    color: var(--ml-muted);
+  .about-principle-grid h3 {
+    margin-top: 0;
+  }
+
+  .about-step-grid p,
+  .about-principle-grid p {
+    margin: 0.7rem 0 0;
+    color: var(--about-muted);
     font-size: 0.9rem;
     font-weight: 300;
     line-height: 1.6;
   }
 
+  .about-principles {
+    background: #e8e4dc;
+  }
+
+  .about-personal .about-shell {
+    max-width: 46rem;
+  }
+
+  .about-personal p:last-child {
+    margin: 1rem 0 0;
+    color: var(--about-muted);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .about-cta {
+    padding-block: clamp(4.5rem, 8vw, 7rem);
+    color: #f4f5f7;
+    background:
+      radial-gradient(circle at 4% 5%, rgba(191, 117, 90, 0.45), transparent 35%),
+      linear-gradient(135deg, #172b47, #1d3557 58%, #354e62);
+  }
+
+  .about-cta .about-kicker {
+    color: var(--about-copper);
+  }
+
+  .about-cta__grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(22rem, 0.8fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: start;
+  }
+
+  .about-cta h2 {
+    max-width: 12ch;
+    margin: 1rem 0 0;
+    font-size: clamp(2.2rem, 4.4vw, 4.4rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    line-height: 0.98;
+  }
+
+  .about-cta__grid > div:last-child > p {
+    margin: 0 0 1.5rem;
+    color: rgba(255, 255, 255, 0.74);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .about-cta__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 3.15rem;
+    padding: 0.85rem 1.2rem;
+    border-radius: 0.5rem;
+    color: #10233e;
+    background: #f8f6f1;
+    font-size: 0.86rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .about-cta__button:hover {
+    background: #fff;
+  }
+
   @media (max-width: 980px) {
-    .about-client__steps {
+    .about-shell {
+      width: min(100% - 2rem, 60rem);
+    }
+
+    .about-intro__grid,
+    .about-story__grid,
+    .about-cta__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-intro__photo {
+      max-width: 22rem;
+    }
+
+    .about-step-grid,
+    .about-principle-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   @media (max-width: 620px) {
-    .about-client__steps {
+    .about-step-grid,
+    .about-principle-grid {
       grid-template-columns: 1fr;
     }
   }

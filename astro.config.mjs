@@ -14,7 +14,11 @@ export default defineConfig({
   site: 'https://www.workwithlayer.com',
   redirects: {
     '/work': '/how-i-work',
-    '/systems/invoiceflow-ap': '/insights/invoice-and-document-processing',
+    '/systems/invoiceflow-ap': '/insights/invoice-processing-automation',
+    '/insights/invoice-and-document-processing': '/insights/invoice-processing-automation',
+    '/insights/opsdesk-shared-inbox-control': '/insights/shared-inbox-routing-and-approval',
+    '/insights/marketing-operations-workflow': '/insights/marketing-content-engine',
+    '/insights/lead-qualification-and-follow-up': '/insights/sales-opportunity-intelligence',
   },
   integrations: [
     mdx(),

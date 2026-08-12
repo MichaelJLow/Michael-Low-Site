@@ -27,7 +27,7 @@ export const site = {
   email: 'contact@workwithlayer.com',
   founder: 'Michael J. Low',
   github: 'https://github.com/MichaelJLow',
-  linkedin: 'https://www.linkedin.com/in/michael-j-low/',
+  linkedin: 'https://www.linkedin.com/company/workwithlayer/',
   availability: 'Available for selected workflow reviews and implementation projects.',
   availabilityShort: 'Available for selected projects',
   location: 'Based in São Paulo, working with clients remotely',

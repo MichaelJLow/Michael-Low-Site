@@ -75,7 +75,6 @@ const bodyCaption =
       </div>
       <div>
         <p>{data.closing.body}</p>
-        {data.disclaimer && <p class="insight-end__disclaimer">{data.disclaimer}</p>}
         <a class="insight-end__button" href={data.closing.href}>
           {data.closing.label} <span aria-hidden="true">↗</span>
         </a>
@@ -372,11 +371,6 @@ const bodyCaption =
     color: rgba(255, 255, 255, 0.74);
     font-weight: 300;
     line-height: 1.7;
-  }
-
-  .insight-end__disclaimer {
-    color: rgba(255, 255, 255, 0.5) !important;
-    font-size: 0.78rem;
   }
 
   .insight-end__button {

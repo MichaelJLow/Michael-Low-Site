@@ -12,16 +12,16 @@ const formClass = variant === 'home' ? 'layer-form' : 'contact-form';
   <div class={`${formClass}__row`}>
     <label>
       <span>Name</span>
-      <input name="name" type="text" autocomplete="name" required />
+      <input name="name" type="text" autocomplete="name" placeholder="Your name" required />
     </label>
     <label>
       <span>Work email</span>
-      <input name="email" type="email" autocomplete="email" required />
+      <input name="email" type="email" autocomplete="email" placeholder="you@company.com" required />
     </label>
   </div>
   <label>
     <span>Company <em>(optional)</em></span>
-    <input name="company" type="text" autocomplete="organization" />
+    <input name="company" type="text" autocomplete="organization" placeholder="Company name" />
   </label>
   <label>
     <span>Where is work getting stuck?</span>
@@ -32,8 +32,15 @@ const formClass = variant === 'home' ? 'layer-form' : 'contact-form';
       placeholder="The process, the tools, and what the team is still doing by hand."></textarea>
   </label>
   <button class={`${formClass}__submit`} type="submit">
-    Request a no-cost review <span aria-hidden="true">↗</span>
+    Request a no-cost review <span aria-hidden="true">→</span>
   </button>
+  <p class={`${formClass}__trust`}>
+    <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+      <rect x="3.25" y="7.25" width="9.5" height="7" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.2" />
+      <path d="M5.2 7.25V5.4a2.8 2.8 0 0 1 5.6 0v1.85" fill="none" stroke="currentColor" stroke-width="1.2" />
+    </svg>
+    Your information is secure and never shared.
+  </p>
   <p class={`${formClass}__status`} data-form-status aria-live="polite"></p>
 </form>
 

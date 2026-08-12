@@ -33,12 +33,52 @@
     },
     {
       "source": "/systems/invoiceflow-ap",
-      "destination": "/insights/invoice-and-document-processing",
+      "destination": "/insights/invoice-processing-automation",
       "permanent": true
     },
     {
       "source": "/systems/invoiceflow-ap/",
-      "destination": "/insights/invoice-and-document-processing",
+      "destination": "/insights/invoice-processing-automation",
+      "permanent": true
+    },
+    {
+      "source": "/insights/invoice-and-document-processing",
+      "destination": "/insights/invoice-processing-automation",
+      "permanent": true
+    },
+    {
+      "source": "/insights/invoice-and-document-processing/",
+      "destination": "/insights/invoice-processing-automation",
+      "permanent": true
+    },
+    {
+      "source": "/insights/opsdesk-shared-inbox-control",
+      "destination": "/insights/shared-inbox-routing-and-approval",
+      "permanent": true
+    },
+    {
+      "source": "/insights/opsdesk-shared-inbox-control/",
+      "destination": "/insights/shared-inbox-routing-and-approval",
+      "permanent": true
+    },
+    {
+      "source": "/insights/marketing-operations-workflow",
+      "destination": "/insights/marketing-content-engine",
+      "permanent": true
+    },
+    {
+      "source": "/insights/marketing-operations-workflow/",
+      "destination": "/insights/marketing-content-engine",
+      "permanent": true
+    },
+    {
+      "source": "/insights/lead-qualification-and-follow-up",
+      "destination": "/insights/sales-opportunity-intelligence",
+      "permanent": true
+    },
+    {
+      "source": "/insights/lead-qualification-and-follow-up/",
+      "destination": "/insights/sales-opportunity-intelligence",
       "permanent": true
     }
   ]

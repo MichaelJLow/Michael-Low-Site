@@ -3436,8 +3436,14 @@ html[data-theme='dark'] .border-border {
 
 .layer-form {
   padding: clamp(1.5rem, 3vw, 2.4rem);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(10, 25, 43, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 1.15rem;
+  background:
+    radial-gradient(ellipse 80% 70% at 0% 0%, rgba(194, 113, 86, 0.28), transparent 58%),
+    radial-gradient(ellipse 70% 80% at 100% 100%, rgba(92, 137, 140, 0.24), transparent 60%),
+    rgba(12, 28, 48, 0.42);
+  box-shadow: 0 24px 60px rgba(8, 16, 28, 0.28);
+  backdrop-filter: blur(18px);
   color-scheme: dark;
 }
 
@@ -3500,7 +3506,7 @@ html[data-theme='dark'] .border-border {
 .layer-form input,
 .layer-form textarea {
   border-color: rgba(255, 255, 255, 0.2);
-  border-radius: 0;
+  border-radius: 0.5rem;
   color: #fff;
   background-color: rgba(255, 255, 255, 0.08);
   font-size: 0.92rem;
@@ -3560,14 +3566,32 @@ html[data-theme='dark'] .border-border {
 }
 
 .layer-form__submit {
-  justify-self: start;
+  justify-self: stretch;
+  width: 100%;
   margin-top: 0.4rem;
+  border-radius: 0.5rem;
   color: #10233e;
   background-color: #f8f6f1;
 }
 
 .layer-form__submit:hover {
   background-color: #fff;
+}
+
+.layer-form__trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin: 0.15rem 0 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.layer-form__trust svg {
+  flex: none;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .contact-form__submit {
@@ -3601,6 +3625,21 @@ html[data-theme='dark'] .border-border {
 .contact-form__status {
   color: var(--ml-muted, #5c6570);
   font-size: 0.88rem;
+}
+
+.contact-form__trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin: 0.15rem 0 0;
+  color: var(--ml-muted, #5c6570);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.contact-form__trust svg {
+  flex: none;
 }
 
 @media (max-width: 560px) {
