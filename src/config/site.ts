@@ -734,6 +734,7 @@ export const featuredProjectSlugs = ['opsdesk-ai'] as const;
 export const nav = [
   { label: 'What We Build', href: '/#systems' },
   { label: 'How It Works', href: '/#what-we-build' },
+  { label: 'About', href: '/about' },
   { label: 'Work Together', href: '/#how-we-work' },
   { label: 'Contact', href: '/#contact' },
 ] as const;

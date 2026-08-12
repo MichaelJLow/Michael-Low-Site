@@ -1,34 +1,603 @@
 ---
 import Layout from '../../components/Layout.astro';
-import PageHeader from '../../components/PageHeader.astro';
-import EditorialProjectCard from '../../components/EditorialProjectCard.astro';
-import CtaBand from '../../components/CtaBand.astro';
+import ContactForm from '../../components/ContactForm.astro';
 import { getFeaturedProjects } from '../../utils/content';
 import { pageTitle } from '../../config/site';
 
 const projects = await getFeaturedProjects();
+const [featured, ...rest] = projects;
+
+const exampleSystems = [
+  {
+    tone: 'mist',
+    title: 'Sales opportunity intelligence',
+    description:
+      'New prospects are continuously researched, enriched and assessed against your ideal customer profile. The best opportunities flow into the CRM with useful context and tailored outreach ready for review.',
+    image: '/images/projects/prospect-intelligence-system.png',
+    imageAlt: 'Prospect intelligence workspace showing researched prospects, ICP fit and outreach ready for review',
+    href: '/insights/sales-opportunity-intelligence',
+  },
+  {
+    tone: 'rose',
+    title: 'Marketing content engine',
+    description:
+      'Calls, meetings and internal knowledge are continuously turned into content ideas and first drafts. Relevant material is organised, shaped for the right channels and moved towards publication, with your team reviewing what goes live.',
+    image: '/images/projects/marketing-content-system.png',
+    imageAlt: 'Marketing content workspace showing source material, draft content and publishing review',
+    href: '/insights/marketing-content-engine',
+  },
+  {
+    tone: 'violet',
+    title: 'Invoice processing automation',
+    description:
+      'Invoices that arrive by email are extracted, checked against your rules and prepared as a draft bill in Xero or the accounting software the business already uses. Payment stays held until finance approves them.',
+    image: '/images/systems/invoiceflow-ap/control-centre.png',
+    imageAlt: 'Invoice review workspace showing validation checks, approval routing, and a draft accounting preview.',
+    href: '/insights/invoice-processing-automation',
+  },
+];
 ---
 
 <Layout
   title={pageTitle('Case Studies')}
-  description="Applied AI systems designed and built by Michael J. Low: workflow intake and approvals, research pipelines and decision support."
+  description="How Layer designs systems around real operational work: the process, the system, and where people stay in control."
 >
-  <div class="inner-v2">
-    <PageHeader
-      label="Case Studies"
-      title="Systems built around real operational work"
-      subtitle="How each system was designed, what it does, and where the limits are. Prototypes and synthetic data are labelled as such."
-    />
-    <section class="inner-v2-section">
-      <div class="home-v2-shell home-v2-system-list">
-        {projects.map((project, index) => <EditorialProjectCard project={project} index={index} />)}
+  <div class="studies-page">
+    <header class="studies-hero">
+      <div class="studies-shell studies-hero__grid">
+        <div>
+          <p class="studies-kicker">Case Studies</p>
+          <h1>Systems built around real operational work.</h1>
+        </div>
+        <p>
+          How each system was designed, what it does, and where people stay in control. Prototypes and synthetic data
+          are labelled as such.
+        </p>
+      </div>
+    </header>
+
+    <section class="studies-library" aria-labelledby="featured-study">
+      <div class="studies-shell">
+        <div class="studies-library__head">
+          <h2 id="featured-study">Featured</h2>
+          <p>A working system built around one operational workflow, with people kept in control of the decisions that matter.</p>
+        </div>
+
+        {
+          featured ? (
+            <article class="studies-feature">
+              <a class="studies-feature__image" href={`/projects/${featured.slug}`}>
+                <img
+                  src={featured.data.cardImage || featured.data.coverImage || '/images/projects/opsdesk/opsdesk-dashboard-homepage.png'}
+                  alt={`${featured.data.title} interface`}
+                  width="1600"
+                  height="1000"
+                  loading="eager"
+                  decoding="async"
+                />
+              </a>
+              <div class="studies-feature__copy">
+                <p class="studies-kicker">{featured.data.category}</p>
+                <h3>
+                  <a href={`/projects/${featured.slug}`}>{featured.data.title}</a>
+                </h3>
+                <p>{featured.data.description}</p>
+                {featured.data.caseOverview?.note && (
+                  <p class="studies-feature__note">{featured.data.caseOverview.note}</p>
+                )}
+                <a class="studies-feature__link" href={`/projects/${featured.slug}`}>
+                  Read case study <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </article>
+          ) : (
+            <p>No case studies have been published yet.</p>
+          )
+        }
+
+        {
+          rest.length > 0 && (
+            <div class="studies-grid">
+              {rest.map((project) => (
+                <article>
+                  <a class="studies-grid__image" href={`/projects/${project.slug}`}>
+                    {project.data.coverImage ? (
+                      <img
+                        src={project.data.cardImage || project.data.coverImage}
+                        alt={`${project.data.title} interface`}
+                        width="1024"
+                        height="800"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : null}
+                  </a>
+                  <p class="studies-kicker">{project.data.category}</p>
+                  <h3>
+                    <a href={`/projects/${project.slug}`}>{project.data.title}</a>
+                  </h3>
+                  <p>{project.data.description}</p>
+                </article>
+              ))}
+            </div>
+          )
+        }
       </div>
     </section>
 
-    <CtaBand
-      kicker="Next step"
-      title="Have a workflow like one of these?"
-      body="Start with a no-cost workflow review. One real process, a short written recommendation, and an honest next step: implementation, further discovery, or no build."
-    />
+    <section class="studies-examples" aria-labelledby="examples-title">
+      <div class="studies-shell">
+        <header class="studies-examples__head">
+          <div>
+            <p class="studies-kicker">Example systems</p>
+            <h2 id="examples-title">Other systems Layer can build.</h2>
+          </div>
+          <p>Each one starts from a real operational workflow. The How it works notes explain the process in more detail.</p>
+        </header>
+
+        <div class="studies-example-grid">
+          {
+            exampleSystems.map((system) => (
+              <article class={`studies-example studies-example--${system.tone}`}>
+                <div class="studies-example__copy">
+                  <h3>{system.title}</h3>
+                  <p>{system.description}</p>
+                  <a href={system.href}>
+                    See how it works <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+                <div class="studies-example__stage">
+                  <div class="studies-example__wash" aria-hidden="true"></div>
+                  <img src={system.image} alt={system.imageAlt} width="1200" height="800" loading="lazy" decoding="async" />
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="studies-cta" aria-labelledby="studies-cta-title">
+      <div class="studies-cta__atmosphere" aria-hidden="true"></div>
+      <div class="studies-shell studies-cta__grid">
+        <div class="studies-cta__copy">
+          <p class="studies-kicker">Start a conversation</p>
+          <h2 id="studies-cta-title">Have a workflow like one of these?</h2>
+          <p>
+            Tell us about one process that isn’t working as well as it should. We’ll look at where time and effort are
+            being lost and whether there’s a worthwhile way to improve it.
+          </p>
+          <p class="studies-cta__note">No-cost workflow review. No obligation.</p>
+        </div>
+        <ContactForm variant="home" />
+      </div>
+    </section>
   </div>
 </Layout>
+
+<style>
+  .studies-page {
+    --studies-ink: #12151a;
+    --studies-navy: #1d3557;
+    --studies-muted: #5c6570;
+    --studies-soft: #505a66;
+    --studies-paper: #f6f4ef;
+    --studies-copper: #e0a07a;
+    --studies-line: rgba(29, 53, 87, 0.14);
+    color: var(--studies-ink);
+    background: var(--studies-paper);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  .studies-page h1,
+  .studies-page h2,
+  .studies-page h3 {
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  .studies-shell {
+    width: min(92rem, calc(100% - 3rem));
+    margin-inline: auto;
+  }
+
+  .studies-kicker {
+    margin: 0;
+    color: var(--studies-navy);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .studies-hero {
+    padding-block: clamp(6.5rem, 12vw, 10rem) clamp(4.5rem, 8vw, 7rem);
+    background:
+      radial-gradient(ellipse 42% 55% at 8% 12%, rgba(224, 160, 122, 0.28), transparent 62%),
+      radial-gradient(ellipse 38% 48% at 92% 8%, rgba(122, 158, 196, 0.22), transparent 58%),
+      radial-gradient(ellipse 36% 50% at 78% 92%, rgba(156, 132, 186, 0.16), transparent 60%),
+      linear-gradient(145deg, #f7f4ee, #e7ebeb);
+  }
+
+  .studies-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.72fr);
+    gap: clamp(2.5rem, 8vw, 8rem);
+    align-items: end;
+  }
+
+  .studies-hero h1 {
+    max-width: 12ch;
+    margin: 1.1rem 0 0;
+    font-size: clamp(2.8rem, 6.4vw, 6.4rem);
+    font-weight: 400;
+    letter-spacing: -0.068em;
+    line-height: 0.94;
+  }
+
+  .studies-hero__grid > p {
+    margin: 0;
+    color: var(--studies-muted);
+    font-size: clamp(1.02rem, 1.45vw, 1.16rem);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .studies-library {
+    padding-block: clamp(4.5rem, 8vw, 7.5rem);
+  }
+
+  .studies-library__head,
+  .studies-examples__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--studies-line);
+  }
+
+  .studies-library__head h2 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .studies-library__head p,
+  .studies-examples__head > p {
+    max-width: 34rem;
+    margin: 0;
+    color: var(--studies-muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.55;
+    text-align: right;
+  }
+
+  .studies-feature {
+    position: relative;
+    isolation: isolate;
+    min-height: 34rem;
+    display: grid;
+    overflow: hidden;
+    border: 1px solid var(--studies-line);
+    border-radius: 0.55rem;
+    background: #172b47;
+    box-shadow: 0 22px 60px rgba(29, 53, 87, 0.08);
+  }
+
+  .studies-feature::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(8, 19, 33, 0.9) 0%, rgba(8, 19, 33, 0.64) 43%, rgba(8, 19, 33, 0.06) 78%),
+      linear-gradient(0deg, rgba(8, 19, 33, 0.55), transparent 42%);
+  }
+
+  .studies-feature__image {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    display: block;
+    overflow: hidden;
+    background: #172b47;
+  }
+
+  .studies-feature__image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .studies-feature:hover .studies-feature__image img {
+    transform: scale(1.018);
+  }
+
+  .studies-feature__copy {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: min(100%, 42rem);
+    min-height: 34rem;
+    padding: clamp(2rem, 5vw, 5rem);
+    color: #f4f5f7;
+  }
+
+  .studies-feature .studies-kicker {
+    color: var(--studies-copper);
+  }
+
+  .studies-feature h3 {
+    margin: 1rem 0 0;
+    font-size: clamp(2.2rem, 4vw, 4rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    line-height: 1;
+  }
+
+  .studies-feature h3 a,
+  .studies-grid h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .studies-feature__copy > p:not(.studies-kicker, .studies-feature__note) {
+    margin: 1.4rem 0 0;
+    color: rgba(255, 255, 255, 0.76);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .studies-feature__note {
+    margin: 1rem 0 0;
+    color: rgba(255, 255, 255, 0.52);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .studies-feature__link {
+    align-self: start;
+    margin-top: 2rem;
+    color: #fff;
+    font-size: 0.84rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .studies-feature__link span {
+    margin-left: 0.4rem;
+  }
+
+  .studies-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .studies-examples {
+    padding-block: clamp(4.5rem, 8vw, 7.5rem);
+    background: #efede8;
+  }
+
+  .studies-examples__head h2 {
+    max-width: 14ch;
+    margin: 0.9rem 0 0;
+    font-size: clamp(2.1rem, 4vw, 3.6rem);
+    font-weight: 400;
+    letter-spacing: -0.055em;
+    line-height: 1.02;
+  }
+
+  .studies-example-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto 1fr;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .studies-example {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    overflow: hidden;
+    border: 1px solid var(--studies-line);
+    border-radius: 0.55rem;
+    background: rgba(250, 249, 246, 0.88);
+    box-shadow: 0 18px 48px rgba(40, 48, 61, 0.07);
+  }
+
+  .studies-example__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    height: 100%;
+    padding: 1.4rem 1.35rem 1.2rem;
+  }
+
+  .studies-example h3 {
+    margin: 0;
+    font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.12;
+  }
+
+  .studies-example__copy > p {
+    margin: 0;
+    color: var(--studies-muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .studies-example__copy a {
+    margin-top: auto;
+    color: var(--studies-navy);
+    font-size: 0.84rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .studies-example__stage {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    min-height: 18rem;
+    height: 100%;
+    padding: 1.25rem 1.1rem;
+    overflow: hidden;
+  }
+
+  .studies-example__wash {
+    position: absolute;
+    inset: -20%;
+    z-index: -1;
+    filter: blur(28px);
+  }
+
+  .studies-example--mist .studies-example__wash {
+    background:
+      radial-gradient(circle at 30% 22%, #a9c1bd 0%, transparent 36%),
+      radial-gradient(circle at 80% 76%, #a06363 0%, transparent 38%),
+      #314657;
+  }
+
+  .studies-example--rose .studies-example__wash {
+    background:
+      radial-gradient(circle at 24% 78%, #d2977b 0%, transparent 38%),
+      radial-gradient(circle at 78% 22%, #738f9a 0%, transparent 38%),
+      #483d4b;
+  }
+
+  .studies-example--violet .studies-example__wash {
+    background:
+      radial-gradient(circle at 76% 20%, #c99786 0%, transparent 36%),
+      radial-gradient(circle at 20% 72%, #59688f 0%, transparent 44%),
+      #493e52;
+  }
+
+  .studies-example__stage img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: 15rem;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 0.35rem;
+    box-shadow: 0 16px 40px rgba(8, 16, 28, 0.28);
+  }
+
+  .studies-cta {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: clamp(5.5rem, 10vw, 9rem);
+    color: #f5f6f8;
+    background: #142742;
+  }
+
+  .studies-cta__atmosphere {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 45% 65% at 4% 14%, rgba(194, 113, 86, 0.52), transparent 62%),
+      radial-gradient(ellipse 50% 75% at 100% 100%, rgba(92, 137, 140, 0.48), transparent 64%),
+      linear-gradient(130deg, #152943, #1d3557 55%, #263f52);
+  }
+
+  .studies-cta .studies-kicker {
+    color: var(--studies-copper);
+  }
+
+  .studies-cta__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(26rem, 0.75fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: start;
+  }
+
+  .studies-cta h2 {
+    max-width: 11ch;
+    margin: 1rem 0 0;
+    font-size: clamp(2.8rem, 5.6vw, 5.8rem);
+    font-weight: 400;
+    letter-spacing: -0.068em;
+    line-height: 0.95;
+  }
+
+  .studies-cta__copy > p:not(.studies-kicker, .studies-cta__note) {
+    max-width: 36rem;
+    margin: 1.5rem 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1.03rem;
+    font-weight: 300;
+    line-height: 1.72;
+  }
+
+  .studies-cta__note {
+    margin: 2rem 0 0;
+    color: rgba(255, 255, 255, 0.52);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 980px) {
+    .studies-shell {
+      width: min(100% - 2rem, 46rem);
+    }
+
+    .studies-hero__grid,
+    .studies-library__head,
+    .studies-examples__head,
+    .studies-example-grid,
+    .studies-grid,
+    .studies-cta__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .studies-example-grid {
+      grid-template-rows: none;
+    }
+
+    .studies-example {
+      display: flex;
+      flex-direction: column;
+      grid-row: auto;
+    }
+
+    .studies-example__stage {
+      min-height: 16rem;
+    }
+
+    .studies-hero h1,
+    .studies-examples__head h2 {
+      max-width: none;
+    }
+
+    .studies-library__head p,
+    .studies-examples__head > p {
+      text-align: left;
+    }
+
+    .studies-cta__grid {
+      gap: 3rem;
+    }
+  }
+</style>
