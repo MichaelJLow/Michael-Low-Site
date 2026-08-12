@@ -213,12 +213,13 @@ const faqJsonLd = {
       <div class="layer-hero__atmosphere" aria-hidden="true"></div>
       <div class="layer-shell layer-hero__inner">
         <div class="layer-hero__copy" data-reveal data-hero-reveal>
-          <p class="layer-eyebrow"><span></span> Applied AI for growing businesses</p>
           <h1 id="hero-title">
-            <span class="layer-wordmark-inline" aria-label="Layer.">layer<span aria-hidden="true">.</span></span>
-            {' '}builds the systems<br />
-            that connect your team<br />
-            and your tools.
+            <span class="layer-hero__line">
+              <span class="layer-wordmark-inline" aria-label="Layer.">layer<span aria-hidden="true">.</span></span>
+              {' '}builds the systems
+            </span>
+            <span class="layer-hero__line">that connect your team</span>
+            <span class="layer-hero__line">and your tools.</span>
           </h1>
           <p class="layer-hero__intro">
             We help growing businesses identify where AI can create real value, then design and build the systems,
@@ -530,18 +531,14 @@ const faqJsonLd = {
     scroll-margin-top: 4.75rem;
   }
 
-  .layer-kicker,
-  .layer-eyebrow {
+  .layer-kicker {
     margin: 0;
+    color: var(--layer-navy);
     font-family: 'IBM Plex Mono', ui-monospace, monospace;
     font-size: 0.66rem;
     font-weight: 500;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-  }
-
-  .layer-kicker {
-    color: var(--layer-navy);
   }
 
   .layer-section-head {
@@ -621,10 +618,11 @@ const faqJsonLd = {
     z-index: 0;
     overflow: hidden;
     background:
-      radial-gradient(ellipse 80% 58% at 8% -8%, rgba(64, 158, 168, 0.5), transparent 58%),
-      radial-gradient(ellipse 92% 78% at 100% 112%, rgba(214, 118, 52, 0.58), transparent 56%),
-      radial-gradient(ellipse 48% 42% at 50% 48%, rgba(16, 28, 42, 0.4), transparent 72%),
-      #07090c;
+      radial-gradient(ellipse 78% 62% at 4% -6%, rgba(72, 178, 186, 0.62), transparent 56%),
+      radial-gradient(ellipse 95% 82% at 96% 108%, rgba(224, 122, 48, 0.78), transparent 54%),
+      radial-gradient(ellipse 58% 52% at 78% 72%, rgba(196, 96, 42, 0.42), transparent 68%),
+      radial-gradient(ellipse 42% 38% at 22% 28%, rgba(48, 110, 118, 0.28), transparent 70%),
+      #05070a;
   }
 
   .layer-hero__atmosphere::before {
@@ -633,9 +631,9 @@ const faqJsonLd = {
     inset: -12%;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 42% 36% at 18% 22%, rgba(90, 186, 188, 0.18), transparent 70%),
-      radial-gradient(ellipse 50% 44% at 88% 78%, rgba(232, 140, 72, 0.22), transparent 68%);
-    filter: blur(28px);
+      radial-gradient(ellipse 48% 40% at 12% 12%, rgba(90, 196, 198, 0.32), transparent 68%),
+      radial-gradient(ellipse 62% 54% at 90% 82%, rgba(240, 148, 68, 0.4), transparent 64%);
+    filter: blur(36px);
   }
 
   .layer-hero__atmosphere::after {
@@ -643,7 +641,7 @@ const faqJsonLd = {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.42;
+    opacity: 0.5;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
   }
@@ -652,7 +650,7 @@ const faqJsonLd = {
     position: relative;
     z-index: 2;
     width: 100%;
-    padding-block: clamp(7.5rem, 14vh, 10rem) clamp(7rem, 12vh, 10rem);
+    padding-block: clamp(6.5rem, 12vh, 9rem) clamp(6.5rem, 11vh, 9rem);
     text-align: center;
   }
 
@@ -661,37 +659,17 @@ const faqJsonLd = {
     margin-inline: auto;
   }
 
-  .layer-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: #46505c;
-  }
-
-  .layer-hero .layer-eyebrow {
-    justify-content: center;
-    color: rgba(244, 245, 247, 0.58);
-  }
-
-  .layer-eyebrow span {
-    width: 1.6rem;
-    height: 1px;
-    background: var(--layer-navy);
-  }
-
-  .layer-hero .layer-eyebrow span {
-    background: rgba(244, 245, 247, 0.45);
-  }
-
   .layer-hero h1 {
-    max-width: 16ch;
-    margin: 1.5rem auto 0;
+    margin: 0 auto;
     color: #fff;
-    font-size: clamp(3.1rem, 6.2vw, 6.4rem);
+    font-size: clamp(2.8rem, 5.4vw, 5.8rem);
     font-weight: 500;
     letter-spacing: -0.055em;
-    line-height: 1.02;
-    text-wrap: balance;
+    line-height: 1.06;
+  }
+
+  .layer-hero__line {
+    display: block;
   }
 
   .layer-hero h1 .layer-wordmark-inline {
@@ -1686,7 +1664,7 @@ const faqJsonLd = {
     }
 
     .layer-hero h1 {
-      font-size: clamp(2.9rem, 14vw, 4.2rem);
+      font-size: clamp(2.15rem, 8.4vw, 3.4rem);
     }
 
     .layer-actions {
