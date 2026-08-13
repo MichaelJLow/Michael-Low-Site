@@ -2,7 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import ContactForm from '../../components/ContactForm.astro';
 import { getFeaturedProjects } from '../../utils/content';
-import { pageTitle } from '../../config/site';
+import { seo } from '../../config/site';
 
 const projects = await getFeaturedProjects();
 const [featured, ...rest] = projects;
@@ -39,8 +39,8 @@ const exampleSystems = [
 ---
 
 <Layout
-  title={pageTitle('Case Studies')}
-  description="How Layer designs systems around real operational work: the process, the system, and where people stay in control."
+  title={seo.caseStudies.title}
+  description={seo.caseStudies.description}
 >
   <div class="studies-page">
     <header class="studies-hero">

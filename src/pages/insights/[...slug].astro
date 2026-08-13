@@ -39,7 +39,7 @@ const articleJsonLd = {
     url: site.url,
     logo: {
       '@type': 'ImageObject',
-      url: new URL('/images/og-default.jpg', site.url).href,
+      url: new URL(site.logo, `${site.url}/`).href,
     },
   },
   mainEntityOfPage: {

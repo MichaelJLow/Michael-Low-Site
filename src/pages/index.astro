@@ -1,7 +1,7 @@
 ---
 import Layout from '../components/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
-import { site } from '../config/site';
+import { organizationJsonLd, site, websiteJsonLd } from '../config/site';
 
 const pillars = [
   {
@@ -179,16 +179,16 @@ const serviceJsonLd = {
   '@type': 'ProfessionalService',
   name: site.brand,
   description: site.description,
-  url: site.url,
+  url: `${site.url}/`,
   email: site.email,
-  image: new URL('/images/og-default.jpg', site.url).href,
-  serviceType: 'Applied AI systems consultancy',
+  image: new URL(site.logo, `${site.url}/`).href,
+  serviceType: 'AI and automation systems for growing businesses',
   areaServed: 'Worldwide',
   founder: {
     '@type': 'Person',
     name: site.founder,
-    url: `${site.url}/about`,
-    sameAs: [site.github, site.linkedin],
+    url: `${site.url}/about/`,
+    sameAs: [site.linkedin],
   },
 };
 
@@ -207,7 +207,7 @@ const faqJsonLd = {
 };
 ---
 
-<Layout title={site.title} description={site.description} jsonLd={[serviceJsonLd, faqJsonLd]}>
+<Layout title={site.title} description={site.description} jsonLd={[websiteJsonLd, organizationJsonLd, serviceJsonLd, faqJsonLd]}>
   <div class="layer-home">
     <section class="layer-hero" aria-labelledby="hero-title">
       <div class="layer-hero__atmosphere" aria-hidden="true"></div>

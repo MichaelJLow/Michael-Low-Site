@@ -8,7 +8,8 @@ const excludedFromSitemap = (page) =>
   page.includes('/404') ||
   page.includes('-lab') ||
   page.includes('/work/') ||
-  page.includes('/systems/');
+  page.includes('/systems/') ||
+  page.includes('/capabilities');
 
 export default defineConfig({
   site: 'https://www.workwithlayer.com',

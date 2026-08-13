@@ -22,7 +22,7 @@ const isCaseStudy = featuredProjectSlugs.includes(project.slug as (typeof featur
 ---
 
 <Layout
-  title={pageTitle(title)}
+  title={project.slug === 'opsdesk-ai' ? 'OpsDesk | Shared Inbox Routing and Approval' : pageTitle(title)}
   description={description}
   ogImage={project.data.coverImage}
   noindex={project.data.noindex}

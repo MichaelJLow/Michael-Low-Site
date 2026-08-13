@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../components/Layout.astro';
-import { pageTitle } from '../../config/site';
+import { seo } from '../../config/site';
 
 const insights = (await getCollection('insights', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
@@ -12,8 +12,8 @@ const formatDate = (date: Date) =>
 ---
 
 <Layout
-  title={pageTitle('Insights')}
-  description="Practical notes on workflow design, applied AI systems, automation, controls, and the work between tools."
+  title={seo.insights.title}
+  description={seo.insights.description}
 >
   <main class="insights-page">
     <header class="insights-hero">

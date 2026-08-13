@@ -3,7 +3,7 @@ import Layout from '../components/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import CtaBand from '../components/CtaBand.astro';
 import {
-  pageTitle,
+  seo,
   howIWork,
   whatYouGet,
   humanControl,
@@ -13,8 +13,8 @@ import {
 ---
 
 <Layout
-  title={pageTitle('How we work')}
-  description="Start with a no-cost workflow review. If the process is worth fixing, the next step is a scoped implementation, or technical discovery when more investigation is needed first."
+  title={seo.howWeWork.title}
+  description={seo.howWeWork.description}
 >
   <div class="inner-v2 hiw">
     <PageHeader label="How we work" title="Find the problem first. Then decide whether to build." subtitle={howIWork.intro} />

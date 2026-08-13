@@ -2,7 +2,7 @@
 import Layout from '../components/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactForm from '../components/ContactForm.astro';
-import { site, contact, discoveryCall } from '../config/site';
+import { site, seo, contact, discoveryCall } from '../config/site';
 
 const alternatives = [
   { label: 'Email directly', value: site.email, href: `mailto:${site.email}`, external: false },
@@ -11,8 +11,8 @@ const alternatives = [
 ---
 
 <Layout
-  title={`Contact · ${site.brand}`}
-  description="Book a no-cost workflow review. A focused conversation about one process, then a short written recommendation on the highest-value next step."
+  title={seo.contact.title}
+  description={seo.contact.description}
 >
   <div class="inner-v2 contact-page">
     <PageHeader label={contact.kicker} title={contact.title} subtitle={contact.intro} />

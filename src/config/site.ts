@@ -15,11 +15,11 @@ export type AccentTheme = 'gold' | 'cyan' | 'silver' | 'warm' | 'champagne' | 'b
 
 export const site = {
   name: 'Layer',
-  practice: 'Applied AI Systems Consultancy',
+  practice: 'AI and automation systems for growing businesses',
   brand: 'Layer',
-  title: 'Layer · Applied AI Systems Consultancy',
+  title: 'Layer | AI & Automation Systems for Growing Businesses',
   description:
-    'Layer designs and builds controlled AI systems that connect your people, processes and existing software.',
+    'Layer helps growing businesses improve operational processes by connecting existing tools, automating repetitive tasks and keeping people in control.',
   shortBio:
     'Controlled AI systems for the way your business actually works.',
   tagline: 'The operating layer between your team and your tools.',
@@ -28,6 +28,7 @@ export const site = {
   founder: 'Michael J. Low',
   github: 'https://github.com/MichaelJLow',
   linkedin: 'https://www.linkedin.com/company/workwithlayer/',
+  logo: '/icons/layer-icon-512.png',
   availability: 'Available for selected workflow reviews and implementation projects.',
   availabilityShort: 'Available for selected projects',
   location: 'Based in São Paulo, working with clients remotely',
@@ -36,8 +37,68 @@ export const site = {
   headshotFallback: '/images/headshot-placeholder.svg',
 } as const;
 
-/** Consistent page titles: "Label · Michael J. Low · Applied AI Systems". */
-export const pageTitle = (label?: string) => (label ? `${label} · ${site.brand}` : site.brand);
+/** Consistent page titles: "Label | Layer". */
+export const pageTitle = (label?: string) => (label ? `${label} | ${site.brand}` : site.title);
+
+export const seo = {
+  home: {
+    title: site.title,
+    description: site.description,
+  },
+  about: {
+    title: 'About Layer | Practical AI & Automation Systems',
+    description:
+      'Learn how Layer approaches business systems: understand the process first, then use automation, AI and human judgement where each creates real value.',
+  },
+  howWeWork: {
+    title: 'How Layer Works | No-Cost Workflow Review First',
+    description:
+      'Every Layer engagement starts with a no-cost review of one real workflow. If the process is worth fixing, the next step is a scoped implementation or further discovery.',
+  },
+  contact: {
+    title: 'Work With Layer | Book a No-Cost Workflow Review',
+    description:
+      'Tell Layer about one operational process that is costing time. Book a no-cost workflow review and get a clear recommendation on the highest-value next step.',
+  },
+  caseStudies: {
+    title: 'Case Studies | Systems Built Around Real Operational Work',
+    description:
+      'See how Layer designs operational systems around existing tools, with automation for repetitive work and people kept in control of approvals.',
+  },
+  insights: {
+    title: 'Insights | Practical Notes on AI, Automation and Workflows',
+    description:
+      'Clear explanations of how Layer connects existing tools, automates operational work and keeps human judgement in the loop.',
+  },
+  privacy: {
+    title: 'Privacy | How Layer Handles Enquiries and Site Data',
+    description: 'How workwithlayer.com handles analytics, enquiries and client data.',
+  },
+  capabilities: {
+    title: 'Capabilities | How Layer Builds Operational Systems',
+    description:
+      'How Layer assembles intake, routing, approvals, connected automation and evaluation into systems growing businesses can run.',
+  },
+  notFound: {
+    title: 'Page not found | Layer',
+  },
+} as const;
+
+export const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Layer',
+  url: `${site.url}/`,
+};
+
+export const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Layer',
+  url: `${site.url}/`,
+  logo: `${site.url}${site.logo}`,
+  sameAs: [site.linkedin],
+};
 
 /* ------------------------------------------------------------------ *
  * Primary commercial CTA

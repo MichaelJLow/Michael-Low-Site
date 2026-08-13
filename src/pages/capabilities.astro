@@ -2,12 +2,13 @@
 import Layout from '../components/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { pageTitle, capabilities } from '../config/site';
+import { seo, capabilities } from '../config/site';
 ---
 
 <Layout
-  title={pageTitle('Capabilities')}
-  description="What can be assembled into how a business operates: workflow intake and approvals, AI evaluation, connected automation, knowledge capture and decision support."
+  title={seo.capabilities.title}
+  description={seo.capabilities.description}
+  noindex
 >
   <div class="inner-v2 cap">
     <PageHeader

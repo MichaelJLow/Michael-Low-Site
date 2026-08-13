@@ -1,7 +1,7 @@
 ---
 import Layout from '../components/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
-import { site, pageTitle, secondaryCta } from '../config/site';
+import { site, seo, organizationJsonLd, secondaryCta } from '../config/site';
 
 const principles = [
   {
@@ -34,40 +34,28 @@ const principles = [
 ] as const;
 
 const jsonLd = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: site.brand,
-    url: site.url,
-    email: site.email,
-    description: site.description,
-    founder: {
-      '@type': 'Person',
-      name: site.founder,
-    },
-    sameAs: [site.linkedin],
-  },
+  organizationJsonLd,
   {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: site.founder,
     jobTitle: `Founder, ${site.brand}`,
-    url: `${site.url}/about`,
+    url: `${site.url}/about/`,
     image: new URL('/images/me-headshot.png', site.url).href,
     email: `mailto:${site.email}`,
-    sameAs: [site.github, site.linkedin],
+    sameAs: [site.linkedin],
     worksFor: {
       '@type': 'Organization',
       name: site.brand,
-      url: site.url,
+      url: `${site.url}/`,
     },
   },
 ];
 ---
 
 <Layout
-  title={pageTitle('About')}
-  description="Layer helps growing businesses improve the work happening between their people and their tools."
+  title={seo.about.title}
+  description={seo.about.description}
   jsonLd={jsonLd}
 >
   <div class="about-page">

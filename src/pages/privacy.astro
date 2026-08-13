@@ -1,7 +1,7 @@
 ---
 import Layout from '../components/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import { site, pageTitle } from '../config/site';
+import { site, seo } from '../config/site';
 
 const updated = 'August 2026';
 
@@ -44,8 +44,8 @@ const sections = [
 ---
 
 <Layout
-  title={pageTitle('Privacy')}
-  description="How workwithlayer.com handles analytics, enquiries and client data."
+  title={seo.privacy.title}
+  description={seo.privacy.description}
 >
   <div class="inner-v2">
     <PageHeader
