@@ -1326,7 +1326,7 @@ const faqJsonLd = {
     justify-content: center;
     height: calc(100svh - 4.75rem);
     min-height: calc(100svh - 4.75rem);
-    padding-block: 2.25rem 2.5rem;
+    padding-block: 1.5rem 1.65rem;
     box-sizing: border-box;
     background:
       radial-gradient(ellipse 45% 60% at 6% 7%, rgba(163, 96, 77, 0.45), transparent 64%),
@@ -1337,7 +1337,7 @@ const faqJsonLd = {
   .layer-systems__sticky .layer-shell {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 0 1 auto;
     min-height: 0;
     width: min(88rem, calc(100% - 4rem));
   }
@@ -1360,9 +1360,9 @@ const faqJsonLd = {
 
   .layer-system-viewport {
     container-type: inline-size;
-    flex: 1;
+    flex: none;
     min-height: 0;
-    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+    margin-top: 1.35rem;
     overflow: hidden;
   }
 
@@ -1370,7 +1370,7 @@ const faqJsonLd = {
     display: flex;
     align-items: stretch;
     gap: 1rem;
-    height: 100%;
+    height: auto;
     min-height: 0;
     will-change: transform;
   }
@@ -1403,10 +1403,10 @@ const faqJsonLd = {
   .layer-system-card__copy {
     display: grid;
     grid-template-columns: auto 1fr;
-    column-gap: 1rem;
-    row-gap: 0.7rem;
+    column-gap: 0.85rem;
+    row-gap: 0.4rem;
     align-items: start;
-    padding: 1.65rem 1.55rem 1.15rem;
+    padding: 1.15rem 1.2rem 0.7rem;
     background: transparent;
   }
 
@@ -1479,10 +1479,10 @@ const faqJsonLd = {
     position: relative;
     isolation: isolate;
     display: grid;
-    place-items: center;
-    flex: 1 1 auto;
-    min-height: 12rem;
-    padding: 0.25rem 1.35rem 1.45rem;
+    place-items: start stretch;
+    flex: none;
+    min-height: 0;
+    padding: 0 1.2rem 1.1rem;
     overflow: hidden;
   }
 
